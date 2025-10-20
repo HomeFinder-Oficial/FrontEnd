@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "primeicons/primeicons.css";
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+
+:root {
+  --p-primary-50: #f3f2fd;
+  --p-primary-100: #e8e6fb;
+  --p-primary-200: #d5d1f8;
+  --p-primary-300: #b8b1f3;
+  --p-primary-400: #9589eb;
+  --p-primary-500: #7065f0;
+  --p-primary-600: #5f4ed8;
+  --p-primary-700: #5040bd;
+  --p-primary-800: #43369a;
+  --p-primary-900: #39307c;
+  --p-primary-950: #2a2560;
+}
+
