@@ -20,8 +20,12 @@ export const environment = {
   // Propiedades
   API_URL_PROPERTIES_CREATE: `${API_URL_BASE}api/properties`,
   API_URL_PROPERTIES_UPDATE: `${API_URL_BASE}api/properties/`, //NOTA: Necesita tener el slash al final porque se concatena el ID de la propiedad
-  API_URL_PROPERTIES_DELETELOGICALLY: `${API_URL_BASE}api/properties`,
+  API_URL_PROPERTIES_DELETELOGICALLY: `${API_URL_BASE}api/properties/`, //NOTA: Necesita tener el slash al final porque se concatena el ID de la propiedad
   API_URL_PROPERTIES_READALL: `${API_URL_BASE}api/properties`,
+
+  API_URL_PROPERTIES_READBYID: `${API_URL_BASE}api/properties/`, //NOTA: Necesita tener el slash al final porque se concatena el ID de la propiedad
+  API_URL_PROPERTIES_READBYTYPE: `${API_URL_BASE}api/properties/type/`, //NOTA: Necesita tener el slash al final porque se concatena el ID de la propiedad
+  API_URL_PROPERTIES_RANDOM: `${API_URL_BASE}api/properties/random/`, //NOTA: Necesita tener el slash al final porque se concatena el ID de la propiedad
 
   // Autenticación (login y registro)
   API_URL_USER_LOGIN: `${API_URL_BASE}rest/auth/login`,
