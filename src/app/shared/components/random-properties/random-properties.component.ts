@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, SlicePipe } from '@angular/common';
-import { PropertiesService } from '../../core/services/properties/properties.service';
-import { Property } from '../../shared/interfaces/property.interface';
+import { PropertiesService } from '../../../core/services/properties/properties.service';
+import { Property } from '../../interfaces/property.interface';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button'; // 1. Import the module of PrimeNG
 import { CardModule } from 'primeng/card';
