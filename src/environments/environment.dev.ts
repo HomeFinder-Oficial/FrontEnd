@@ -7,38 +7,38 @@
   *
 */
 /*
-NOTA: Este archivo es para el entorno de desarrollo. Si quieres cambiar la URL de la API, puedes hacerlo aquí.
-Puedes cambiar la URL de la API en el archivo environment.ts para producción cuando tengamos los endpoints del backend.
+NOTE: This file is for the development environment. If you want to change the API URL, you can do so here.
+You can change the API URL in the environment.ts file for production once we have the backend endpoints.
 */
 
-const API_URL_BASE = 'https://......../'; // URL donde está alojada la API backend
+const API_URL_BASE = 'https://......../'; // URL where the backend API is hosted
 
 export const environment = {
   production: false,
   API_URL: API_URL_BASE,
 
-  // Propiedades
+  // Properties
   API_URL_PROPERTIES_CREATE: `${API_URL_BASE}api/properties`,
-  API_URL_PROPERTIES_UPDATE: `${API_URL_BASE}api/properties/`, //NOTA: Necesita tener el slash al final porque se concatena el ID de la propiedad
-  API_URL_PROPERTIES_DELETELOGICALLY: `${API_URL_BASE}api/properties/`, //NOTA: Necesita tener el slash al final porque se concatena el ID de la propiedad
+  API_URL_PROPERTIES_UPDATE: `${API_URL_BASE}api/properties/`, //NOTE: It needs to have the slash at the end because the property ID is concatenated
+  API_URL_PROPERTIES_DELETELOGICALLY: `${API_URL_BASE}api/properties/`, //NOTE: It needs to have the slash at the end because the property ID is concatenated
   API_URL_PROPERTIES_READALL: `${API_URL_BASE}api/properties`,
 
-  API_URL_PROPERTIES_READBYID: `${API_URL_BASE}api/properties/`, //NOTA: Necesita tener el slash al final porque se concatena el ID de la propiedad
-  API_URL_PROPERTIES_READBYTYPE: `${API_URL_BASE}api/properties/type/`, //NOTA: Necesita tener el slash al final porque se concatena el ID de la propiedad
-  API_URL_PROPERTIES_RANDOM: `${API_URL_BASE}api/properties/random/`, //NOTA: Necesita tener el slash al final porque se concatena el ID de la propiedad
+  API_URL_PROPERTIES_READBYID: `${API_URL_BASE}api/properties/`, //NOTE: It needs to have the slash at the end because the property ID is concatenated
+  API_URL_PROPERTIES_READBYTYPE: `${API_URL_BASE}api/properties/type/`, //NOTE: It needs to have the slash at the end because the property ID is concatenated
+  API_URL_PROPERTIES_RANDOM: `${API_URL_BASE}api/properties/random/`, //NOTE: It needs to have the slash at the end because the property ID is concatenated
 
-  // Autenticación (login y registro)
+  // Authentication (login and signup)
   API_URL_USER_LOGIN: `${API_URL_BASE}rest/auth/login`,
   API_URL_USER_SIGNUP: `${API_URL_BASE}api/users`,
   
-  // Usuarios
+  // User management
   API_URL_USER_UPDATE: `${API_URL_BASE}api/users/`,
   API_URL_USER_READALL: `${API_URL_BASE}api/users`,
 
-  //roles
+  // Roles
   API_URL_ROLES_READALL: `${API_URL_BASE}api/roles`,
 
-  // Notificaciones
+  // Notifications
   API_URL_NOTIFICACIONES: `${API_URL_BASE}api/notifications`
 
 };
