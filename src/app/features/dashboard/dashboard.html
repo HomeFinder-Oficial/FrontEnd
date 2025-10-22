@@ -1,0 +1,15 @@
+<!-- <p>dashboard works!</p> -->
+ <div class="d-flex flex-row" style="min-height: 100vh;">
+  <div class="sidebar-fixed">
+    <!-- <app-sidebar></app-sidebar> -->
+  </div>
+  <div class="flex-fill p-3">
+    <h1>Dashboard</h1>
+    <h2 *ngIf="isAdmin">Bienvenido al panel de <strong>Administrador</strong></h2>
+    <h2 *ngIf="isOwner">Bienvenido al panel de <strong>Propietario</strong></h2>
+    <h2 *ngIf="isUser">Bienvenido al panel de <strong>Usuario</strong></h2>
+
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
