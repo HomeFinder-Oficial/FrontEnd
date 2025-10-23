@@ -3,11 +3,12 @@ import { Component, signal } from '@angular/core';
 //import { FooterComponent } from "./shared/components/footer/footer.component";
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   standalone: true,
   selector: 'app-root',
-  imports: [CommonModule, RouterOutlet, /*NavbarComponent, FooterComponent,*/],
+  imports: [CommonModule, RouterOutlet, ButtonModule /*NavbarComponent, FooterComponent,*/],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

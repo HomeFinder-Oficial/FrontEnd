@@ -1,8 +1,16 @@
 import { Routes } from '@angular/router';
+import { HomeComponent } from './features/home/home.component';
 
 /* IMPORT RUTES IN THIS SPACE - DOWN */
 // Default route
-//import { Home } from './features/home/home';
+export const routes: Routes = [
+  { path: '', component: HomeComponent },
+];
+
+
+
+
+
 
 // App routes
 //import { Signup } from './features/signup/signup';
@@ -14,7 +22,7 @@ import { Routes } from '@angular/router';
 //import { AdminGuard } from './core/services/admin.guard.service';
 
 // Dashboard routes
-import { Dashboard } from './features/dashboard/dashboard';
+//import { Dashboard } from './features/dashboard/dashboard';
 //import { MetricsDashboard } from './features/dashboard/metrics-dashboard/metrics-dashboard';
 //import { OrdersDashboard } from './features/dashboard/orders-dashboard/orders-dashboard';
 //import { PropertiesDashboard } from './features/dashboard/properties-dashboard/properties-dashboard';
@@ -31,7 +39,7 @@ import { Dashboard } from './features/dashboard/dashboard';
 /* IMPORT RUTES IN THIS SPACE - TOP*/
 
 // Define routes in the array below
-export const routes: Routes = [
+// export const routes: Routes = [
     //{ path: '', component: Home, pathMatch: 'full' }, // By default, go to Home
     //{ path: 'home', redirectTo: '', component: Home, pathMatch: 'full' }, // Redirect /home to /
     
@@ -94,4 +102,4 @@ export const routes: Routes = [
     // Other routes to important pages
     //{ path: 'unauthorized', component: Unauthorized }, // not authorized page
     //{ path: '**', component: Missing }, // 404 not found page
-];
+//];
