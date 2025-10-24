@@ -23,7 +23,7 @@
   --p-button-primary-border-color: var(--p-primary-500);
 
   /* secondary variables p-button */
-  --p-button-secondary-background: #ffffff;
+  --p-button-secondary-background: transparent;
   --p-button-secondary-color: #000929;
   --p-button-secondary-border-color: #E0DEF7;
 
