@@ -1,37 +1,49 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule, SlicePipe } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { PropertiesService } from '../../../core/services/properties/properties.service';
 import { Property } from '../../interfaces/property.interface';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button'; // 1. Import the module of PrimeNG
 import { CardModule } from 'primeng/card';
+import { HttpErrorResponse } from '@angular/common/http';
+// Deleted import for SlicePipe
 
 @Component({
   standalone: true,
   selector: 'app-random-properties',
-  imports: [CommonModule, SlicePipe, RouterLink, ButtonModule, CardModule], // 2. Add it to the imports array
+  imports: [CommonModule, RouterLink, ButtonModule, CardModule], // 2. Add it to the imports array
   templateUrl: './random-properties.component.html',
   styleUrl: './random-properties.component.css'
 })
 
 export class RandomPropertiesComponent implements OnInit {
+  
   properties: Property[] = [];
+  public isLoading = true;
+  public errorLoading = false;
 
-  constructor(
-    private propertyService: PropertiesService,
-    private route: ActivatedRoute
-  ) {}
+  private propertyService = inject(PropertiesService);
+
+  constructor() {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(() => {
-      this.loadRandomProperties();
-    });
+    this.loadRandomProperties();
   }
 
   loadRandomProperties() {
+    this.isLoading = true;
+    this.errorLoading = false;
+    
     this.propertyService.getRandomProperties(3).subscribe({
-      next: (data: Property[]) => this.properties = data,
-      error: (err: any) => console.error('Error cargando propiedades aleatorias', err)
+      next: (data: Property[]) => {
+        this.properties = data;
+        this.isLoading = false;
+      },
+      error: (err: HttpErrorResponse) => { // 5. Manejo de error mejorado
+        console.error('Error cargando propiedades aleatorias', err);
+        this.isLoading = false;
+        this.errorLoading = true;
+      }
     });
   }
 }
