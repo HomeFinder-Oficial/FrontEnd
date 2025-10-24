@@ -16,5 +16,16 @@
   --p-primary-800: #43369a;
   --p-primary-900: #39307c;
   --p-primary-950: #2a2560;
+
+    /* primary variables p-button */
+  --p-button-primary-background: var(--p-primary-500);
+  --p-button-primary-color: #ffffff;
+  --p-button-primary-border-color: var(--p-primary-500);
+
+  /* secondary variables p-button */
+  --p-button-secondary-background: #ffffff;
+  --p-button-secondary-color: #000929;
+  --p-button-secondary-border-color: #E0DEF7;
 }
+
 
