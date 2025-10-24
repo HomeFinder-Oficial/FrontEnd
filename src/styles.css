@@ -29,3 +29,20 @@
 }
 
 
+/* src/styles.css */
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 200 800; /* You tell the browser that this font covers the weight range from 200 to 800*/
+  font-display: swap;
+  src: url('/assets/fonts/plus-jakarta-sans/PlusJakartaSans-VariableFont_wght.ttf') format('ttf');
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: italic;
+  font-weight: 200 800; /* You tell the browser that this font covers the weight range from 200 to 800*/
+  font-display: swap;
+  src: url('/assets/fonts/plus-jakarta-sans/PlusJakartaSans-Italic-VariableFont_wght.ttf') format('ttf');
+}

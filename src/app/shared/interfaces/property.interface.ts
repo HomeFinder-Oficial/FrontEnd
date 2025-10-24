@@ -4,6 +4,11 @@ export interface Property {
     title: string;
     description: string;
     price: number;
-    location: string;
-    category: string;
+    area_m2: number;
+    rooms: number;
+    bathrooms: number;
+    active: boolean;
+    id_owner?: number;
+    id_type_property?: number;
+    id_location?: number;
 }
