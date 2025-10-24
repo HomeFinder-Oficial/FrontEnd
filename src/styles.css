@@ -26,6 +26,10 @@
   --p-button-secondary-background: #ffffff;
   --p-button-secondary-color: #000929;
   --p-button-secondary-border-color: #E0DEF7;
+
+  /* Global font variables */
+  --app-font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --p-font-family: var(--app-font-family);
 }
 
 
@@ -36,7 +40,7 @@
   font-style: normal;
   font-weight: 200 800; /* You tell the browser that this font covers the weight range from 200 to 800*/
   font-display: swap;
-  src: url('/assets/fonts/plus-jakarta-sans/PlusJakartaSans-VariableFont_wght.ttf') format('ttf');
+  src: url('/assets/fonts/plus-jakarta-sans/PlusJakartaSans-VariableFont_wght.ttf') format('truetype');
 }
 
 @font-face {
@@ -44,5 +48,17 @@
   font-style: italic;
   font-weight: 200 800; /* You tell the browser that this font covers the weight range from 200 to 800*/
   font-display: swap;
-  src: url('/assets/fonts/plus-jakarta-sans/PlusJakartaSans-Italic-VariableFont_wght.ttf') format('ttf');
+  src: url('/assets/fonts/plus-jakarta-sans/PlusJakartaSans-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
+html {
+  font-family: var(--app-font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Ensure form controls inherit the global font */
+button, input, textarea, select {
+  font-family: inherit;
 }
