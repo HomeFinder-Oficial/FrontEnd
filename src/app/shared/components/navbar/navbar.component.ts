@@ -8,6 +8,9 @@ import { ButtonModule } from 'primeng/button';
   imports: [MenubarModule, NgOptimizedImage, ButtonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
+    host: {
+    class: '[&_.p-button_.p-button-label]:font-bold'
+  }
 })
 export class NavbarComponent {
 
