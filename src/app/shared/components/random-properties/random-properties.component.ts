@@ -39,8 +39,8 @@ export class RandomPropertiesComponent implements OnInit {
         this.properties = data;
         this.isLoading = false;
       },
-      error: (err: HttpErrorResponse) => { // 5. Manejo de error mejorado
-        console.error('Error cargando propiedades aleatorias', err);
+      error: (err: HttpErrorResponse) => { // Handle error response improved
+        console.error('Error loading random properties', err);
         this.isLoading = false;
         this.errorLoading = true;
       }

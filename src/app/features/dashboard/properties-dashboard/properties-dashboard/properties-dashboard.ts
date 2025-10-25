@@ -64,16 +64,14 @@ export class PropertiesDashboard implements OnInit {
   selectedImageFile: File | null = null;
 
   // Exportation related properties
+  public readonly Company = CompanyInfo; // This allows Company.NAME to be used in the HTML
   logoBase64: string = '';
-  companyName: string = 'Nombre de la Empresa';
+  companyName: string = CompanyInfo.NAME;
   reportTitle: string = 'properties list';
   userName: string = 'Nombre del Usuario'; //TASK: Use localStorage service o JWT service to get the current company or user information
-  public readonly Company = CompanyInfo; // This allows Company.NAME to be used in the HTML
-
+  
   ngOnInit() {
     // Initialization logic here
-    console.log(CompanyInfo.NAME); // NAME es reconocido como string literal
-
     this.getProperties();
 
     this.imageUtil
@@ -100,7 +98,7 @@ export class PropertiesDashboard implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'No se pudieron cargar los productos',
+          detail: 'No se pudieron cargar las propiedades',
         });
       },
     });
@@ -205,14 +203,14 @@ export class PropertiesDashboard implements OnInit {
     } else if (this.dialogMode === 'edit' && this.selectedProperty.id) {
       this.propertiesService.updateProperty(this.selectedProperty.id, transformedData).subscribe({
         next: (data) => {
-          console.log('Producto actualizado:', data);
+          console.log('Propiedad actualizada:', data);
           const index = this.properties.findIndex((p) => p.id === data.id);
           if (index !== -1) this.properties[index] = data;
           this.displayDialog = false;
             this.messageService.add({ // <-- Reemplaza Swal
               severity: 'success',
               summary: 'Éxito',
-              detail: 'Producto actualizado correctamente',
+              detail: 'Propiedad actualizada correctamente',
             });
           this.selectedImageFile = null;
         },
@@ -221,7 +219,7 @@ export class PropertiesDashboard implements OnInit {
           this.messageService.add({
               severity: 'error',
               summary: 'Error',
-              detail: err.error?.message || 'Error al actualizar el producto',
+              detail: err.error?.message || 'Error al actualizar la propiedad',
             });
         },
       });
@@ -242,14 +240,14 @@ export class PropertiesDashboard implements OnInit {
             this.messageService.add({
               severity: 'success',
               summary: 'Eliminado',
-              detail: 'El producto ha sido eliminado',
+              detail: 'La propiedad ha sido eliminada exitosamente',
             });
           },
           error: (err) => {
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
-              detail: 'No se pudo eliminar el producto.',
+              detail: 'No se pudo eliminar la propiedad',
             });
           },
         });
