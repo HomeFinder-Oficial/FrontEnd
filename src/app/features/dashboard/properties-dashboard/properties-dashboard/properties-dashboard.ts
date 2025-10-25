@@ -17,10 +17,10 @@ import { TextareaModule } from 'primeng/textarea';
 import { SelectModule } from 'primeng/select';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { PropertiesService } from '../../../core/services/properties/properties.service';
-import { ImageUtilsService } from '../../../core/services/image-utils/image-utils.service';
-import { CompanyInfo } from '../../../shared/constants/company.constants';
-import { Property } from '../../../shared/interfaces/property.interface';
+import { PropertiesService } from '../../../../core/services/properties/properties.service';
+import { ImageUtilsService } from '../../../../core/services/image-utils/image-utils.service';
+import { CompanyInfo } from '../../../../shared/constants/company.constants';
+import { Property } from '../../../../shared/interfaces/property.interface';
 
 
 @Component({
@@ -311,8 +311,8 @@ export class PropertiesDashboard implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         if (this.propertyDetails) {
-          // Asumiendo que 'url' es un campo en tu interfaz Property para la preview
-          this.propertyDetails.url = reader.result as string; 
+          // Asumming 'url' is a field in your Property interface for preview
+          //this.propertyDetails.url = reader.result as string; 
         }
       };
       reader.readAsDataURL(file);
@@ -489,7 +489,7 @@ export class PropertiesDashboard implements OnInit {
       rooms: 0,
       bathrooms: 0,
       active: true,
-      url: 'assets/images/placeholder.png' // Placeholder para la preview
+      //url: 'assets/images/placeholder.png' // Placeholder para la preview
       // ... (complete with your Property interface fields)
     };
     
