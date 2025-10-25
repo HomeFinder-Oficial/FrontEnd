@@ -1,0 +1,41 @@
+<p-menubar class="h-24 bg-[#FFFFFF66] backdrop-blur-[5rem]">
+  <ng-template pTemplate="start">
+    <img
+      ngSrc="assets/logos/HomeFinder.svg"
+      alt="HomeFinder Logo"
+      width="28"
+      height="28"
+      priority
+      class="ml-12"
+    />
+    <span class="ml-1 text-xl font-bold text-[#100A55]">HomeFinder</span>
+
+    <ul class="flex flex-row ml-12 font-medium text-base text-[#000929]">
+      <li>
+        <a routerLink="/">Alquilar</a>
+      </li>
+      <li>
+        <a routerLink="/" class="ml-6">Comprar</a>
+      </li>
+      <li>
+        <a routerLink="/" class="ml-6">Vender</a>
+      </li>
+      <li class="relative">
+        <button
+          type="button"
+          pRipple
+          class="ml-6 inline-flex items-center gap-1"
+          aria-haspopup="true"
+          aria-controls="admin_menu"
+        >
+          Administrar Propiedad
+          <i class="pi pi-chevron-down text-sm"></i>
+        </button>
+      </li>
+    </ul>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <p-button label="Iniciar Sesión" severity="secondary" class="mr-2.5 [&>button]:border-2 [&>button]:text-base" />
+    <p-button label="Registrarse" severity="primary" class="mr-1 [&>button]:border-2 [&>button]:text-base" />
+  </ng-template>
+</p-menubar>
