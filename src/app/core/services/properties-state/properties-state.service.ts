@@ -3,45 +3,55 @@ import { Property } from '../../../shared/interfaces/property.interface';
 import { PropertiesState } from '../../../shared/interfaces/properties-state.interfaces';
 import { signalSlice } from 'ngxtension/signal-slice';
 import { PropertiesService } from '../properties/properties.service'
-import { Subject, catchError, map, of, startWith, switchMap } from 'rxjs';
+import { Observable, catchError, map, of, startWith, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class PropertiesStateService {
-  
-  constructor() { }
 
   private propertiesService = inject(PropertiesService);
 
   private initialState: PropertiesState = {
     properties: [],
     status: 'loading' as const,
-    page: 1,
+    page: 1, // Default initial page number
   };
 
-  changePage$ = new Subject<number>();
-
-  loadProperties$ = this.changePage$.pipe(
-    startWith(1),
+  private initialLoad$ = of(1).pipe( 
     switchMap((page) => this.propertiesService.getPropertiesByPage(page, 10)),
-    map((properties) => ({ properties, status: 'success' as const })),
+    map((properties) => ({ properties, status: 'success' as const, page: 1 })),
     catchError(() => {
       return of({
         properties: [],
         status: 'error' as const,
+        page: 1, // Keep the first page on error cases
       });
     }),
   );
 
   state = signalSlice({
     initialState: this.initialState,
-    sources: [
-      this.changePage$.pipe(
-        map((page) => ({ page, status: 'loading' as const })),
+    // Initial charge of the state with data
+    sources: [this.initialLoad$],
+
+    // Changing page action is handled here
+    actionSources: {
+      changePage: (_state, $: Observable<number>) => $.pipe(
+        switchMap((page) => 
+          this.propertiesService.getPropertiesByPage(page, 10).pipe(
+            // If the API responds successfully
+            map((properties) => ({ properties, status: 'success' as const, page })),
+            
+            // Emit this object FIRST
+            startWith({ status: 'loading' as const, page }),
+
+            // if the API fails
+            catchError(() => of({ properties: [], status: 'error' as const, page }))
+          )
+        )
       ),
-      this.loadProperties$,
-    ],
+    },
   });
 }
