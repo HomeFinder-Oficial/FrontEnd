@@ -1,0 +1,10 @@
+/* Additional custom styles */
+:host ::ng-deep .p-dropdown {
+  min-width: 10rem;
+}
+
+:host ::ng-deep .p-button {
+  background-color: #4f46e5;
+  border: none;
+}
+
