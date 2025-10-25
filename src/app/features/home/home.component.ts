@@ -3,11 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule],
+  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, ToastModule],
+  providers: [MessageService],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -15,6 +18,10 @@ export class HomeComponent {
   selectedLocation: string = '';
   propertyType: string | null = 'rent';
   ownerEmail: string = ''; 
+  searchText: string = ''; 
+  isValid: boolean = true; 
+
+  constructor(private messageService: MessageService) {}
 
  properties = [
   {
@@ -46,20 +53,66 @@ export class HomeComponent {
   }
 ];
 
-
+// Método con validación usando MessageService
   searchProperties() {
-    console.log('Buscando propiedades en:', this.selectedLocation);
+  if (!this.selectedLocation.trim()) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Campo requerido',
+      detail: 'Debes ingresar una ubicación para poder buscar propiedades.',
+      life: 4000, 
+      styleClass: 'custom-toast-error' 
+    });
+    return;
   }
 
-  subscribeOwner() {
-    if (this.ownerEmail) {
-      console.log('Suscripción de propietario:', this.ownerEmail);
-      // Aquí puedes agregar la lógica para enviar el email a tu backend
-      alert(`¡Gracias por suscribirte! Email: ${this.ownerEmail}`);
-      this.ownerEmail = ''; // Limpiar el input
-    } else {
-      alert('Por favor ingresa un correo electrónico válido');
-    }
+  this.messageService.add({
+    severity: 'success',
+    summary: 'Búsqueda exitosa',
+    detail: `Se muestran los resultados de propiedades disponibles en: ${this.selectedLocation}`,
+    life: 3000
+  });
+   this.selectedLocation = '';
+}
+
+ validateInput() {
+    // Valida cuando el usuario sale del input o lo deja vacío
+     this.isValid = this.searchText.trim().length > 0;
   }
-  
+
+subscribeOwner() {
+    if (!this.ownerEmail.trim()) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Correo requerido',
+        detail: 'Por favor ingresa una dirección de correo electrónico válida.',
+        life: 4000,
+        styleClass: 'custom-toast-warn'
+      });
+      return;
+    }
+
+    // Validación de email
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(this.ownerEmail)) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Correo inválido',
+        detail: 'El formato del correo electrónico no es válido.',
+        life: 4000,
+        styleClass: 'custom-toast-error'
+      });
+      return;
+    }
+
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Suscripción exitosa',
+      detail: `Gracias por suscribirte con: ${this.ownerEmail}`,
+      life: 4000,
+      styleClass: 'custom-toast-success'
+    });
+
+    this.ownerEmail = ''; 
+  }
 }

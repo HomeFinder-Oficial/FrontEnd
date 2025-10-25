@@ -126,11 +126,12 @@
           type="button"
           (click)="searchProperties()"
           label="Buscar Propiedades"
-          class="p-button-rounded bg-indigo-600 hover:bg-indigo-700 border-none px- py-3 text-white shadow-md mt-6"
+          class="p-button-rounded bg-indigo-600 hover:bg-indigo-700 border-none px-4 py-3 text-white shadow-md mt-6 sm:mt-[22px]"
         ></button>
       </div>
     </div>
   </section>
+  <p-toast></p-toast>
 
   <!-- Características -->
   <section class="bg-white w-full mt-20 py-14 px-6 text-center">
@@ -164,18 +165,18 @@
         <div class="grid md:grid-cols-2 gap-8">
           <div>
             <i class="pi pi-shield text-indigo-600 text-3xl mb-3"></i>
-            <h3 class="font-semibold text-indigo-900 mb-2">Property Insurance</h3>
+            <h3 class="font-semibold text-indigo-900 mb-2">Seguro de propiedad</h3>
             <p class="text-gray-500 text-sm">
-              We offer our customer property protection of liability coverage and insurance for
-              their better life.
+              Ofrecemos a nuestros clientes protección patrimonial mediante cobertura de
+              responsabilidad civil y seguros para una vida mejor.
             </p>
           </div>
           <div>
             <i class="pi pi-dollar text-indigo-600 text-3xl mb-3"></i>
-            <h3 class="font-semibold text-indigo-900 mb-2">Best Price</h3>
+            <h3 class="font-semibold text-indigo-900 mb-2">Mejores precios</h3>
             <p class="text-gray-500 text-sm">
-              Not sure what you should be charging for your property? No need to worry, let us do
-              the numbers for you.
+              ¿No está seguro de cuánto debería cobrar por su propiedad? No se preocupe, déjenos
+              hacer los cálculos.
             </p>
           </div>
           <div>
@@ -188,10 +189,10 @@
           </div>
           <div>
             <i class="pi pi-compass text-indigo-600 text-3xl mb-3"></i>
-            <h3 class="font-semibold text-indigo-900 mb-2">Overall Control</h3>
+            <h3 class="font-semibold text-indigo-900 mb-2">Control total</h3>
             <p class="text-gray-500 text-sm">
-              Get a virtual tour, and schedule visits before you rent or buy any properties. You get
-              overall control.
+              Obtén un recorrido virtual y programa visitas antes de alquilar o comprar cualquier
+              propiedad. Tendrás control total.
             </p>
           </div>
         </div>
@@ -254,9 +255,21 @@
               type="text"
               pInputText
               placeholder="Buscar..."
-              class="w-full p-inputtext-sm border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-indigo-500"
+              [(ngModel)]="searchText"
+              name="search"
+              required
+              (input)="validateInput()"
+              [ngClass]="{
+                'border-gray-300': isValid,
+                'border-red-400 focus:border-red-400': !isValid
+              }"
+              class="w-full p-inputtext-sm border rounded-md py-2 px-4 focus:outline-none"
             />
           </span>
+          <!-- Mensaje de error -->
+          <small *ngIf="!isValid" class="text-red-500 text-xs mt-1 block">
+            Este campo es obligatorio.
+          </small>
         </div>
       </div>
 
@@ -349,10 +362,10 @@
               <i class="pi pi-video text-2xl text-indigo-300"></i>
             </div>
             <div>
-              <h3 class="text-xl font-bold mb-2">Virtual home tour</h3>
+              <h3 class="text-xl font-bold mb-2">Recorrido virtual por la casa</h3>
               <p class="text-gray-300 text-sm leading-relaxed">
-                You can communicate directly with landlords and we provide you with virtual tour
-                before you buy or rent the property.
+                Puedes comunicarte directamente con los propietarios y te ofrecemos un recorrido
+                virtual antes de comprar o alquilar la propiedad.
               </p>
             </div>
           </div>
@@ -367,10 +380,10 @@
               <i class="pi pi-home text-2xl text-indigo-600"></i>
             </div>
             <div>
-              <h3 class="text-xl font-bold mb-2">Find the best deal</h3>
+              <h3 class="text-xl font-bold mb-2">Encuentra la mejor oferta</h3>
               <p class="text-gray-600 text-sm leading-relaxed">
-                Browse thousands of properties, save your favorites and set up search alerts so you
-                don't miss the best home deal!
+                Explora miles de propiedades, guarda tus favoritas y configura alertas de búsqueda
+                para no perderte la mejor oferta.
               </p>
             </div>
           </div>
@@ -385,10 +398,10 @@
               <i class="pi pi-comments text-2xl text-indigo-300"></i>
             </div>
             <div>
-              <h3 class="text-xl font-bold mb-2">Get full consultation</h3>
+              <h3 class="text-xl font-bold mb-2">Obtén una consulta completa</h3>
               <p class="text-gray-300 text-sm leading-relaxed">
-                Get expert advice and full consultation from our real estate professionals to make
-                the best decision.
+                Obtén asesoramiento experto y una consulta completa de nuestros profesionales
+                inmobiliarios para tomar la mejor decisión.
               </p>
             </div>
           </div>
@@ -400,19 +413,19 @@
         <!-- Stat 1 -->
         <div class="text-center border-r border-indigo-800 last:border-r-0">
           <h3 class="text-5xl md:text-6xl font-bold text-white mb-2">7.4%</h3>
-          <p class="text-gray-400 text-sm">Property Return Rate</p>
+          <p class="text-gray-400 text-sm">Tasa de Retorno de Propiedades</p>
         </div>
 
         <!-- Stat 2 -->
         <div class="text-center border-r border-indigo-800 last:border-r-0">
           <h3 class="text-5xl md:text-6xl font-bold text-white mb-2">3,856</h3>
-          <p class="text-gray-400 text-sm">Property in Sell & Rent</p>
+          <p class="text-gray-400 text-sm">Propiedades en Venta y Alquiler</p>
         </div>
 
         <!-- Stat 3 -->
         <div class="text-center">
           <h3 class="text-5xl md:text-6xl font-bold text-white mb-2">2,540</h3>
-          <p class="text-gray-400 text-sm">Daily Completed Transactions</p>
+          <p class="text-gray-400 text-sm">Transacciones Completadas Diariamente</p>
         </div>
       </div>
     </div>
@@ -435,16 +448,18 @@
       </p>
 
       <!-- Formulario de Suscripción -->
-      <div class="flex items-center gap-2 max-w-lg mx-auto mb-6 bg-gray-50 rounded-xl p-2">
+      <div
+        class="flex items-center gap-2 max-w-lg mx-auto mb-6 bg-gray-50 rounded-xl p-2 shadow-sm border border-gray-200"
+      >
         <input
           type="email"
           [(ngModel)]="ownerEmail"
           placeholder="Ingresa tu dirección de correo electrónico"
-          class="flex-1 bg-transparent px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
+          class="flex-1 bg-transparent px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg transition-all duration-200"
         />
         <button
           (click)="subscribeOwner()"
-          class="px-8 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-all duration-200 text-sm whitespace-nowrap shadow-sm"
+          class="px-8 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-all duration-200 text-sm whitespace-nowrap shadow-md"
         >
           Enviar
         </button>
@@ -464,32 +479,32 @@
         <!-- Logo y Nombre -->
         <div class="col-span-2 md:col-span-1">
           <div class="flex items-center gap-2 mb-4">
-            <span class="text-xl font-bold text-gray-900">Estatery</span>
+            <span class="text-xl font-bold text-gray-900">Homefinder</span>
           </div>
         </div>
 
         <!-- SELL A HOME -->
         <div>
-          <h3 class="text-gray-900 font-bold text-sm mb-4">SELL A HOME</h3>
+          <h3 class="text-gray-900 font-bold text-sm mb-4">VENDER UNA CASA</h3>
           <ul class="space-y-3">
             <li>
               <a href="#" class="text-gray-600 text-sm hover:text-indigo-600 transition-colors"
-                >Request an offer</a
+                >Solicitar una oferta</a
               >
             </li>
             <li>
               <a href="#" class="text-gray-600 text-sm hover:text-indigo-600 transition-colors"
-                >Pricing</a
+                >Precios</a
               >
             </li>
             <li>
               <a href="#" class="text-gray-600 text-sm hover:text-indigo-600 transition-colors"
-                >Reviews</a
+                >Opiniones</a
               >
             </li>
             <li>
               <a href="#" class="text-gray-600 text-sm hover:text-indigo-600 transition-colors"
-                >Stories</a
+                >Historias</a
               >
             </li>
           </ul>
@@ -497,21 +512,21 @@
 
         <!-- BUY, RENT AND SELL -->
         <div>
-          <h3 class="text-gray-900 font-bold text-sm mb-4">BUY, RENT AND SELL</h3>
+          <h3 class="text-gray-900 font-bold text-sm mb-4">COMPRAR, ALQUILAR Y VENDER</h3>
           <ul class="space-y-3">
             <li>
               <a href="#" class="text-gray-600 text-sm hover:text-indigo-600 transition-colors"
-                >Buy and sell properties</a
+                >Comprar y vender propiedades</a
               >
             </li>
             <li>
               <a href="#" class="text-gray-600 text-sm hover:text-indigo-600 transition-colors"
-                >Rent home</a
+                >Alquilar una casa</a
               >
             </li>
             <li>
               <a href="#" class="text-gray-600 text-sm hover:text-indigo-600 transition-colors"
-                >Builder trade-up</a
+                >Intercambio de constructores</a
               >
             </li>
           </ul>
@@ -519,45 +534,45 @@
 
         <!-- ABOUT y TERMS & PRIVACY -->
         <div>
-          <h3 class="text-gray-900 font-bold text-sm mb-4">ABOUT</h3>
+          <h3 class="text-gray-900 font-bold text-sm mb-4">ACERCA DE</h3>
           <ul class="space-y-3 mb-6">
             <li>
               <a href="#" class="text-gray-600 text-sm hover:text-indigo-600 transition-colors"
-                >Company</a
+                >Compañía</a
               >
             </li>
             <li>
               <a href="#" class="text-gray-600 text-sm hover:text-indigo-600 transition-colors"
-                >How it works</a
+                >Cómo funciona</a
               >
             </li>
             <li>
               <a href="#" class="text-gray-600 text-sm hover:text-indigo-600 transition-colors"
-                >Contact</a
+                >Contacto</a
               >
             </li>
             <li>
               <a href="#" class="text-gray-600 text-sm hover:text-indigo-600 transition-colors"
-                >Investors</a
+                >Inversores</a
               >
             </li>
           </ul>
 
-          <h3 class="text-gray-900 font-bold text-sm mb-4">TERMS & PRIVACY</h3>
+          <h3 class="text-gray-900 font-bold text-sm mb-4">TÉRMINOS & PRIVACIDAD</h3>
           <ul class="space-y-3">
             <li>
               <a href="#" class="text-gray-600 text-sm hover:text-indigo-600 transition-colors"
-                >Trust & Safety</a
+                >Confianza & Seguridad</a
               >
             </li>
             <li>
               <a href="#" class="text-gray-600 text-sm hover:text-indigo-600 transition-colors"
-                >Terms of Service</a
+                >Términos de Servicio</a
               >
             </li>
             <li>
               <a href="#" class="text-gray-600 text-sm hover:text-indigo-600 transition-colors"
-                >Privacy Policy</a
+                >Política de privacidad</a
               >
             </li>
           </ul>
@@ -565,7 +580,7 @@
 
         <!-- RESOURCES -->
         <div>
-          <h3 class="text-gray-900 font-bold text-sm mb-4">RESOURCES</h3>
+          <h3 class="text-gray-900 font-bold text-sm mb-4">RECURSOS</h3>
           <ul class="space-y-3">
             <li>
               <a href="#" class="text-gray-600 text-sm hover:text-indigo-600 transition-colors"
@@ -574,7 +589,7 @@
             </li>
             <li>
               <a href="#" class="text-gray-600 text-sm hover:text-indigo-600 transition-colors"
-                >Guides</a
+                >Guías</a
               >
             </li>
             <li>
@@ -584,7 +599,7 @@
             </li>
             <li>
               <a href="#" class="text-gray-600 text-sm hover:text-indigo-600 transition-colors"
-                >Help Center</a
+                >Centro de ayuda</a
               >
             </li>
           </ul>
@@ -595,7 +610,7 @@
       <div
         class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-200"
       >
-        <p class="text-gray-500 text-sm mb-4 md:mb-0">©2021 Estatery. All rights reserved</p>
+        <p class="text-gray-500 text-sm mb-4 md:mb-0">©2025 Homefinder. All rights reserved</p>
 
         <!-- Redes Sociales -->
         <div class="flex items-center gap-4">
