@@ -4,6 +4,7 @@ import { PropertiesState } from '../../../shared/interfaces/properties-state.int
 import { signalSlice } from 'ngxtension/signal-slice';
 import { PropertiesService } from '../properties/properties.service'
 import { Observable, catchError, map, of, startWith, switchMap, tap } from 'rxjs';
+import { PagedApiResponse } from '../../../shared/interfaces/paged-api-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,11 @@ export class PropertiesStateService {
 
   private initialLoad$ = of(1).pipe( 
     switchMap((page) => this.propertiesService.getPropertiesByPage(page, 10)),
-    map((properties) => ({ properties, status: 'success' as const, page: 1 })),
+    map((response: PagedApiResponse<Property>) => ({
+      properties: response.content,
+      status: 'success' as const,
+      page: 1
+    })),
     catchError(() => {
       return of({
         properties: [],
@@ -42,7 +47,11 @@ export class PropertiesStateService {
         switchMap((page) => 
           this.propertiesService.getPropertiesByPage(page, 10).pipe(
             // If the API responds successfully
-            map((properties) => ({ properties, status: 'success' as const, page })),
+            map((response: PagedApiResponse<Property>) => ({
+              properties: response.content,
+              status: 'success' as const,
+              page
+            })),
             
             // Emit this object FIRST
             startWith({ status: 'loading' as const, page }),

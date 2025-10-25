@@ -17,10 +17,10 @@ import { TextareaModule } from 'primeng/textarea';
 import { SelectModule } from 'primeng/select';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { PropertiesService } from '../../../../core/services/properties/properties.service';
-import { ImageUtilsService } from '../../../../core/services/image-utils/image-utils.service';
-import { CompanyInfo } from '../../../../shared/constants/company.constants';
-import { Property } from '../../../../shared/interfaces/property.interface';
+import { PropertiesService } from '../../../core/services/properties/properties.service';
+import { ImageUtilsService } from '../../../core/services/image-utils/image-utils.service';
+import { CompanyInfo } from '../../../shared/constants/company.constants';
+import { Property } from '../../../shared/interfaces/property.interface';
 
 
 @Component({
