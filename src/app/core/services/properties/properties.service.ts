@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Property } from '../../../shared/interfaces/property.interface';
 import { environment } from '../../../../environments/environment.dev';
+import { PagedApiResponse } from '../../../shared/interfaces/paged-api-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { environment } from '../../../../environments/environment.dev';
 
 export class PropertiesService {
   
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   createProperty(propertyData: FormData): Observable<Property> {
     return this.http.post<Property>(environment.API_URL_PROPERTIES_CREATE, propertyData);
@@ -28,7 +29,9 @@ export class PropertiesService {
     return this.http.get<Property[]>(`${environment.API_URL_PROPERTIES_READBYTYPE}${type}`);
   }
 
-  updateProperty(propertyId: number, propertyData: any): Observable<Property> {
+  // Replacing 'any' with a safer type.
+  // Partial<Property> allows sending only the parts of the property that changed.
+  updateProperty(propertyId: number, propertyData: Partial<Property>): Observable<Property> {
     return this.http.put<Property>(`${environment.API_URL_PROPERTIES_UPDATE}${propertyId}`, propertyData);
   }
 
@@ -44,14 +47,17 @@ export class PropertiesService {
     page: number,
     size: number,
     typeId?: number
-  ): Observable<any> {
-    const params: any = {
-      page: page.toString(),
-      size: size.toString()
-    };
+  ): Observable<PagedApiResponse<Property>> {
+    // Using HttpParams to build query params safely
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
 
-    let url = `${environment.API_URL_PROPERTIES_READALL}` + `/${typeId !== undefined && typeId !== null ? typeId : 0}`;
+    // This builds the base URL with the typeId path param
+    const typeIdPath = (typeId !== undefined && typeId !== null) ? typeId : 0
+    let url = `${environment.API_URL_PROPERTIES_READALL}/${typeIdPath}`;
 
-    return this.http.get<any>(url, { params });
+    // Send the params as an option in the GET request
+    return this.http.get<PagedApiResponse<Property>>(url, { params });
   }
 }
