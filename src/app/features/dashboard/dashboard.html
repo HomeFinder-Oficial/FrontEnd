@@ -3,6 +3,9 @@
   <div class="sidebar-fixed">
     <!-- <app-sidebar></app-sidebar> -->
   </div>
+
+  <app-property-card [valorProps]="'$2,400/month'" [nombreProps]="'St. Crystal'" [direccionProps]="'123 Main St, Cityville'" [imageProps]="'https://primefaces.org/cdn/primeng/images/card-ng.jpg'" [habitacionesProps]="3" [banosProps]="2" [areaProps]="500" [isPopular]="false" [isFavorite]="false"></app-property-card>
+
   <div class="flex-fill p-3">
     <h1>Dashboard</h1>
     <h2 *ngIf="isAdmin">Bienvenido al panel de <strong>Administrador</strong></h2>

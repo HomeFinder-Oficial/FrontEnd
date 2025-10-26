@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
+import { Dashboard } from './features/dashboard/dashboard';
 
 /* IMPORT RUTES IN THIS SPACE - DOWN */
 // Default route
 export const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'dashboard', component: Dashboard },
 ];
 
 
@@ -42,10 +44,10 @@ export const routes: Routes = [
 // export const routes: Routes = [
     //{ path: '', component: Home, pathMatch: 'full' }, // By default, go to Home
     //{ path: 'home', redirectTo: '', component: Home, pathMatch: 'full' }, // Redirect /home to /
-    
+
     //{ path: 'about', component: About, pathMatch: 'full' },
     //{ path: 'contact', component: Contact, pathMatch: 'full' },
-    /*{ path: 'dashboard', title: 'Dashboard component', component: Dashboard, 
+    /*{ path: 'dashboard', title: 'Dashboard component', component: Dashboard,
         children: [
         {
             path: 'categories', // child route path
@@ -98,7 +100,7 @@ export const routes: Routes = [
         loadChildren: () =>
         import('./features/user/user.route'),
     },*/
-    
+
     // Other routes to important pages
     //{ path: 'unauthorized', component: Unauthorized }, // not authorized page
     //{ path: '**', component: Missing }, // 404 not found page
