@@ -101,10 +101,10 @@
                             <p-sortIcon field="rooms" />
                         </div>
                     </th>
-                    <th pSortableColumn="baths" style="min-width: 12rem">
+                    <th pSortableColumn="bathrooms" style="min-width: 12rem">
                         <div class="flex items-center gap-2">
                             Baños
-                            <p-sortIcon field="baths" />
+                            <p-sortIcon field="bathrooms" />
                         </div>
                     </th>
                     <th pSortableColumn="active" style="min-width: 12rem">
@@ -113,8 +113,11 @@
                             <p-sortIcon field="active" />
                         </div>
                     </th>
+                    <!-- owner_id -->
+                    <!-- <td>{{ property.location.city }}</td>
+                        <td>{{ property.location.neighborhood }}</td>
+                        <td>{{ property.propertyType.type }}</td>-->
                     <th>Acciones</th>
-                    <!-- owner_id, property_type_id, location_id -->
                     <th style="min-width: 12rem"></th>
                 </tr>
             </ng-template>

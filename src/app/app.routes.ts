@@ -1,18 +1,20 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
 import { Dashboard } from './features/dashboard/dashboard';
+import { PropertiesDashboard } from './features/dashboard/properties-dashboard/properties-dashboard';
 
 /* IMPORT RUTES IN THIS SPACE - DOWN */
 // Default route
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'dashboard', component: Dashboard },
+  { path: '', component: HomeComponent, pathMatch: 'full' }, // By default, go to Home
+  { path: 'home', redirectTo: '', component: HomeComponent, pathMatch: 'full' }, // Redirect /home to /
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./features/dashboard/dashboard.routes')
+        .then(m => m.DASHBOARD_ROUTES),
+    // canActivate: [authGuard] // guard here to protect dashboard and its children
+  }
 ];
-
-
-
-
-
 
 // App routes
 //import { Signup } from './features/signup/signup';
@@ -21,13 +23,11 @@ export const routes: Routes = [
 
 // Protected routes
 //import { NormalGuard } from './core/services/normal.guard.service';
-//import { AdminGuard } from './core/services/admin.guard.service';
+//import { AuthGuard } from './core/services/auth.guard.service';
 
 // Dashboard routes
-//import { Dashboard } from './features/dashboard/dashboard';
 //import { MetricsDashboard } from './features/dashboard/metrics-dashboard/metrics-dashboard';
 //import { OrdersDashboard } from './features/dashboard/orders-dashboard/orders-dashboard';
-//import { PropertiesDashboard } from './features/dashboard/properties-dashboard/properties-dashboard';
 //import { RolesDashboard } from './features/dashboard/roles-dashboard/roles-dashboard';
 //import { UsersDashboard } from './features/dashboard/users-dashboard/users-dashboard';
 

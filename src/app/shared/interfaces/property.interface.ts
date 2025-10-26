@@ -1,4 +1,7 @@
-/* Property interface based on MER BD */
+import { PropertyLocation } from './property-location.interface';
+import { PropertyType } from './property-type.interface';
+import { PropertyPhoto } from './property-photo.interface';
+
 export interface Property {
     id: number;
     title: string;
@@ -8,7 +11,18 @@ export interface Property {
     rooms: number;
     bathrooms: number;
     active: boolean;
-    id_owner?: number;
-    id_type_property?: number;
-    id_location?: number;
+
+    // TASK: Necesary user interface to replace this FK
+    id_owner: string;
+
+    // --- OBJETOS ANIDADOS ---
+    // Reemplazamos los FKs por los objetos completos
+    propertyLocation: PropertyLocation;
+    propertyType: PropertyType;
+    photos: PropertyPhoto[];
+
+    // This field is useful for PREVIEW in the dialog.
+    // Is better to have it if the API doesn't provide a 'mainPhotoUrl'.
+    // We make it optional.
+    url?: string;
 }
