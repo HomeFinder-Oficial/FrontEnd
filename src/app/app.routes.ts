@@ -1,19 +1,30 @@
 import { Routes } from '@angular/router';
+// Guards
+import { authGuard } from './core/guards/auth.guard';
+import { publicGuard } from './core/guards/public.guard';
+// Pages
+import { Login } from './features/auth/login/login';
+import { Register } from './features/auth/register/register';
 import { HomeComponent } from './features/home/home.component';
 import { Dashboard } from './features/dashboard/dashboard';
-import { PropertiesDashboard } from './features/dashboard/properties-dashboard/properties-dashboard';
+// Components
+import { MainLayout } from './shared/components/main-layout/main-layout';
 
 /* IMPORT RUTES IN THIS SPACE - DOWN */
 // Default route
 export const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' }, // By default, go to Home
-  { path: 'home', redirectTo: '', component: HomeComponent, pathMatch: 'full' }, // Redirect /home to /
+  { path: 'login', component: Login, canActivate: [publicGuard] },
+  { path: 'register', component: Register, canActivate: [publicGuard] },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./features/dashboard/dashboard.routes')
-        .then(m => m.DASHBOARD_ROUTES),
-    // canActivate: [authGuard] // guard here to protect dashboard and its children
-  }
+    path: '',
+    component: MainLayout,
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'home', redirectTo: '', pathMatch: 'full' },
+      { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.routes')
+        .then(m => m.DASHBOARD_ROUTES), canActivate: [authGuard] },
+    ],
+  },
 ];
 
 // App routes
@@ -66,8 +77,8 @@ export const routes: Routes = [
         loadChildren: () =>
         import('./features/user/user.route'),
     },*/
-    
-    // Other routes to important pages
-    //{ path: 'unauthorized', component: Unauthorized }, // not authorized page
-    //{ path: '**', component: Missing }, // 404 not found page
+
+// Other routes to important pages
+//{ path: 'unauthorized', component: Unauthorized }, // not authorized page
+//{ path: '**', component: Missing }, // 404 not found page
 //];
