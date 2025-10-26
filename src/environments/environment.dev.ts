@@ -11,7 +11,7 @@ NOTE: This file is for the development environment. If you want to change the AP
 You can change the API URL in the environment.ts file for production once we have the backend endpoints.
 */
 
-const API_URL_BASE = 'https://......../'; // URL where the backend API is hosted
+const API_URL_BASE = 'http://localhost:3000/api/v1'; // URL where the backend API is hosted
 
 export const environment = {
   production: false,
@@ -28,8 +28,8 @@ export const environment = {
   API_URL_PROPERTIES_RANDOM: `${API_URL_BASE}api/properties/random/`, //NOTE: It needs to have the slash at the end because the property ID is concatenated
 
   // Authentication (login and signup)
-  API_URL_USER_LOGIN: `${API_URL_BASE}rest/auth/login`,
-  API_URL_USER_SIGNUP: `${API_URL_BASE}api/users`,
+  API_URL_USER_LOGIN: `${API_URL_BASE}/auth/login`,
+  API_URL_USER_REGISTER: `${API_URL_BASE}/auth/register`,
   
   // User management
   API_URL_USER_UPDATE: `${API_URL_BASE}api/users/`,
