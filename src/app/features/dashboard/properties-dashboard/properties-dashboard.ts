@@ -159,7 +159,23 @@ export class PropertiesDashboard implements OnInit {
       rooms: 0,
       bathrooms: 0,
       active: true,
-      // ... (any other default fields)
+      id_owner: '', // TASK: It should get the logged-in admin/owner ID
+      // Initialize nested objects to avoid undefined errors in the form
+      propertyLocation: {
+        id: '',
+        address: '',
+        city: '',
+        neighborhood: '',
+        latitude: 0,
+        longitude: 0
+      },
+      propertyType: {
+        id: '', // or a default type ID
+        type: ''
+      },
+      photos: [],
+      url: 'assets/images/placeholder.png'
+        // ... (any other default fields)
     };
     this.dialogMode = 'create';
     this.displayDialog = true;
@@ -225,6 +241,23 @@ export class PropertiesDashboard implements OnInit {
       rooms: this.propertyDetails.rooms,
       bathrooms: this.propertyDetails.bathrooms,
       active: this.propertyDetails.active,
+      // --- Campos de las nuevas interfaces ---
+      
+      // Asigna el FK del propietario
+      id_owner: this.propertyDetails.id_owner, // Asegúrate de que el form lo tenga
+
+      // Asigna el objeto de ubicación COMPLETO
+      propertyLocation: this.propertyDetails.propertyLocation,
+
+      // Asigna el objeto de tipo de propiedad COMPLETO
+      propertyType: this.propertyDetails.propertyType,
+
+      // Asigna el array de fotos (puede estar vacío si es nuevo)
+      photos: this.propertyDetails.photos,
+
+      // El campo 'url' es opcional, así que no es estrictamente necesario aquí
+      // a menos que tu backend lo requiera.
+      // url: this.propertyDetails.url
       // ... (any other specific fields from Property)
     };
     
@@ -351,6 +384,8 @@ export class PropertiesDashboard implements OnInit {
           rooms: property.rooms,
           bathrooms: property.bathrooms,
           active: property.active ? 'Activa' : 'Inactiva',
+          city: property.propertyLocation.city, // Extract nested data
+          type: property.propertyType.type // Extract nested data
         }));
 
         // Personalized Header
@@ -373,7 +408,6 @@ export class PropertiesDashboard implements OnInit {
           styles: { halign: 'center', fontSize: 8 },
 
           // Title and logo (your logic adapted)
-          // doc.addImage(this.logoBase64, 'PNG', 40, 20, 60, 0);
           didDrawPage: (data: any) => {
             const pageCount = doc.internal.getNumberOfPages();
             doc.setFontSize(9);
@@ -489,7 +523,22 @@ export class PropertiesDashboard implements OnInit {
       rooms: 0,
       bathrooms: 0,
       active: true,
-      //url: 'assets/images/placeholder.png' // Placeholder para la preview
+      id_owner: '', // TASK: It should get the logged-in admin/owner ID
+      // Initialize nested objects to avoid undefined errors in the form
+      propertyLocation: {
+        id: '',
+        address: '',
+        city: '',
+        neighborhood: '',
+        latitude: 0,
+        longitude: 0
+      },
+      propertyType: {
+        id: '', // or a default type ID
+        type: ''
+      },
+      photos: [],
+      url: 'assets/images/placeholder.png' // for the preview
       // ... (complete with your Property interface fields)
     };
     
