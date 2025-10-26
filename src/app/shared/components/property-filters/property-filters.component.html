@@ -1,1 +1,30 @@
-<p>property-filters.component works!</p>
+<!-- <p>property-filters.component works!</p> -->
+ <p-panel header="Filtros de Búsqueda" [toggleable]="true">
+    
+    <div class="formgrid grid p-fluid"> <div class="field col-12">
+            <label for="city">Ciudad</label>
+            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"></p-select>
+        </div>
+
+        <div class="field col-12">
+            <label for="price">Rango de Precio</label>
+            <p-slider [(ngModel)]="priceRange" [range]="true" [min]="0" [max]="1000000000"></p-slider>
+            <div class="flex justify-content-between mt-2">
+                <span>{{ priceRange[0] | currency:'COP' }}</span>
+                <span>{{ priceRange[1] | currency:'COP' }}</span>
+            </div>
+        </div>
+
+        <div class="field col-12">
+            <label for="rooms">Habitaciones (mínimo)</label>
+            <p-inputNumber [(ngModel)]="minRooms" mode="decimal"></p-inputNumber>
+        </div>
+
+        <div class="col-12 flex gap-2">
+            <button pButton label="Limpiar" icon="pi pi-times" class="p-button-secondary" (click)="clearFilters()"></button>
+            <button pButton label="Aplicar" icon="pi pi-check" (click)="applyFilters()"></button>
+        </div>
+
+    </div>
+
+</p-panel>
