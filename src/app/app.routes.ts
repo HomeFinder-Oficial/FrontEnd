@@ -1,16 +1,29 @@
 import { Routes } from '@angular/router';
+// Guards
+import { authGuard } from './core/guards/auth.guard';
+import { publicGuard } from './core/guards/public.guard';
+// Pages
+import { Login } from './features/auth/login/login';
+import { Register } from './features/auth/register/register';
 import { HomeComponent } from './features/home/home.component';
+import { Dashboard } from './features/dashboard/dashboard';
+// Components
+import { MainLayout } from './shared/components/main-layout/main-layout';
 
 /* IMPORT RUTES IN THIS SPACE - DOWN */
 // Default route
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: 'login', component: Login, canActivate: [publicGuard] },
+  { path: 'register', component: Register, canActivate: [publicGuard] },
+  {
+    path: '',
+    component: MainLayout,
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
+    ],
+  },
 ];
-
-
-
-
-
 
 // App routes
 //import { Signup } from './features/signup/signup';
@@ -40,12 +53,12 @@ export const routes: Routes = [
 
 // Define routes in the array below
 // export const routes: Routes = [
-    //{ path: '', component: Home, pathMatch: 'full' }, // By default, go to Home
-    //{ path: 'home', redirectTo: '', component: Home, pathMatch: 'full' }, // Redirect /home to /
-    
-    //{ path: 'about', component: About, pathMatch: 'full' },
-    //{ path: 'contact', component: Contact, pathMatch: 'full' },
-    /*{ path: 'dashboard', title: 'Dashboard component', component: Dashboard, 
+//{ path: '', component: Home, pathMatch: 'full' }, // By default, go to Home
+//{ path: 'home', redirectTo: '', component: Home, pathMatch: 'full' }, // Redirect /home to /
+
+//{ path: 'about', component: About, pathMatch: 'full' },
+//{ path: 'contact', component: Contact, pathMatch: 'full' },
+/*{ path: 'dashboard', title: 'Dashboard component', component: Dashboard, 
         children: [
         {
             path: 'categories', // child route path
@@ -77,11 +90,11 @@ export const routes: Routes = [
         }
         ], canActivate: [AdminGuard]
     },*/
-    // Other routes to pages
-    //{ path: 'cart', component: CartList, pathMatch: 'full' },
-    //{ path: 'help', component: Help, pathMatch: 'full' },
-    //{ path: 'login', component: Login, pathMatch: 'full' },
-    /*{
+// Other routes to pages
+//{ path: 'cart', component: CartList, pathMatch: 'full' },
+//{ path: 'help', component: Help, pathMatch: 'full' },
+//{ path: 'login', component: Login, pathMatch: 'full' },
+/*{
         path: 'properties',
         loadChildren: () =>
         import('./features/properties/properties-list.route'),
@@ -98,8 +111,8 @@ export const routes: Routes = [
         loadChildren: () =>
         import('./features/user/user.route'),
     },*/
-    
-    // Other routes to important pages
-    //{ path: 'unauthorized', component: Unauthorized }, // not authorized page
-    //{ path: '**', component: Missing }, // 404 not found page
+
+// Other routes to important pages
+//{ path: 'unauthorized', component: Unauthorized }, // not authorized page
+//{ path: '**', component: Missing }, // 404 not found page
 //];

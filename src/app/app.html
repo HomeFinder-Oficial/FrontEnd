@@ -1,15 +1,1 @@
-<!-- NOTE: Use this code structure when we already have navbar, footer and home or landing page done -->
-
-<div [ngStyle]="{ 'min-height': '100vh' }">
-  <app-navbar></app-navbar>
-  <div class="container-fluid min-h-screen flex flex-col">
-    <div class="row flex-grow-1">
-      <div class="col-12 p-3">
-        <main>
-          <router-outlet></router-outlet> 
-        </main>
-      </div>
-    </div>
-  </div>
-  <!-- <app-footer></app-footer> -->
-</div>
+<router-outlet></router-outlet>
