@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 // import { PropertyCard } from '../../shared/components/property-card/property-card';
 //import { LoginService } from '../../core/services/login.service';
 import { AdminDashboard } from './admin-dashboard/admin-dashboard';
+import { SideBar } from "../../shared/components/side-bar/side-bar";
 
 @Component({
   standalone: true,
   selector: 'app-dashboard',
-  imports: [CommonModule, /*SidebarComponent,*/ RouterOutlet, /*PropertyCard*/ AdminDashboard ],
+  imports: [CommonModule, /*SidebarComponent,*/ RouterOutlet, /*PropertyCard*/ AdminDashboard, SideBar],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
@@ -20,7 +21,7 @@ export class Dashboard implements OnInit {
   //loginService = inject(LoginService);
 
   role = '';
-  isAdmin = false;
+  isAdmin = true;
   isOwner = false;
   isUser = false;
 

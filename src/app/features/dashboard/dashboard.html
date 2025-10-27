@@ -1,7 +1,17 @@
 <!-- <p>dashboard works!</p> -->
 <div class="d-flex flex-row" style="min-height: 100vh">
   <div class="sidebar-fixed">
-    <!-- <app-sidebar></app-sidebar> -->
+    <app-side-bar>
+      <div class="flex-fill">
+        <h2 *ngIf="isAdmin">Bienvenido al panel de <strong>Administrador</strong></h2>
+        <!-- <h2 *ngIf="isOwner">Bienvenido al panel de <strong>Propietario</strong></h2>
+    <h2 *ngIf="isUser">Bienvenido al panel de <strong>Usuario</strong></h2> -->
+        @if (isAdmin) {
+        <app-admin-dashboard></app-admin-dashboard>
+        }
+        <router-outlet></router-outlet>
+      </div>
+    </app-side-bar>
   </div>
 
   <!-- <app-property-card
@@ -15,14 +25,4 @@
     [isPopular]="false"
     [isFavorite]="false"
   ></app-property-card> -->
-
-  <div class="flex-fill">
-    <h2 *ngIf="isAdmin">Bienvenido al panel de <strong>Administrador</strong></h2>
-    <!-- <h2 *ngIf="isOwner">Bienvenido al panel de <strong>Propietario</strong></h2>
-    <h2 *ngIf="isUser">Bienvenido al panel de <strong>Usuario</strong></h2> -->
-    @if (isAdmin) {
-      <app-admin-dashboard></app-admin-dashboard>
-    }
-    <router-outlet></router-outlet>
-  </div>
 </div>
