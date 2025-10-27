@@ -11,7 +11,7 @@ NOTE: This file is for the development environment. If you want to change the AP
 You can change the API URL in the environment.ts file for production once we have the backend endpoints.
 */
 
-const API_URL_BASE = 'http://localhost:3000/api/v1'; // URL where the backend API is hosted
+const API_URL_BASE = 'http://3.137.153.241/api/v1'; // URL where the backend API is hosted
 
 export const environment = {
   production: false,

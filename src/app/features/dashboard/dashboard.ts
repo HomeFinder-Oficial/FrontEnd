@@ -21,7 +21,7 @@ export class Dashboard implements OnInit {
   //loginService = inject(LoginService);
 
   role = '';
-  isAdmin = false;
+  isAdmin = true;
   isOwner = false;
   isUser = false;
 
