@@ -1,5 +1,4 @@
 <div class="max-w-md mx-auto rounded-xl shadow-lg bg-white overflow-hidden border border-gray-200">
-
   <!-- Header: título y dirección -->
   <div class="p-5 border-b border-gray-100">
     <h2 class="text-2xl font-bold text-gray-900 mb-1">{{ title() }}</h2>
@@ -8,10 +7,15 @@
 
   <!-- Tabs simulados -->
   <div class="flex border-b border-gray-100">
-    <button class="flex-1 text-center py-3 text-blue-600 font-semibold border-b-2 border-blue-600 transition-all">
+    <button
+      class="flex-1 text-center py-3 text-blue-600 font-semibold border-b-2 border-blue-600 transition-all"
+    >
       General
     </button>
-    <button class="flex-1 text-center py-3 text-gray-400 hover:text-gray-600 transition-colors">
+    <button
+      class="flex-1 text-center py-3 text-gray-400 hover:text-gray-600 transition-colors"
+      (click)="toggleReviews()"
+    >
       Reseñas
     </button>
     <button class="flex-1 text-center py-3 text-gray-400 hover:text-gray-600 transition-colors">
@@ -19,37 +23,72 @@
     </button>
   </div>
 
+  <!-- Lista de reseñas -->
+  <div *ngIf="showReviews" class="mt-4 space-y-4">
+    <div *ngFor="let review of reviews" class="p-4 bg-white rounded-lg shadow-md">
+      <div class="flex items-center mb-2">
+        <!-- Estrellas -->
+        <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+          <i
+            class="pi"
+            [ngClass]="i < review.rating ? 'pi-star text-yellow-400' : 'pi-star-o text-gray-300'"
+          ></i>
+        </ng-container>
+        <span class="ml-2 text-gray-600 font-semibold">{{ review.user }}</span>
+      </div>
+      <p class="text-gray-700">{{ review.comment }}</p>
+    </div>
+  </div>
+
   <!-- Contenido principal -->
   <div class="p-5 space-y-6">
-
     <!-- Descripción -->
     <p class="text-gray-700 text-sm leading-relaxed">
       {{ description() }}
     </p>
 
-    <!-- Características con checkboxes -->
+    <!-- Descripción del inmueble -->
+    <div class="mb-6 p-4 border rounded-lg shadow-sm bg-white">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-2">Descripción del Inmueble</h2>
+      <p class="text-gray-700">
+        Esta hermosa propiedad cuenta con espacios amplios y luminosos, diseñada para ofrecer
+        comodidad y estilo. Ubicada en una zona tranquila y accesible, ideal para familias que
+        buscan calidad de vida y cercanía a servicios.
+      </p>
+    </div>
+
+    <!-- Características del inmueble -->
     <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-      <div class="flex items-center">
-        <p-checkbox [binary]="true" [(ngModel)]="bedroomChecked" [disabled]="true"></p-checkbox>
-        <span class="ml-2 text-gray-700 font-medium">{{ bedrooms() }} Bedrooms</span>
+      <div
+        class="flex flex-col items-center bg-gray-4 p-4 rounded-lg shadow hover:shadow-lg transition duration-300"
+      >
+        <i class="pi pi-bed text-indigo-400 text-5xl mb-3"></i>
+        <span class="text-gray-800 font-semibold text-sm">{{ bedrooms() }} Dormitorios</span>
       </div>
-      <div class="flex items-center">
-        <p-checkbox [binary]="true" [(ngModel)]="bathroomChecked" [disabled]="true"></p-checkbox>
-        <span class="ml-2 text-gray-700 font-medium">{{ bathrooms() }} Bathrooms</span>
+
+      <div
+        class="flex flex-col items-center bg-gray-50 p-4 rounded-lg shadow hover:shadow-lg transition duration-300"
+      >
+        <i class="pi pi-bath text-indigo-400 text-4xl mb-2"></i>
+        <span class="text-gray-800 font-semibold text-sm">{{ bathrooms() }} Baños</span>
       </div>
-      <div class="flex items-center">
-        <p-checkbox [binary]="true" [(ngModel)]="areaChecked" [disabled]="true"></p-checkbox>
-        <span class="ml-2 text-gray-700 font-medium">{{ area() }}</span>
+
+      <div
+        class="flex flex-col items-center bg-gray-50 p-4 rounded-lg shadow hover:shadow-lg transition duration-300"
+      >
+        <i class="text-indigo-400 text-4xl mb-2"></i>
+        <span class="text-gray-800 font-semibold text-sm">{{ area() }} Área</span>
       </div>
     </div>
 
     <!-- Botón de contacto -->
-    <button pButton 
-            label="{{ contactButtonText() }}" 
-            icon="pi pi-envelope"
-            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-md transition-all"
-            (click)="contact()">
-    </button>
+    <button
+      pButton
+      label="{{ contactButtonText() }}"
+      icon="pi pi-envelope"
+      class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-md transition-all"
+      (click)="contact()"
+    ></button>
 
     <!-- Mapa de Google -->
     <div class="w-full h-60 rounded-lg overflow-hidden shadow-md">
@@ -58,13 +97,13 @@
         height="100%"
         class="rounded-lg"
         [src]="googleMapUrl()"
-        style="border:0;"
+        style="border: 0"
         allowfullscreen
         loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
+        referrerpolicy="no-referrer-when-downgrade"
+      >
       </iframe>
     </div>
-
   </div>
 
   <!-- Footer con información adicional -->
@@ -72,5 +111,4 @@
     <h3 class="font-semibold text-gray-900">{{ footerTitle() }}</h3>
     <p class="text-gray-500 text-sm">{{ footerAddress() }}</p>
   </div>
-
 </div>
