@@ -3,13 +3,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { AppRoles } from '../../shared/constants/roles.constants';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { PropertyCard } from '../../shared/components/property-card/property-card';
+// import { PropertyCard } from '../../shared/components/property-card/property-card';
 //import { LoginService } from '../../core/services/login.service';
+import { AdminDashboard } from './admin-dashboard/admin-dashboard';
 
 @Component({
   standalone: true,
   selector: 'app-dashboard',
-  imports: [CommonModule, /*SidebarComponent,*/ RouterOutlet, PropertyCard],
+  imports: [CommonModule, /*SidebarComponent,*/ RouterOutlet, /*PropertyCard*/ AdminDashboard ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
