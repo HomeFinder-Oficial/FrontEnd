@@ -1,0 +1,70 @@
+
+<div class="max-w-sm rounded-lg shadow-lg bg-white overflow-hidden">
+ 
+  <div class="p-4 border-b">
+    <h2 class="text-xl font-bold text-gray-800">{{ title() }}</h2>
+    <p class="text-gray-600 text-sm">{{ address() }}</p>
+  </div>
+
+
+  <div class="flex border-b">
+    <button class="flex-1 text-center py-3 text-blue-600 font-medium border-b-2 border-blue-600">
+      General
+    </button>
+    <button class="flex-1 text-center py-3 text-gray-500 hover:text-gray-700 transition-colors">
+      Reviews
+    </button>
+    <button class="flex-1 text-center py-3 text-gray-500 hover:text-gray-700 transition-colors">
+      About
+    </button>
+  </div>
+
+ 
+  <div class="p-4">
+  
+    <p class="text-gray-700 text-sm mb-6 leading-relaxed">
+      {{ description() }}
+    </p>
+
+  
+    <div class="space-y-3 mb-6">
+      <div class="flex items-center">
+        <p-checkbox 
+          [binary]="true" 
+          [(ngModel)]="bedroomChecked" 
+          [disabled]="true">
+        </p-checkbox>
+        <span class="ml-3 text-gray-700">{{ bedrooms() }} bedrooms</span>
+      </div>
+      <div class="flex items-center">
+        <p-checkbox 
+          [binary]="true" 
+          [(ngModel)]="bathroomChecked" 
+          [disabled]="true">
+        </p-checkbox>
+        <span class="ml-3 text-gray-700">{{ bathrooms() }} bathroom</span>
+      </div>
+      <div class="flex items-center">
+        <p-checkbox 
+          [binary]="true" 
+          [(ngModel)]="areaChecked" 
+          [disabled]="true">
+        </p-checkbox>
+        <span class="ml-3 text-gray-700">{{ area() }}</span>
+      </div>
+    </div>
+
+  
+    <button pButton 
+            label="{{ contactButtonText() }}" 
+            icon="pi pi-envelope"
+            class="w-full"
+            (click)="contact()">
+    </button>
+  </div>
+
+  <div class="bg-gray-50 px-4 py-3 border-t">
+    <h3 class="font-semibold text-gray-800">{{ footerTitle() }}</h3>
+    <p class="text-gray-600 text-sm">{{ footerAddress() }}</p>
+  </div>
+</div>

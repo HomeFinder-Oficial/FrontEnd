@@ -9,6 +9,7 @@ import { HomeComponent } from './features/home/home.component';
 import { Dashboard } from './features/dashboard/dashboard';
 // Components
 import { MainLayout } from './shared/components/main-layout/main-layout';
+//import { PropertyDetailComponent } from './shared/components/property-detail/property-detail';
 
 /* IMPORT RUTES IN THIS SPACE - DOWN */
 // Default route
@@ -54,43 +55,9 @@ export const routes: Routes = [
 
 // Define routes in the array below
 // export const routes: Routes = [
-    //{ path: '', component: Home, pathMatch: 'full' }, // By default, go to Home
-    //{ path: 'home', redirectTo: '', component: Home, pathMatch: 'full' }, // Redirect /home to /
-
     //{ path: 'about', component: About, pathMatch: 'full' },
     //{ path: 'contact', component: Contact, pathMatch: 'full' },
-    /*{ path: 'dashboard', title: 'Dashboard component', component: Dashboard,
-        children: [
-        {
-            path: 'categories', // child route path
-            component: CategoriesDashboard, // another child route component that the router renders
-        },
-        {
-            path: 'metrics', // child route path
-            component: MetricsDashboard, // another child route component that the router renders
-        },
-        {
-            path: 'properties', // child route path
-            component: PropertiesDashboard, // child route component that the router renders
-        },
-        {
-            path: 'orders', // child route path
-            component: OrdersDashboard, // child route component that the router renders
-        },
-        {
-            path: 'roles', // child route path
-            component: RolesDashboard, // child route component that the router renders
-        },
-        {
-            path: 'shopping', // child route path
-            component: ShoppingDashboard, // child route component that the router renders
-        },
-        {
-            path: 'users', // child route path
-            component: UsersDashboard, // child route component that the router renders
-        }
-        ], canActivate: [AdminGuard]
-    },*/
+    
     // Other routes to pages
     //{ path: 'cart', component: CartList, pathMatch: 'full' },
     //{ path: 'help', component: Help, pathMatch: 'full' },
@@ -113,7 +80,7 @@ export const routes: Routes = [
         import('./features/user/user.route'),
     },*/
 
-    // Other routes to important pages
-    //{ path: 'unauthorized', component: Unauthorized }, // not authorized page
-    //{ path: '**', component: Missing }, // 404 not found page
+// Other routes to important pages
+//{ path: 'unauthorized', component: Unauthorized }, // not authorized page
+//{ path: '**', component: Missing }, // 404 not found page
 //];
