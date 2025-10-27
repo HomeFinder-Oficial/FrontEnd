@@ -22,7 +22,7 @@ export const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'home', redirectTo: '', pathMatch: 'full' },
       { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.routes')
-        .then(m => m.DASHBOARD_ROUTES), canActivate: [authGuard] },
+        .then(m => m.DASHBOARD_ROUTES)/*, canActivate: [authGuard]*/ },
     ],
   },
 ];

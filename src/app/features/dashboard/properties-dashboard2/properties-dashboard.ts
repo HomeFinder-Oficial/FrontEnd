@@ -91,7 +91,7 @@ export class PropertiesDashboard implements OnInit {
   }
 
   getProperties(): void {
-    this.propertiesService.getPropertiesByPage(1, 100).subscribe({
+    this.propertiesService.getPropertiesByPage2(1, 100).subscribe({
       next: (data) => {
         this.properties = data?.content || [];
         //this.properties = data;
