@@ -3,12 +3,13 @@ import { Component, inject, OnInit } from '@angular/core';
 import { AppRoles } from '../../shared/constants/roles.constants';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { SideBar } from "../../shared/components/side-bar/side-bar";
 //import { LoginService } from '../../core/services/login.service';
 
 @Component({
   standalone: true,
   selector: 'app-dashboard',
-  imports: [CommonModule, /*SidebarComponent,*/ RouterOutlet],
+  imports: [CommonModule, /*SidebarComponent,*/ RouterOutlet, SideBar],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })

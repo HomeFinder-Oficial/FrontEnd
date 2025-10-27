@@ -45,8 +45,8 @@ export class SideBar {
   getMenuItemClasses(item: any): string {
     const baseClasses = 'flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200';
     return item.active 
-      ? `${baseClasses} bg-violet-400 text-gray-600`
-      : `${baseClasses} text-gray-600 hover:bg-gray-50 hover:text-gray-900`;
+      ? `${baseClasses} bg-violet-400 text-gray-600 hover:bg-violet-500`
+      : `${baseClasses} bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900`;
   }
 
   toggleSidebar(): void {
