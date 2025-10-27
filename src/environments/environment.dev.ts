@@ -30,10 +30,13 @@ export const environment = {
   // Authentication (login and signup)
   API_URL_USER_LOGIN: `${API_URL_BASE}/auth/login`,
   API_URL_USER_REGISTER: `${API_URL_BASE}/auth/register`,
-  
+
   // User management
-  API_URL_USER_UPDATE: `${API_URL_BASE}api/users/`,
-  API_URL_USER_READALL: `${API_URL_BASE}api/users`,
+  API_URL_USER_UPDATE: `${API_URL_BASE}/users`,
+  API_URL_USER_READALL: `${API_URL_BASE}/users`,
+  API_URL_USER_READBYID: `${API_URL_BASE}/users/`,
+  API_URL_USER_DELETE: `${API_URL_BASE}/users/`,
+  API_URL_USER_CREATE: `${API_URL_BASE}/users`,
 
   // Roles
   API_URL_ROLES_READALL: `${API_URL_BASE}api/roles`,

@@ -3,19 +3,20 @@ import { Component, inject, OnInit } from '@angular/core';
 import { AppRoles } from '../../shared/constants/roles.constants';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { SideBar } from "../../shared/components/side-bar/side-bar";
+// import { PropertyCard } from '../../shared/components/property-card/property-card';
 //import { LoginService } from '../../core/services/login.service';
+import { AdminDashboard } from './admin-dashboard/admin-dashboard';
 
 @Component({
   standalone: true,
   selector: 'app-dashboard',
-  imports: [CommonModule, /*SidebarComponent,*/ RouterOutlet, SideBar],
+  imports: [CommonModule, /*SidebarComponent,*/ RouterOutlet, /*PropertyCard*/ AdminDashboard ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
 
 export class Dashboard implements OnInit {
-  
+
   //loginService = inject(LoginService);
 
   role = '';
@@ -24,10 +25,10 @@ export class Dashboard implements OnInit {
   isUser = false;
 
   ngOnInit(): void {
-    
+
     // Get the current role of the login service
     //this.role = this.loginService.getUserRole() ?? '';
-    
+
     // We use centralized constants for comparisons
     this.isAdmin = this.role === AppRoles.ADMIN;
     this.isOwner = this.role === AppRoles.OWNER;
