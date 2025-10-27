@@ -1,8 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Property } from '../../../shared/interfaces/property.interface';
 import { environment } from '../../../../environments/environment.dev';
+import { PagedApiPropertyResponse } from '../../../shared/interfaces/paged-api-response.interface';
 import { PagedApiResponse } from '../../../shared/interfaces/paged-api-response.interface';
 
 @Injectable({
@@ -12,6 +13,12 @@ import { PagedApiResponse } from '../../../shared/interfaces/paged-api-response.
 export class PropertiesService {
   
   private http = inject(HttpClient);
+
+  private getAuthHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZDdlOTc4YS05OWQwLTRiODktOTQyOC1mYWY1NWI4Y2NmNzIiLCJlbWFpbCI6ImNpZnVlbnRlc0BleGFtcGxlLmNvbSIsImlkX3JvbCI6IjkwMzczZjhiLWIyYjMtMTFmMC1hNTY1LTg2MmNjZmIwMzg2NCIsImlhdCI6MTc2MTUxNDU5NCwiZXhwIjoxNzYxNjAwOTk0fQ.WfzsGpVFfx5aK2ZQS8n_he7TKr_tLVsoEL0HKfjSRds`,
+    });
+  }
 
   createProperty(propertyData: FormData): Observable<Property> {
     return this.http.post<Property>(environment.API_URL_PROPERTIES_CREATE, propertyData);
@@ -43,7 +50,16 @@ export class PropertiesService {
     return this.http.get<Property[]>(`${environment.API_URL_PROPERTIES_RANDOM}${count}`);
   }
 
-  getPropertiesByPage(
+  getPropertiesByPage(page: number, size: number): Observable<PagedApiPropertyResponse<Property>> {
+    let params = new HttpParams().set('page', page.toString()).set('limit', size.toString());
+
+    const url = `${environment.API_URL_PROPERTIES_READALL}`;
+
+    return this.http.get<PagedApiPropertyResponse<Property>>(url, { params, headers: this.getAuthHeaders() });
+  }
+
+  //SIN USO POR AHORA...
+  getPropertiesByPage2(
     page: number,
     size: number,
     typeId?: number
