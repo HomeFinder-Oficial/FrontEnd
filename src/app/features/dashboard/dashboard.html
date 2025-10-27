@@ -1,14 +1,28 @@
 <!-- <p>dashboard works!</p> -->
- <div class="d-flex flex-row" style="min-height: 100vh;">
+<div class="d-flex flex-row" style="min-height: 100vh">
   <div class="sidebar-fixed">
     <!-- <app-sidebar></app-sidebar> -->
   </div>
-  <div class="flex-fill p-3">
-    <h1>Dashboard</h1>
-    <h2 *ngIf="isAdmin">Bienvenido al panel de <strong>Administrador</strong></h2>
-    <h2 *ngIf="isOwner">Bienvenido al panel de <strong>Propietario</strong></h2>
-    <h2 *ngIf="isUser">Bienvenido al panel de <strong>Usuario</strong></h2>
 
+  <!-- <app-property-card
+    [valorProps]="'$2,400/month'"
+    [nombreProps]="'St. Crystal'"
+    [direccionProps]="'123 Main St, Cityville'"
+    [imageProps]="'https://primefaces.org/cdn/primeng/images/card-ng.jpg'"
+    [habitacionesProps]="3"
+    [banosProps]="2"
+    [areaProps]="500"
+    [isPopular]="false"
+    [isFavorite]="false"
+  ></app-property-card> -->
+
+  <div class="flex-fill">
+    <h2 *ngIf="isAdmin">Bienvenido al panel de <strong>Administrador</strong></h2>
+    <!-- <h2 *ngIf="isOwner">Bienvenido al panel de <strong>Propietario</strong></h2>
+    <h2 *ngIf="isUser">Bienvenido al panel de <strong>Usuario</strong></h2> -->
+    @if (isAdmin) {
+      <app-admin-dashboard></app-admin-dashboard>
+    }
     <router-outlet></router-outlet>
   </div>
 </div>
