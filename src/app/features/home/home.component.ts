@@ -6,12 +6,16 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { PropertyDetailComponent } from '../../shared/components/Property-detail/property-detail';
+import { DialogModule } from 'primeng/dialog';
+
+
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, ToastModule, ConfirmDialogModule],
+  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule,DialogModule, ToastModule, ConfirmDialogModule, PropertyDetailComponent],
   providers: [MessageService, ConfirmationService],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
@@ -23,6 +27,8 @@ export class HomeComponent {
   searchText: string = ''; 
   isValid: boolean = true; 
   isFavorite: boolean = false; 
+  displayDialog: boolean = false;
+  selectedProperty: any = null;
 
   constructor(private messageService: MessageService, private confirmationService: ConfirmationService) {}
 
@@ -145,7 +151,9 @@ showConfirm(property: any) {
 
     this.ownerEmail = ''; 
   }
-  viewPropertyDetails(property: any) {
 
+  viewPropertyDetails(property: any) {
+  this.selectedProperty = property;
+  this.displayDialog = true; 
   }
 }
