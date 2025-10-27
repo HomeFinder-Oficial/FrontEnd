@@ -25,6 +25,7 @@ export const routes: Routes = [
         .then(m => m.DASHBOARD_ROUTES)/*, canActivate: [authGuard]*/ },
     ],
   },
+  { path: 'dashboard', component: Dashboard}
 ];
 
 // App routes
