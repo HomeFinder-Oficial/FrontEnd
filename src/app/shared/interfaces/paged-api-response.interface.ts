@@ -7,6 +7,16 @@ export interface PagedApiResponse<T> {
   // ...you can add more pagination properties if needed
 }
 
+export interface PagedApiPropertyResponse<T> {
+  data: T[];
+  meta: {
+    total: number;
+    page: number;
+    lastPage: number;
+    [key: string]: any;
+  };
+}
+
 export interface PagedApiUserResponse<T> {
   data: T[];
   meta: {
