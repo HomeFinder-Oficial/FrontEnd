@@ -35,7 +35,7 @@
     </ul>
   </ng-template>
   <ng-template pTemplate="end">
-    <p-button label="Iniciar Sesión" severity="secondary" class="mr-2.5 [&>button]:border-2 [&>button]:text-base" />
-    <p-button label="Registrarse" severity="primary" class="mr-1 [&>button]:border-2 [&>button]:text-base" />
+    <p-button label="Iniciar Sesión" severity="secondary" class="mr-2.5 [&>button]:border-2 [&>button]:text-base"  (onClick)="goToLogin()" />
+    <p-button label="Registrarse" severity="primary" class="mr-1 [&>button]:border-2 [&>button]:text-base" (onClick)="goToRegister()"  />
   </ng-template>
 </p-menubar>
