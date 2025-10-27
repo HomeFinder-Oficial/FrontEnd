@@ -220,9 +220,19 @@
         >
           <!-- Imagen -->
           <div class="relative">
-             <!-- <button (onClick)="viewPropertyDetails(property)"--> 
+            <button type="button" (click)="viewPropertyDetails(property)" class="block w-full p-0">
               <img [src]="property.image" alt="property" class="w-full h-56 object-cover" />
-            <!-- </button> -->
+            </button> 
+<p-dialog header="{{selectedProperty?.name}}" [(visible)]="displayDialog" [modal]="true" [closable]="true" [style]="{width: '400px'}">
+  <app-property-detail
+    [title]="selectedProperty?.name"
+    [address]="selectedProperty?.location"
+    [description]="selectedProperty?.description"
+    [bedrooms]="selectedProperty?.rooms"
+    [bathrooms]="selectedProperty?.baths"
+    [area]="selectedProperty?.size"
+  ></app-property-detail>
+</p-dialog>
 
             <span
               class="absolute top-3 left-3 bg-indigo-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow"

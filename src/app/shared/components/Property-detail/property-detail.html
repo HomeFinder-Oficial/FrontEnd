@@ -1,70 +1,76 @@
+<div class="max-w-md mx-auto rounded-xl shadow-lg bg-white overflow-hidden border border-gray-200">
 
-<div class="max-w-sm rounded-lg shadow-lg bg-white overflow-hidden">
- 
-  <div class="p-4 border-b">
-    <h2 class="text-xl font-bold text-gray-800">{{ title() }}</h2>
-    <p class="text-gray-600 text-sm">{{ address() }}</p>
+  <!-- Header: título y dirección -->
+  <div class="p-5 border-b border-gray-100">
+    <h2 class="text-2xl font-bold text-gray-900 mb-1">{{ title() }}</h2>
+    <p class="text-gray-500 text-sm">{{ address() }}</p>
   </div>
 
-
-  <div class="flex border-b">
-    <button class="flex-1 text-center py-3 text-blue-600 font-medium border-b-2 border-blue-600">
+  <!-- Tabs simulados -->
+  <div class="flex border-b border-gray-100">
+    <button class="flex-1 text-center py-3 text-blue-600 font-semibold border-b-2 border-blue-600 transition-all">
       General
     </button>
-    <button class="flex-1 text-center py-3 text-gray-500 hover:text-gray-700 transition-colors">
-      Reviews
+    <button class="flex-1 text-center py-3 text-gray-400 hover:text-gray-600 transition-colors">
+      Reseñas
     </button>
-    <button class="flex-1 text-center py-3 text-gray-500 hover:text-gray-700 transition-colors">
-      About
+    <button class="flex-1 text-center py-3 text-gray-400 hover:text-gray-600 transition-colors">
+      Acerca
     </button>
   </div>
 
- 
-  <div class="p-4">
-  
-    <p class="text-gray-700 text-sm mb-6 leading-relaxed">
+  <!-- Contenido principal -->
+  <div class="p-5 space-y-6">
+
+    <!-- Descripción -->
+    <p class="text-gray-700 text-sm leading-relaxed">
       {{ description() }}
     </p>
 
-  
-    <div class="space-y-3 mb-6">
+    <!-- Características con checkboxes -->
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
       <div class="flex items-center">
-        <p-checkbox 
-          [binary]="true" 
-          [(ngModel)]="bedroomChecked" 
-          [disabled]="true">
-        </p-checkbox>
-        <span class="ml-3 text-gray-700">{{ bedrooms() }} bedrooms</span>
+        <p-checkbox [binary]="true" [(ngModel)]="bedroomChecked" [disabled]="true"></p-checkbox>
+        <span class="ml-2 text-gray-700 font-medium">{{ bedrooms() }} Bedrooms</span>
       </div>
       <div class="flex items-center">
-        <p-checkbox 
-          [binary]="true" 
-          [(ngModel)]="bathroomChecked" 
-          [disabled]="true">
-        </p-checkbox>
-        <span class="ml-3 text-gray-700">{{ bathrooms() }} bathroom</span>
+        <p-checkbox [binary]="true" [(ngModel)]="bathroomChecked" [disabled]="true"></p-checkbox>
+        <span class="ml-2 text-gray-700 font-medium">{{ bathrooms() }} Bathrooms</span>
       </div>
       <div class="flex items-center">
-        <p-checkbox 
-          [binary]="true" 
-          [(ngModel)]="areaChecked" 
-          [disabled]="true">
-        </p-checkbox>
-        <span class="ml-3 text-gray-700">{{ area() }}</span>
+        <p-checkbox [binary]="true" [(ngModel)]="areaChecked" [disabled]="true"></p-checkbox>
+        <span class="ml-2 text-gray-700 font-medium">{{ area() }}</span>
       </div>
     </div>
 
-  
+    <!-- Botón de contacto -->
     <button pButton 
             label="{{ contactButtonText() }}" 
             icon="pi pi-envelope"
-            class="w-full"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-md transition-all"
             (click)="contact()">
     </button>
+
+    <!-- Mapa de Google -->
+    <div class="w-full h-60 rounded-lg overflow-hidden shadow-md">
+      <iframe
+        width="100%"
+        height="100%"
+        class="rounded-lg"
+        [src]="googleMapUrl()"
+        style="border:0;"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
   </div>
 
-  <div class="bg-gray-50 px-4 py-3 border-t">
-    <h3 class="font-semibold text-gray-800">{{ footerTitle() }}</h3>
-    <p class="text-gray-600 text-sm">{{ footerAddress() }}</p>
+  <!-- Footer con información adicional -->
+  <div class="bg-gray-50 px-5 py-4 border-t border-gray-100 rounded-b-lg">
+    <h3 class="font-semibold text-gray-900">{{ footerTitle() }}</h3>
+    <p class="text-gray-500 text-sm">{{ footerAddress() }}</p>
   </div>
+
 </div>
