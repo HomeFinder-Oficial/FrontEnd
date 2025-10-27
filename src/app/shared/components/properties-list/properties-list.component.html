@@ -1,0 +1,19 @@
+<!-- <p>properties-list.component works!</p> -->
+<p-virtualscroller (onLoad)="loadMoreProperties($event)">
+
+  <div class="grid">
+    <div 
+      class="col-12 md:col-6 lg:col-3" 
+      *ngFor="let prop of properties; trackBy: prop.id"
+    >
+      
+      <app-property-card [property]="prop"></app-property-card>
+      
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="flex justify-content-center p-4">
+    <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+  </div>
+
+</p-virtualscroller>

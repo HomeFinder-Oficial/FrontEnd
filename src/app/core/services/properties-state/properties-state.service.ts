@@ -21,7 +21,7 @@ export class PropertiesStateService {
   };
 
   private initialLoad$ = of(1).pipe( 
-    switchMap((page) => this.propertiesService.getPropertiesByPage(page, 10)),
+    switchMap((page) => this.propertiesService.getPropertiesByPage2(page, 10)),
     map((response: PagedApiResponse<Property>) => ({
       properties: response.content,
       status: 'success' as const,
@@ -45,7 +45,7 @@ export class PropertiesStateService {
     actionSources: {
       changePage: (_state, $: Observable<number>) => $.pipe(
         switchMap((page) => 
-          this.propertiesService.getPropertiesByPage(page, 10).pipe(
+          this.propertiesService.getPropertiesByPage2(page, 10).pipe(
             // If the API responds successfully
             map((response: PagedApiResponse<Property>) => ({
               properties: response.content,
