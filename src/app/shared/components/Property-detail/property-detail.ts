@@ -5,16 +5,17 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { TabsModule } from 'primeng/tabs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-property-detail',
   standalone: true,
-  imports: [CardModule, ButtonModule, TabsModule, CheckboxModule, FormsModule],
+  imports: [CardModule, ButtonModule, TabsModule, CheckboxModule, FormsModule,  CommonModule,],
   templateUrl: './property-detail.html',
   styleUrls: ['./property-detail.css']
 })
 export class PropertyDetailComponent {
-
+showReviews: boolean = false;
   constructor(private sanitizer: DomSanitizer) {}
 
   title = input<string>('St. Crystal');
@@ -39,5 +40,13 @@ export class PropertyDetailComponent {
     const url = `https://maps.google.com/maps?q=${query}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
+reviews = [
+    { user: 'Juan', rating: 5, comment: 'Excelente propiedad, muy cómoda y bien ubicada.' },
+    { user: 'María', rating: 4, comment: 'Muy buena atención y limpieza, recomendable.' },
+    { user: 'Carlos', rating: 3, comment: 'Está bien, pero el área del baño es pequeña.' },
+  ];
 
+  toggleReviews() {
+    this.showReviews = !this.showReviews;
+  }
 }
