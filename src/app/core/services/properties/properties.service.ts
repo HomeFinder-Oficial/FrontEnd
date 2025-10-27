@@ -50,12 +50,12 @@ export class PropertiesService {
     return this.http.get<Property[]>(`${environment.API_URL_PROPERTIES_RANDOM}${count}`);
   }
 
-  getPropertiesByPage(page: number, size: number): Observable<PagedApiPropertyResponse<Property>> {
+  getPropertiesByPage(page: number, size: number): Observable<PagedApiResponse<Property>> {
     let params = new HttpParams().set('page', page.toString()).set('limit', size.toString());
 
     const url = `${environment.API_URL_PROPERTIES_READALL}`;
 
-    return this.http.get<PagedApiPropertyResponse<Property>>(url, { params, headers: this.getAuthHeaders() });
+    return this.http.get<PagedApiResponse<Property>>(url, { params, headers: this.getAuthHeaders() });
   }
 
   //SIN USO POR AHORA...
