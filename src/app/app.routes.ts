@@ -22,10 +22,11 @@ export const routes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'home', redirectTo: '', pathMatch: 'full' },
-      { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.routes')
-        .then(m => m.DASHBOARD_ROUTES), canActivate: [authGuard] },
+      //{ path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.routes')
+      //  .then(m => m.DASHBOARD_ROUTES),},
     ],
   },
+  { path: 'dashboard', component: Dashboard}
 ];
 
 // App routes
