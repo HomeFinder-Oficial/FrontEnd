@@ -8,7 +8,7 @@ import { Register } from './features/auth/register/register';
 import { Home } from './features/home/home';
 import { Dashboard } from './features/dashboard/dashboard';
 // Components
-import { MainLayout } from './shared/components/main-layout/main-layout';
+import { MainLayout } from './shared/components/public-layout/public-layout';
 
 /* IMPORT RUTES IN THIS SPACE - DOWN */
 // Default route
