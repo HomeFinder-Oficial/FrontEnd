@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppRoles } from '../../shared/constants/roles.constants';
+import { AppRoles } from '../../shared/constants/roles.constant';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 // import { PropertyCard } from '../../shared/components/property-card/property-card';

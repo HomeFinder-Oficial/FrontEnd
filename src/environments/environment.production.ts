@@ -12,5 +12,5 @@ You can change the API URL in the environment.ts file for production once we hav
 */
 export const environment = {
   production: true,
-  API_URL: 'http://3.137.153.241/api/v1'
+  API_URL: 'http://3.137.153.241'
 };
