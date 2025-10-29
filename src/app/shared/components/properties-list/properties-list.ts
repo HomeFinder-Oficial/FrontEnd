@@ -16,7 +16,7 @@ import { of } from 'rxjs'; // Para simular
 
 @Component({
   selector: 'app-properties-list',
-  imports: [PropertyCard, Scroller],
+  imports: [PropertyCard, Scroller, CommonModule],
   templateUrl: './properties-list.html',
   styleUrl: './properties-list.css',
 })
