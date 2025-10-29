@@ -8,7 +8,7 @@ import { Register } from './features/auth/register/register';
 import { Home } from './features/home/home';
 import { Dashboard } from './features/dashboard/dashboard';
 // Components
-import { MainLayout } from './shared/components/public-layout/public-layout';
+import { PublicLayout } from './shared/components/public-layout/public-layout';
 
 /* IMPORT RUTES IN THIS SPACE - DOWN */
 // Default route
@@ -17,7 +17,7 @@ export const routes: Routes = [
   { path: 'register', component: Register, canActivate: [publicGuard] },
   {
     path: '',
-    component: MainLayout,
+    component: PublicLayout,
     children: [
       { path: '', component: Home },
       { path: 'home', redirectTo: '', pathMatch: 'full' },
