@@ -15,13 +15,13 @@ import { Property } from '../../../shared/interfaces/property.interface';
 import { of } from 'rxjs'; // Para simular
 
 @Component({
-  selector: 'app-properties-list.component',
+  selector: 'app-properties-list',
   imports: [PropertyCard, Scroller],
-  templateUrl: './properties-list.component.html',
-  styleUrl: './properties-list.component.css',
+  templateUrl: './properties-list.html',
+  styleUrl: './properties-list.css',
 })
 
-export class PropertiesListComponent implements OnInit {
+export class PropertiesList implements OnInit {
   // Puedes usar el servicio de estado o el servicio normal
   private propertiesService = inject(PropertiesService);
 

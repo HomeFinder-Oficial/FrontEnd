@@ -7,12 +7,13 @@ import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   imports: [MenubarModule, NgOptimizedImage, ButtonModule, RouterModule],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css',
+  templateUrl: './navbar.html',
+  styleUrl: './navbar.css',
     host: {
     class: '[&_.p-button_.p-button-label]:font-bold'
   }
 })
+
 export class Navbar {
  constructor(private router: Router) {}
 
