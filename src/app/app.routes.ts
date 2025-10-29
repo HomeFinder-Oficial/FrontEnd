@@ -2,40 +2,45 @@ import { Routes } from '@angular/router';
 // Guards
 import { authGuard } from './core/guards/auth.guard';
 import { publicGuard } from './core/guards/public.guard';
+// Components
+import { PublicLayout } from './shared/components/public-layout/public-layout';
+import { DashboardLayout } from './shared/components/dashboard-layout/dashboard-layout';
 // Pages
 import { Login } from './features/auth/login/login';
 import { Register } from './features/auth/register/register';
 import { Home } from './features/home/home';
 import { Dashboard } from './features/dashboard/dashboard';
-// Components
-import { PublicLayout } from './shared/components/public-layout/public-layout';
+
 
 /* IMPORT RUTES IN THIS SPACE - DOWN */
 // Default route
 export const routes: Routes = [
-  { path: 'login', component: Login, canActivate: [publicGuard] },
-  { path: 'register', component: Register, canActivate: [publicGuard] },
   {
     path: '',
     component: PublicLayout,
     children: [
-      { path: '', component: Home },
+        { path: '', component: Home },
+        { path: 'home', redirectTo: '', pathMatch: 'full' },
+        { path: 'login', component: Login, canActivate: [publicGuard] },
+        { path: 'register', component: Register, canActivate: [publicGuard] },
+    ],
+  },
+  {
+    path: 'dashboard',
+    component: DashboardLayout,
+    children: [
+      { path: '', component: Dashboard },
       { path: 'home', redirectTo: '', pathMatch: 'full' },
       { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.routes')
         .then(m => m.DASHBOARD_ROUTES)/*, canActivate: [authGuard]*/ },
     ],
   },
-  { path: 'dashboard', component: Dashboard}
+  // --- Wildcard ---
+  { path: '**', redirectTo: '' }
 ];
 
 // App routes
-//import { Signup } from './features/signup/signup';
-//import { Login } from './features/login/login';
 //import { UserRecoverPassword } from './features/recover-password/user-recover-password';
-
-// Protected routes
-//import { NormalGuard } from './core/services/normal.guard.service';
-//import { AuthGuard } from './core/services/auth.guard.service';
 
 // Dashboard routes
 //import { MetricsDashboard } from './features/dashboard/metrics-dashboard/metrics-dashboard';
@@ -54,47 +59,11 @@ export const routes: Routes = [
 
 // Define routes in the array below
 // export const routes: Routes = [
-    //{ path: '', component: Home, pathMatch: 'full' }, // By default, go to Home
-    //{ path: 'home', redirectTo: '', component: Home, pathMatch: 'full' }, // Redirect /home to /
-
     //{ path: 'about', component: About, pathMatch: 'full' },
     //{ path: 'contact', component: Contact, pathMatch: 'full' },
-    /*{ path: 'dashboard', title: 'Dashboard component', component: Dashboard,
-        children: [
-        {
-            path: 'categories', // child route path
-            component: CategoriesDashboard, // another child route component that the router renders
-        },
-        {
-            path: 'metrics', // child route path
-            component: MetricsDashboard, // another child route component that the router renders
-        },
-        {
-            path: 'properties', // child route path
-            component: PropertiesDashboard, // child route component that the router renders
-        },
-        {
-            path: 'orders', // child route path
-            component: OrdersDashboard, // child route component that the router renders
-        },
-        {
-            path: 'roles', // child route path
-            component: RolesDashboard, // child route component that the router renders
-        },
-        {
-            path: 'shopping', // child route path
-            component: ShoppingDashboard, // child route component that the router renders
-        },
-        {
-            path: 'users', // child route path
-            component: UsersDashboard, // child route component that the router renders
-        }
-        ], canActivate: [AdminGuard]
-    },*/
     // Other routes to pages
     //{ path: 'cart', component: CartList, pathMatch: 'full' },
     //{ path: 'help', component: Help, pathMatch: 'full' },
-    //{ path: 'login', component: Login, pathMatch: 'full' },
     /*{
         path: 'properties',
         loadChildren: () =>
