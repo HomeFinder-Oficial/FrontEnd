@@ -5,12 +5,12 @@ import { CommonModule } from '@angular/common';
 // import { PropertyCard } from '../../shared/components/property-card/property-card';
 //import { LoginService } from '../../core/services/login.service';
 import { AdminDashboard } from './admin-dashboard/admin-dashboard';
-import { SideBar } from "../../shared/components/side-bar/side-bar";
+import { Sidebar } from "../../shared/components/sidebar/sidebar";
 
 @Component({
   standalone: true,
   selector: 'app-dashboard',
-  imports: [CommonModule, /*SidebarComponent,*/ RouterOutlet, /*PropertyCard*/ AdminDashboard, SideBar],
+  imports: [CommonModule, /*SidebarComponent,*/ RouterOutlet, /*PropertyCard*/ AdminDashboard, Sidebar],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })

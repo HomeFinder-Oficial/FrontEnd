@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from "@angular/router";
 
 @Component({
-  selector: 'app-sidebar',
+  selector: 'app-user-sidebar',
   imports: [CommonModule, RouterLink],
   templateUrl: './user-sidebar.html',
   styleUrl: './user-sidebar.css',

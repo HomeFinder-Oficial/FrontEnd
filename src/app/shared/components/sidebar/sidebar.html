@@ -1,1 +1,11 @@
-<p>sidebar works!</p>
+<ng-container [ngSwitch]="authService.getCurrentUser()"> <!-- TASK: .getRole() -->
+      
+    <app-admin-sidebar *ngSwitchCase="appRoles.ADMIN" />
+
+    <app-user-sidebar *ngSwitchCase="appRoles.USER" />
+      
+    <div *ngSwitchDefault>
+        <p class="p-4 text-red-500">Error: No se pudo cargar el menú.</p>
+    </div>
+
+</ng-container>
