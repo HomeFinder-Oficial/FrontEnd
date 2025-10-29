@@ -5,7 +5,7 @@ import { publicGuard } from './core/guards/public.guard';
 // Pages
 import { Login } from './features/auth/login/login';
 import { Register } from './features/auth/register/register';
-import { HomeComponent } from './features/home/home.component';
+import { Home } from './features/home/home';
 import { Dashboard } from './features/dashboard/dashboard';
 // Components
 import { MainLayout } from './shared/components/main-layout/main-layout';
@@ -19,7 +19,7 @@ export const routes: Routes = [
     path: '',
     component: MainLayout,
     children: [
-      { path: '', component: HomeComponent },
+      { path: '', component: Home },
       { path: 'home', redirectTo: '', pathMatch: 'full' },
       { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.routes')
         .then(m => m.DASHBOARD_ROUTES)/*, canActivate: [authGuard]*/ },

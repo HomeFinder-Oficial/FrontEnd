@@ -1,5 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
-//import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';
+import { Component, OnInit } from '@angular/core';
 import { AppRoles } from '../../shared/constants/roles.constants';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';

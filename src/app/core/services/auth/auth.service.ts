@@ -8,19 +8,22 @@ import {
   LoginResponse,
   RegisterResponse,
 } from '../../../shared/interfaces/auth.interface';
-import { environment } from '../../../../environments/environment.dev';
+import { environment } from '../../../../environments/environment';
 import { TokenService } from '../token/token.service';
 import { User } from '../../../shared/interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class AuthService {
   private isAuthenticatedSubject!: BehaviorSubject<boolean>;
   public isAuthenticated$!: Observable<boolean>;
 
   private currentUserSubject!: BehaviorSubject<User | null>;
   public currentUser$!: Observable<User | null>;
+
+  private readonly API = environment.API_URL;
 
   constructor(
     private http: HttpClient,
@@ -39,7 +42,7 @@ export class AuthService {
   }
 
   login(payload: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(environment.API_URL_USER_LOGIN, payload).pipe(
+    return this.http.post<LoginResponse>(`${this.API}/auth/login`, payload).pipe(
       tap((response) => {
         this.setSession(response.access_token, response.user);
       })
@@ -47,7 +50,7 @@ export class AuthService {
   }
 
   register(payload: RegisterRequest): Observable<RegisterResponse> {
-    return this.http.post<RegisterResponse>(environment.API_URL_USER_REGISTER, payload);
+    return this.http.post<RegisterResponse>(`${this.API}/auth/register`, payload);
   }
 
   private setSession(token: string, user: User): void {

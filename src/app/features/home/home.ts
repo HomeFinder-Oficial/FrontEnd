@@ -11,10 +11,11 @@ import { MessageService } from 'primeng/api';
   standalone: true,
   imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, ToastModule],
   providers: [MessageService],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  templateUrl: './home.html',
+  styleUrls: ['./home.css']
 })
-export class HomeComponent {
+
+export class Home {
   selectedLocation: string = '';
   propertyType: string | null = 'rent';
   ownerEmail: string = ''; 

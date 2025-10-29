@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Property } from '../../../shared/interfaces/property.interface';
-import { environment } from '../../../../environments/environment.dev';
+import { environment } from '../../../../environments/environment';
 import { PagedApiPropertyResponse } from '../../../shared/interfaces/paged-api-response.interface';
 import { PagedApiResponse } from '../../../shared/interfaces/paged-api-response.interface';
 
@@ -13,6 +13,7 @@ import { PagedApiResponse } from '../../../shared/interfaces/paged-api-response.
 export class PropertiesService {
   
   private http = inject(HttpClient);
+  private readonly API = environment.API_URL;
 
   private getAuthHeaders(): HttpHeaders {
     return new HttpHeaders({
@@ -21,39 +22,39 @@ export class PropertiesService {
   }
 
   createProperty(propertyData: FormData): Observable<Property> {
-    return this.http.post<Property>(environment.API_URL_PROPERTIES_CREATE, propertyData);
+    return this.http.post<Property>(`${this.API}/properties`, propertyData);
   }
 
   getPropertyById(propertyId: number): Observable<Property> {
-    return this.http.get<Property>(`${environment.API_URL_PROPERTIES_READBYID}${propertyId}`);
+    return this.http.get<Property>(`${this.API}/properties/${propertyId}`);
   }
 
   getAllProperties(): Observable<Property[]> {
-    return this.http.get<Property[]>(environment.API_URL_PROPERTIES_READALL);
+    return this.http.get<Property[]>(`${this.API}/properties`);
   }
 
   getPropertiesByType(type: string): Observable<Property[]> {
-    return this.http.get<Property[]>(`${environment.API_URL_PROPERTIES_READBYTYPE}${type}`);
+    return this.http.get<Property[]>(`${this.API}/properties/type/${type}`);
   }
 
   // Replacing 'any' with a safer type.
   // Partial<Property> allows sending only the parts of the property that changed.
   updateProperty(propertyId: number, propertyData: Partial<Property>): Observable<Property> {
-    return this.http.put<Property>(`${environment.API_URL_PROPERTIES_UPDATE}${propertyId}`, propertyData);
+    return this.http.put<Property>(`${this.API}/properties/${propertyId}`, propertyData);
   }
 
   deleteProperty(propertyId: number): Observable<void> {
-    return this.http.delete<void>(`${environment.API_URL_PROPERTIES_DELETELOGICALLY}${propertyId}`);
+    return this.http.delete<void>(`${this.API}/properties/${propertyId}`);
   }
 
   getRandomProperties(count: number): Observable<Property[]> {
-    return this.http.get<Property[]>(`${environment.API_URL_PROPERTIES_RANDOM}${count}`);
+    return this.http.get<Property[]>(`${this.API}/properties/random/${count}`);
   }
 
   getPropertiesByPage(page: number, size: number): Observable<PagedApiResponse<Property>> {
     let params = new HttpParams().set('page', page.toString()).set('limit', size.toString());
 
-    const url = `${environment.API_URL_PROPERTIES_READALL}`;
+    const url = `${this.API}/properties`;
 
     return this.http.get<PagedApiResponse<Property>>(url, { params, headers: this.getAuthHeaders() });
   }
@@ -71,7 +72,7 @@ export class PropertiesService {
 
     // This builds the base URL with the typeId path param
     const typeIdPath = (typeId !== undefined && typeId !== null) ? typeId : 0
-    let url = `${environment.API_URL_PROPERTIES_READALL}/${typeIdPath}`;
+    let url = `${this.API}/properties/${typeIdPath}`;
 
     // Send the params as an option in the GET request
     return this.http.get<PagedApiResponse<Property>>(url, { params });

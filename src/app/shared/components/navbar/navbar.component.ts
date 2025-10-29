@@ -13,7 +13,7 @@ import { Router, RouterModule } from '@angular/router';
     class: '[&_.p-button_.p-button-label]:font-bold'
   }
 })
-export class NavbarComponent {
+export class Navbar {
  constructor(private router: Router) {}
 
   goToLogin() {
