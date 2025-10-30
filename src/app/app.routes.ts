@@ -3,14 +3,13 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { publicGuard } from './core/guards/public.guard';
 // Components
-import { PublicLayout } from './shared/components/public-layout/public-layout';
-import { DashboardLayout } from './shared/components/dashboard-layout/dashboard-layout';
+import { PublicLayout } from './layouts/public-layout/public-layout';
+import { DashboardLayout } from './layouts/dashboard-layout/dashboard-layout';
 // Pages
 import { Login } from './features/auth/login/login';
 import { Register } from './features/auth/register/register';
 import { Home } from './features/home/home';
 import { Dashboard } from './features/dashboard/dashboard';
-
 
 /* IMPORT RUTES IN THIS SPACE - DOWN */
 // Default route
