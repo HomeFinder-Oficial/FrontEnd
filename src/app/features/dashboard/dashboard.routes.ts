@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Dashboard } from './dashboard';
 //import { PropertiesDashboard } from './properties-dashboard/properties-dashboard';
 import { AdminDashboard } from './admin-dashboard/admin-dashboard';
 import { UserDashboard } from './user-dashboard/user-dashboard';
 //import { AdminGuard } from '../../core/services/admin.guard';
 
 export const DASHBOARD_ROUTES: Routes = [
-  { path: '', title: 'Dashboard component', component: Dashboard,
+  { path: '', title: 'Dashboard component', component: UserDashboard,
     children: [
       /*{
           path: 'categories', // child route path
