@@ -17,10 +17,11 @@ import { DialogModule } from 'primeng/dialog';
   standalone: true,
   imports: [CommonModule, FormsModule, ButtonModule, InputTextModule,DialogModule, ToastModule, ConfirmDialogModule, PropertyDetailComponent],
   providers: [MessageService, ConfirmationService],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  templateUrl: './home.html',
+  styleUrls: ['./home.css']
 })
-export class HomeComponent {
+
+export class Home {
   selectedLocation: string = '';
   propertyType: string | null = 'rent';
   ownerEmail: string = ''; 

@@ -12,8 +12,8 @@ import { HttpErrorResponse } from '@angular/common/http';
   standalone: true,
   selector: 'app-random-properties',
   imports: [CommonModule, RouterLink, ButtonModule, CardModule], // 2. Add it to the imports array
-  templateUrl: './random-properties.component.html',
-  styleUrl: './random-properties.component.css'
+  templateUrl: './random-properties.html',
+  styleUrl: './random-properties.css'
 })
 
 export class RandomPropertiesComponent implements OnInit {

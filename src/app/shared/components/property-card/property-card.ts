@@ -1,7 +1,8 @@
-import { Component, input } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
+import { Property } from '../../../shared/interfaces/property.interface';
 
 @Component({
   selector: 'app-property-card',
@@ -10,6 +11,8 @@ import { DividerModule } from 'primeng/divider';
   styleUrl: './property-card.css'
 })
 export class PropertyCard {
+
+  @Input({ required: true }) property!: Property;
 
   valorProps = input<string>('Beautiful House');
   nombreProps = input<string>('A beautiful house in the city');

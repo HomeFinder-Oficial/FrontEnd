@@ -1,13 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from "@angular/router";
+
 @Component({
-  selector: 'app-side-bar',
+  selector: 'app-user-sidebar',
   imports: [CommonModule, RouterLink],
-  templateUrl: './side-bar.html',
-  styleUrl: './side-bar.css',
+  templateUrl: './user-sidebar.html',
+  styleUrl: './user-sidebar.css',
 })
-export class SideBar {
+
+export class UserSidebar {
   @Input() isCollapsed = false;
   @Output() toggleSidebarEvent = new EventEmitter<void>();
 

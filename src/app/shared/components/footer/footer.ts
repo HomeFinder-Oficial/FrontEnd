@@ -5,9 +5,10 @@ import { MenubarModule } from 'primeng/menubar';
 @Component({
   selector: 'app-footer',
   imports: [NgOptimizedImage, MenubarModule],
-  templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+  templateUrl: './footer.html',
+  styleUrl: './footer.css'
 })
-export class FooterComponent {
+
+export class Footer {
 
 }
