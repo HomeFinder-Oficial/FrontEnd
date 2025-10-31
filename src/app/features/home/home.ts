@@ -4,13 +4,19 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { PropertyDetailComponent } from '../../shared/components/Property-detail/property-detail';
+import { DialogModule } from 'primeng/dialog';
+
+
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, ToastModule],
-  providers: [MessageService],
+  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule,DialogModule, ToastModule, ConfirmDialogModule, PropertyDetailComponent],
+  providers: [MessageService, ConfirmationService],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })
@@ -21,67 +27,98 @@ export class Home {
   ownerEmail: string = ''; 
   searchText: string = ''; 
   isValid: boolean = true; 
+  isFavorite: boolean = false; 
+  displayDialog: boolean = false;
+  selectedProperty: any = null;
 
-  constructor(private messageService: MessageService) {}
+  constructor(private messageService: MessageService, private confirmationService: ConfirmationService) {}
 
- properties = [
-  {
-    name: 'Palm Harbor',
-    location: '2699 Green Valley, Highland Lake, FL',
-    price: '$2,095 /month',
-    image: 'https://picsum.photos/400/250?random=1',
-    rooms: 3,
-    baths: 2,
-    size: '57.7'
-  },
-  {
-    name: 'Beverly Springfield',
-    location: '2821 Lake Sevilla, Palm Harbor, TX',
-    price: '$2,700 /month',
-    image: 'https://picsum.photos/400/250?random=2',
-    rooms: 4,
-    baths: 2,
-    size: '67.5'
-  },
-  {
-    name: 'Faulkner Ave',
-    location: '909 Woodland St, Michigan, IN',
-    price: '$4,550 /month',
-    image: 'https://picsum.photos/400/250?random=3',
-    rooms: 4,
-    baths: 3,
-    size: '81.0'
-  }
-];
+  properties = [
+    {
+      name: 'Palm Harbor',
+      location: '2699 Green Valley, Highland Lake, FL',
+      price: '$2,095 /month',
+      image: 'https://picsum.photos/400/250?random=1',
+      rooms: 3,
+      baths: 2,
+      size: '57.7',
+      isFavorite: false
+    },
+    {
+      name: 'Beverly Springfield',
+      location: '2821 Lake Sevilla, Palm Harbor, TX',
+      price: '$2,700 /month',
+      image: 'https://picsum.photos/400/250?random=2',
+      rooms: 4,
+      baths: 2,
+      size: '67.5',
+      isFavorite: false
+    },
+    {
+      name: 'Faulkner Ave',
+      location: '909 Woodland St, Michigan, IN',
+      price: '$4,550 /month',
+      image: 'https://picsum.photos/400/250?random=3',
+      rooms: 4,
+      baths: 3,
+      size: '81.0',
+      isFavorite: false
+    }
+  ];
 
-// Método con validación usando MessageService
-  searchProperties() {
-  if (!this.selectedLocation.trim()) {
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Campo requerido',
-      detail: 'Debes ingresar una ubicación para poder buscar propiedades.',
-      life: 4000, 
-      styleClass: 'custom-toast-error' 
-    });
-    return;
-  }
-
-  this.messageService.add({
-    severity: 'success',
-    summary: 'Búsqueda exitosa',
-    detail: `Se muestran los resultados de propiedades disponibles en: ${this.selectedLocation}`,
-    life: 3000
+showConfirm(property: any) { 
+  this.confirmationService.confirm({
+    message: '¿Quieres agregar esta propiedad a favoritos?',
+    header: 'Confirmación',
+    icon: 'pi pi-info-circle',
+    acceptLabel: 'Sí',   
+    rejectLabel: 'No',   
+    accept: () => {
+      property.isFavorite = true; 
+      this.messageService.add({
+        key: 'confirm',
+        severity: 'success',
+        summary: 'Propiedad agregada a favoritos',
+        detail: `¡${property.name} ahora está en tus favoritos!`,
+        life: 3000
+      });
+      this.confirmationService.close(); 
+    },
+    reject: () => {
+      property.isFavorite = false; 
+      this.confirmationService.close(); 
+    }
   });
-   this.selectedLocation = '';
 }
 
- validateInput() {
-    // Valida cuando el usuario sale del input o lo deja vacío
-     this.isValid = this.searchText.trim().length > 0;
+
+  // Otros métodos existentes
+  searchProperties() {
+    if (!this.selectedLocation.trim()) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Campo requerido',
+        detail: 'Debes ingresar una ubicación para poder buscar propiedades.',
+        life: 4000, 
+        styleClass: 'custom-toast-error' 
+      });
+      return;
+    }
+
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Búsqueda exitosa',
+      detail: `Se muestran los resultados de propiedades disponibles en: ${this.selectedLocation}`,
+      life: 3000
+    });
+    this.selectedLocation = '';
   }
 
-subscribeOwner() {
+  validateInput() {
+    this.isValid = this.searchText.trim().length > 0;
+  }
+
+  subscribeOwner() {
     if (!this.ownerEmail.trim()) {
       this.messageService.add({
         severity: 'warn',
@@ -93,7 +130,6 @@ subscribeOwner() {
       return;
     }
 
-    // Validación de email
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(this.ownerEmail)) {
       this.messageService.add({
@@ -115,5 +151,10 @@ subscribeOwner() {
     });
 
     this.ownerEmail = ''; 
+  }
+
+  viewPropertyDetails(property: any) {
+  this.selectedProperty = property;
+  this.displayDialog = true; 
   }
 }
