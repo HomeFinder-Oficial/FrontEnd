@@ -8,14 +8,12 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { PropertyDetailComponent } from '../../shared/components/Property-detail/property-detail';
 import { DialogModule } from 'primeng/dialog';
-
-
-
+//import { PropertyCard } from '../../shared/components/property-card/property-card';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule,DialogModule, ToastModule, ConfirmDialogModule, PropertyDetailComponent],
+  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule,DialogModule, ToastModule, ConfirmDialogModule, PropertyDetailComponent, /*PropertyCard*/],
   providers: [MessageService, ConfirmationService],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
