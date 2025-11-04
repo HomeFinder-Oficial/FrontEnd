@@ -10,6 +10,7 @@ import { Property } from '../../../shared/interfaces/property.interface';
   templateUrl: './property-card.html',
   styleUrl: './property-card.css'
 })
+
 export class PropertyCard {
 
   @Input({ required: true }) property!: Property;
