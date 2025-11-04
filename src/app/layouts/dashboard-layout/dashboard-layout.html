@@ -6,10 +6,12 @@
     </div>
     <div class="flex-1 flex flex-col">
         <main class="flex-fill flex-1 w-full p-6 bg-violet-100 overflow-auto">
-            <h2 *ngIf="isAdmin">Bienvenido al panel de <strong>Administrador</strong></h2>
+            @if (isAdmin) {
+                <h2>Bienvenido al panel de <strong>Administrador</strong></h2>
+            }
             <!-- <h2 *ngIf="isOwner">Bienvenido al panel de <strong>Propietario</strong></h2>
             <h2 *ngIf="isUser">Bienvenido al panel de <strong>Usuario</strong></h2> -->
-            <!--
+            <!-- TASK: Need role functionality
             @if (isAdmin) {
                 <app-admin-dashboard></app-admin-dashboard>
             }
