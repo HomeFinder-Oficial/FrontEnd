@@ -10,7 +10,10 @@ import { PropertiesService } from '../../../core/services/properties/properties.
 import { PagedApiResponse } from '../../../shared/interfaces/paged-api-response.interface';
 
 // 3. Importa el componente hijo
+
 import { PropertyCard } from '../property-card/property-card';
+
+
 import { Property } from '../../../shared/interfaces/property.interface';
 import { of } from 'rxjs'; // Para simular
 

@@ -1,53 +1,61 @@
-<div class="mb-4 p-8 flex items-center justify-center">
-  <p-card [style]="{ width: '25rem', overflow: 'hidden' }">
-    <ng-template #header>
-      <div class="relative">
-        @if (isPopular()) {
-        <span
-          class="absolute top-3 left-3 bg-indigo-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow"
-          >POPULAR</span
-        >
-        }
+<p-toast></p-toast>
 
-        <button
-          class="absolute top-3 right-3 bg-white rounded-full p-2 shadow hover:bg-primary-500 transition"
-        >
-          <i class="pi"
-             [class.pi-heart-fill]="isFavorite()"
-             [class.text-primary-500]="isFavorite()"
-             [class.pi-heart]="!isFavorite()"></i>
-        </button>
-      </div>
-      <img alt="Card" class="w-full" src="{{ imageProps() }}" />
-    </ng-template>
-    <ng-template #title>
-      <p class="text-primary-500 font-extrabold">{{ valorProps() }}</p>
-      <p class="text-black font-bold">{{ nombreProps() }}</p>
-    </ng-template>
-    <p>{{direccionProps()}}</p>
+<div class="flex justify-center p-6">
+  <div
+    (click)="onCardClick()"
+    class="relative w-96 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 bg-white cursor-pointer"
+  >
+    <!-- Image and tags -->
+    <div class="relative">
+      <img [src]="property.image" alt="Property image" class="w-full h-56 object-cover" />
 
-    <p-divider />
+      <!-- POPULAR label -->
+      <span
+        *ngIf="property.isPopular"
+        class="absolute top-3 left-3 bg-indigo-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow"
+      >
+        POPULAR
+      </span>
 
-    <ng-template #footer>
-        <div class="mt-1 flex justify-around">
-          <p class="m-0 p-0 text-sm">
-            <i class="pi pi-home mr-2 text-primary-500"></i>{{ habitacionesProps() }} Habitaciones
-          </p>
-          <p class="m-0 p-0 text-sm">
-            <i class="pi pi-bath mr-2 text-primary-500 "></i>{{ banosProps() }} Baños
-          </p>
-          <p class="m-0 p-0 text-sm">
-            <i class="pi pi-arrows-h mr-2 text-primary-500"></i>{{ areaProps() }} m²
-          </p>
+      <!-- Favorite button -->
+      <button
+        (click)="toggleFavorite(); $event.stopPropagation()"
+        class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg border border-purple-300 hover:border-purple-500 hover:bg-purple-50 hover:scale-110 transition-all duration-300"
+      >
+        <i
+          class="pi"
+          [class.pi-heart-fill]="property.isFavorite"
+          [class.text-red-500]="property.isFavorite"
+          [class.pi-heart]="!property.isFavorite"
+        ></i>
+      </button>
+    </div>
+
+    <!-- Main content -->
+    <div class="p-5">
+      <p class="text-indigo-600 font-extrabold text-lg mb-1">
+        {{ property.value }}
+      </p>
+      <p class="text-gray-900 font-bold text-xl">{{ property.name }}</p>
+      <p class="text-gray-500 text-sm mb-4">{{ property.address }}</p>
+
+      <p-divider></p-divider>
+
+      <!-- Details with icons -->
+      <div class="mt-3 grid grid-cols-3 text-gray-600 text-sm">
+        <div class="flex items-center gap-1">
+          <i class="pi pi-home text-indigo-600"></i>
+          <span>{{ property.rooms }} rooms</span>
         </div>
-        <!-- <p-button
-          label="Cancel"
-          severity="secondary"
-          class="w-full"
-          [outlined]="true"
-          styleClass="w-full"
-        />
-        <p-button label="Save" class="w-full" styleClass="w-full" /> -->
-    </ng-template>
-  </p-card>
+        <div class="flex items-center gap-1">
+          <i class="pi pi-box text-indigo-600"></i>
+          <span>{{ property.baths }} baths</span>
+        </div>
+        <div class="flex items-center gap-1">
+          <i class="pi pi-arrows-h text-indigo-600"></i>
+          <span>{{ property.area }} m²</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

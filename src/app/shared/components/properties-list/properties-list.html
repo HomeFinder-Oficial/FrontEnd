@@ -1,6 +1,4 @@
-<!-- <p>properties-list.component works!</p> -->
 <p-virtualscroller (onLoad)="loadMoreProperties($event)">
-
   <div class="grid">
     @for (property of properties; track property.id) {
       <div class="col-12 md:col-6 lg:col-3">
@@ -8,7 +6,7 @@
       </div>
     } @empty {
       <div class="p-4 text-center text-gray-500">
-        No hay propiedades disponibles
+        No properties available
       </div>
     }
   </div>
@@ -18,8 +16,8 @@
       <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
     </div>
   }
-
 </p-virtualscroller>
+
 <!-- <p-virtualscroller (onLoad)="loadMoreProperties($event)">
 
   <div class="grid">
