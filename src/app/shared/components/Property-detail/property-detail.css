@@ -1,3 +1,141 @@
 :host {
   display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* evita scroll innecesario */
+}
+
+/* ==== ANIMACIÓN Y EFECTO HOVER DE BOTONES ==== */
+:host ::ng-deep .p-button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* ==== TABS ==== */
+.tab-btn {
+  position: relative;
+  padding-bottom: 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #6b7280;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.tab-btn:hover {
+  color: #2563eb;
+}
+
+.tab-btn.active {
+  color: #1e3a8a;
+  font-weight: 600;
+}
+
+.tab-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, #3b82f6, #06b6d4);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Espaciado entre tabs */
+.flex.gap-8 {
+  gap: 1rem;
+}
+
+/* ==== ESTILO DEL DIALOGO ==== */
+:host ::ng-deep .modern-contact-dialog {
+  max-width: 95vw !important;
+  width: 100%;
+  border-radius: 1rem;
+}
+
+:host ::ng-deep .modern-contact-dialog .p-dialog-content {
+  background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+  border-radius: 1rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  padding: 1.5rem;
+  max-height: 80vh; /* evita overflow */
+  overflow-y: auto;
+  scrollbar-width: none; /* oculta scrollbar en Firefox */
+}
+
+:host ::ng-deep .modern-contact-dialog .p-dialog-content::-webkit-scrollbar {
+  display: none; /* oculta scrollbar en Chrome */
+}
+
+/* Cabecera del diálogo */
+:host ::ng-deep .modern-contact-dialog .p-dialog-header {
+  background-color: #f0fdfa;
+  border-bottom: 1px solid #d1fae5;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  padding: 1rem 1.5rem;
+}
+
+/* ==== INPUTS ==== */
+:host ::ng-deep .modern-contact-dialog .p-inputtext,
+:host ::ng-deep .modern-contact-dialog .p-inputtextarea {
+  border-radius: 0.75rem;
+  border: 1px solid #d1d5db;
+  transition: all 0.3s ease;
+}
+
+:host ::ng-deep .modern-contact-dialog .p-inputtext:focus,
+:host ::ng-deep .modern-contact-dialog .p-inputtextarea:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+/* ==== ÍCONOS ==== */
+:host ::ng-deep .p-input-icon-left > i {
+  color: #6b7280;
+}
+
+/* ==== BOTONES ==== */
+:host ::ng-deep .modern-contact-dialog .p-button {
+  transition: all 0.3s ease;
+  border-radius: 0.75rem;
+}
+
+:host ::ng-deep .modern-contact-dialog .p-button:hover {
+  transform: translateY(-1px);
+}
+
+/* ==== CARD INTERNO (ADAPTATIVO) ==== */
+.property-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.property-card img {
+  width: 100%;
+  height: auto;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  object-fit: cover;
+}
+
+.property-card-content {
+  padding: 2rem 1.5rem 1rem 1.5rem; 
+  text-align: center;
 }

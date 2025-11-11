@@ -6,19 +6,28 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { PropertyDetailComponent } from '../../shared/components/Property-detail/property-detail';
 import { DialogModule } from 'primeng/dialog';
-//import { PropertyCard } from '../../shared/components/property-card/property-card';
+import { PropertyCard } from '../../shared/components/property-card/property-card';
+import { PropertyDetail } from '../../shared/components/Property-detail/property-detail';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule,DialogModule, ToastModule, ConfirmDialogModule, PropertyDetailComponent, /*PropertyCard*/],
+  imports: [
+    CommonModule, 
+    FormsModule, 
+    ButtonModule, 
+    InputTextModule,
+    DialogModule, 
+    ToastModule, 
+    ConfirmDialogModule, 
+    PropertyCard, 
+    PropertyDetail
+  ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })
-
 export class Home {
   selectedLocation: string = '';
   propertyType: string | null = 'rent';
@@ -28,69 +37,105 @@ export class Home {
   isFavorite: boolean = false; 
   displayDialog: boolean = false;
   selectedProperty: any = null;
+  showDetail: boolean = false;
 
   constructor(private messageService: MessageService, private confirmationService: ConfirmationService) {}
 
-  properties = [
-    {
-      name: 'Palm Harbor',
-      location: '2699 Green Valley, Highland Lake, FL',
-      price: '$2,095 /month',
-      image: 'https://picsum.photos/400/250?random=1',
-      rooms: 3,
-      baths: 2,
-      size: '57.7',
-      isFavorite: false
-    },
-    {
-      name: 'Beverly Springfield',
-      location: '2821 Lake Sevilla, Palm Harbor, TX',
-      price: '$2,700 /month',
-      image: 'https://picsum.photos/400/250?random=2',
-      rooms: 4,
-      baths: 2,
-      size: '67.5',
-      isFavorite: false
-    },
-    {
-      name: 'Faulkner Ave',
-      location: '909 Woodland St, Michigan, IN',
-      price: '$4,550 /month',
-      image: 'https://picsum.photos/400/250?random=3',
-      rooms: 4,
-      baths: 3,
-      size: '81.0',
-      isFavorite: false
-    }
-  ];
+properties = [
+  {
+    value: '$2,400/month',
+    name: 'St. Crystal',
+    address: '123 Main St, Cityville',
+    image: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+    rooms: 3,
+    baths: 2,
+    area: 500,
+    isPopular: false,
+    isFavorite: false
+  },
+  {
+    value: '$3,000/month',
+    name: 'Ocean View',
+    address: '456 Beach Ave, Seaside',
+    image: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+    rooms: 4,
+    baths: 3,
+    area: 750,
+    isPopular: true,
+    isFavorite: false
+  },
+  {
+    value: '$1,800/month',
+    name: 'Sunny Loft',
+    address: '789 Sun Blvd, Downtown',
+    image: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+    rooms: 2,
+    baths: 1,
+    area: 400,
+    isPopular: false,
+    isFavorite: true
+  },
+  {
+    value: '$2,900/month',
+    name: 'Green Villa',
+    address: '321 Garden St, Suburbia',
+    image: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+    rooms: 5,
+    baths: 3,
+    area: 900,
+    isPopular: true,
+    isFavorite: false
+  },
+  {
+    value: '$2,100/month',
+    name: 'Downtown Flat',
+    address: '654 Center Rd, Cityville',
+    image: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+    rooms: 3,
+    baths: 2,
+    area: 600,
+    isPopular: false,
+    isFavorite: false
+  },
+  {
+    value: '$2,750/month',
+    name: 'Mountain Retreat',
+    address: '987 Hilltop Rd, Highland',
+    image: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
+    rooms: 4,
+    baths: 2,
+    area: 800,
+    isPopular: true,
+    isFavorite: false
+  }
+];
 
-showConfirm(property: any) { 
-  this.confirmationService.confirm({
-    message: '¿Quieres agregar esta propiedad a favoritos?',
-    header: 'Confirmación',
-    icon: 'pi pi-info-circle',
-    acceptLabel: 'Sí',   
-    rejectLabel: 'No',   
-    accept: () => {
-      property.isFavorite = true; 
-      this.messageService.add({
-        key: 'confirm',
-        severity: 'success',
-        summary: 'Propiedad agregada a favoritos',
-        detail: `¡${property.name} ahora está en tus favoritos!`,
-        life: 3000
-      });
-      this.confirmationService.close(); 
-    },
-    reject: () => {
-      property.isFavorite = false; 
-      this.confirmationService.close(); 
-    }
-  });
-}
 
+  showConfirm(property: any) { 
+    this.confirmationService.confirm({
+      message: '¿Quieres agregar esta propiedad a favoritos?',
+      header: 'Confirmación',
+      icon: 'pi pi-info-circle',
+      acceptLabel: 'Sí',   
+      rejectLabel: 'No',   
+      accept: () => {
+        property.isFavorite = true; 
+        this.messageService.add({
+          key: 'confirm',
+          severity: 'success',
+          summary: 'Propiedad agregada a favoritos',
+          detail: `¡${property.name} ahora está en tus favoritos!`,
+          life: 3000
+        });
+        this.confirmationService.close(); 
+      },
+      reject: () => {
+        property.isFavorite = false; 
+        this.confirmationService.close(); 
+      }
+    });
+  }
 
-  // Otros métodos existentes
   searchProperties() {
     if (!this.selectedLocation.trim()) {
       this.messageService.add({
@@ -114,6 +159,12 @@ showConfirm(property: any) {
 
   validateInput() {
     this.isValid = this.searchText.trim().length > 0;
+  }
+
+  onPropertyClick(property: any) {
+    this.selectedProperty = property;
+    this.showDetail = true;
+    console.log('Propiedad seleccionada:', property);
   }
 
   subscribeOwner() {
@@ -151,8 +202,19 @@ showConfirm(property: any) {
     this.ownerEmail = ''; 
   }
 
-  viewPropertyDetails(property: any) {
-  this.selectedProperty = property;
-  this.displayDialog = true; 
+get filteredProperties() {
+  const term = this.searchText.toLowerCase().trim();
+  if (!term) return this.properties; // Muestra todas si no se busca nada
+
+  return this.properties.filter((p) =>
+    p.name.toLowerCase().includes(term)
+  );
+}
+
+
+  // Método para cerrar el detalle desde PropertyDetail
+  closePropertyDetail() {
+    this.showDetail = false;
+    this.selectedProperty = null;
   }
 }

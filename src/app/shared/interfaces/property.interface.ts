@@ -3,26 +3,28 @@ import { PropertyType } from './property-type.interface';
 import { PropertyPhoto } from './property-photo.interface';
 
 export interface Property {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    area_m2: number;
-    rooms: number;
-    bathrooms: number;
-    active: boolean;
+  id: number;
+  value: string;
+  name: string;
+  address: string;
+  image: string;
+  rooms: number;
+  baths: number;
+  area: number;
+  isPopular?: boolean;
+  isFavorite?: boolean;
 
-    // TASK: Necesary user interface to replace this FK
-    id_owner: string;
+  // TASK: Necessary user interface to replace this FK
+  id_owner: string;
 
-    // --- OBJETOS ANIDADOS ---
-    // Reemplazamos los FKs por los objetos completos
-    propertyLocation: PropertyLocation;
-    propertyType: PropertyType;
-    photos: PropertyPhoto[];
+  // --- NESTED OBJECTS ---
+  // Replace foreign keys (FKs) with complete objects
+  propertyLocation: PropertyLocation;
+  propertyType: PropertyType;
+  photos: PropertyPhoto[];
 
-    // This field is useful for PREVIEW in the dialog.
-    // Is better to have it if the API doesn't provide a 'mainPhotoUrl'.
-    // We make it optional.
-    url?: string;
+  // This field is useful for PREVIEW in the dialog.
+  // It's better to have it if the API doesn't provide a 'mainPhotoUrl'.
+  // Optional.
+  url?: string;
 }
