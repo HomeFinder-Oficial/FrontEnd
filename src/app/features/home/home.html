@@ -63,7 +63,6 @@
         <button
           pButton
           type="button"
-          (click)="searchProperties()"
           label="Buscar Propiedades"
           class="p-button-rounded bg-indigo-600 hover:bg-indigo-700 border-none px-4 py-3 text-white shadow-md mt-6 sm:mt-[22px]"
         ></button>
@@ -189,157 +188,53 @@
 
         <!-- Buscador -->
         <div class="w-full md:w-64">
-  <span class="p-input-icon-left w-full">
-    <input
-      type="text"
-      pInputText
-      placeholder="Search by name..."
-      [(ngModel)]="searchText"
-      name="search"
-      required
-      (input)="validateInput()"
-      [ngClass]="{
-        'border-gray-300': isValid,
-        'border-red-400 focus:border-red-400': !isValid
-      }"
-      class="w-full p-inputtext-sm border rounded-md py-2 px-4 focus:outline-none"
-    />
-  </span>
+          <span class="p-input-icon-left w-full">
+            <input
+              type="text"
+              pInputText
+              placeholder="Escribe su nombre"
+              [(ngModel)]="searchText"
+              name="search"
+              required
+              (input)="validateInput()"
+              [ngClass]="{
+                'border-gray-300': isValid,
+                'border-red-400 focus:border-red-400': !isValid
+              }"
+              class="w-full p-inputtext-sm border rounded-md py-2 px-4 focus:outline-none"
+            />
+          </span>
           <!-- Mensaje de error -->
           <small *ngIf="!isValid" class="text-red-500 text-xs mt-1 block">
             Este campo es obligatorio.
           </small>
         </div>
       </div>
-<!-- PROPERTY CARDS CONTAINER -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-  <!-- Property 1 -->
-  <app-property-card
-    [property]="{
-      value: '$2,400/month',
-      name: 'St. Crystal',
-      address: '123 Main St, Cityville',
-      image: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-      rooms: 3,
-      baths: 2,
-      area: 500,
-      isPopular: false,
-      isFavorite: false
-    }"
-    (propertyClick)="onPropertyClick($event)"
-  ></app-property-card>
+      <!-- PROPERTY CARDS CONTAINER -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+        <app-property-card
+          *ngFor="let property of filteredProperties"
+          [property]="property"
+          (propertyClick)="onPropertyClick(property)"
+        ></app-property-card>
+      </div>
 
-  <!-- Property 2 -->
-  <app-property-card
-    [property]="{
-      value: '$3,000/month',
-      name: 'Ocean View',
-      address: '456 Beach Ave, Seaside',
-      image: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-      rooms: 4,
-      baths: 3,
-      area: 750,
-      isPopular: true,
-      isFavorite: false
-    }"
-    (propertyClick)="onPropertyClick($event)"
-  ></app-property-card>
+      <app-property-detail
+        *ngIf="selectedProperty"
+        [property]="selectedProperty"
+        [(displayDetail)]="showDetail"
+      ></app-property-detail>
 
-  <!-- Property 3 -->
-  <app-property-card
-    [property]="{
-      value: '$1,800/month',
-      name: 'Sunny Loft',
-      address: '789 Sun Blvd, Downtown',
-      image: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-      rooms: 2,
-      baths: 1,
-      area: 400,
-      isPopular: false,
-      isFavorite: true
-    }"
-    (propertyClick)="onPropertyClick($event)"
-  ></app-property-card>
-
-  <!-- Property 4 -->
-  <app-property-card
-    [property]="{
-      value: '$2,900/month',
-      name: 'Green Villa',
-      address: '321 Garden St, Suburbia',
-      image: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-      rooms: 5,
-      baths: 3,
-      area: 900,
-      isPopular: true,
-      isFavorite: false
-    }"
-    (propertyClick)="onPropertyClick($event)"
-  ></app-property-card>
-
-  <!-- Property 5 -->
-  <app-property-card
-    [property]="{
-      value: '$2,100/month',
-      name: 'Downtown Flat',
-      address: '654 Center Rd, Cityville',
-      image: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-      rooms: 3,
-      baths: 2,
-      area: 600,
-      isPopular: false,
-      isFavorite: false
-    }"
-    (propertyClick)="onPropertyClick($event)"
-  ></app-property-card>
-
-  <!-- Property 6 -->
-  <app-property-card
-    [property]="{
-      value: '$2,750/month',
-      name: 'Mountain Retreat',
-      address: '987 Hilltop Rd, Highland',
-      image: 'https://primefaces.org/cdn/primeng/images/card-ng.jpg',
-      rooms: 4,
-      baths: 2,
-      area: 800,
-      isPopular: true,
-      isFavorite: false
-    }"
-    (propertyClick)="onPropertyClick($event)"
-  ></app-property-card>
-</div>
-
-<app-property-detail
-  [property]="selectedProperty"
-  [(displayDetail)]="showDetail"
-></app-property-detail>
-
-<!-- VIEW MORE BUTTON -->
-<div class="mt-7 mb-10 flex justify-center px-6">
-  <button
-    pButton
-    label="View more properties"
-    icon="pi pi-angle-right"
-    iconPos="right"
-    class="bg-indigo-800 hover:bg-indigo-900 border-none text-white px-6 py-3 rounded-lg shadow-md"
-  ></button>
-</div>
-
-<!-- SELECTED PROPERTY DETAIL -->
-<div *ngIf="selectedProperty" class="mt-6 p-4 border rounded-lg shadow">
-  <h2 class="text-xl font-bold">{{ selectedProperty.name }}</h2>
-  <p>{{ selectedProperty.address }}</p>
-  <p>{{ selectedProperty.value }}</p>
-  <img
-    [src]="selectedProperty.image"
-    alt="{{ selectedProperty.name }}"
-    class="w-full h-64 object-cover mt-2"
-  />
-  <p>Rooms: {{ selectedProperty.rooms }}</p>
-  <p>Bathrooms: {{ selectedProperty.baths }}</p>
-  <p>Area: {{ selectedProperty.area }} m²</p>
-</div>
+      <!-- VIEW MORE BUTTON -->
+      <div class="mt-7 mb-10 flex justify-center px-6">
+        <button
+          pButton
+          label="Ver más propiedades"
+          icon="pi pi-angle-right"
+          iconPos="right"
+          class="bg-indigo-800 hover:bg-indigo-900 border-none text-white px-6 py-3 rounded-lg shadow-md"
+        ></button>
+      </div>
 
       <!-- Sección de Características HACEMOS QUE SEA FACIL PARA INQUILINOS -->
       <section class="bg-indigo-950 text-white py-16 px-6 w-full">

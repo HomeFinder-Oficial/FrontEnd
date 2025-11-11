@@ -10,12 +10,13 @@
       <img [src]="property.image" alt="Property image" class="w-full h-56 object-cover" />
 
       <!-- POPULAR label -->
+      @if (property.isPopular) {
       <span
-        *ngIf="property.isPopular"
         class="absolute top-3 left-3 bg-indigo-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow"
       >
         POPULAR
       </span>
+      }
 
       <!-- Favorite button -->
       <button

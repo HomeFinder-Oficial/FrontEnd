@@ -14,7 +14,6 @@
   [closable]="false"
   styleClass="property-detail-dialog"
 >
-
   <!-- Imagen Principal -->
   <div class="property-image-wrapper relative">
     <img
@@ -217,97 +216,95 @@
     </div>
   </div>
 
- <!-- DIALOG DE CONTACTO -->
-<p-dialog
-  [(visible)]="displayContactForm"
-  [modal]="true"
-  [draggable]="false"
-  [resizable]="false"
-  [closable]="true"
-  [style]="{ width: '40vw', maxWidth: '520px' }"
-  styleClass="modern-contact-dialog"
->
-  <ng-template pTemplate="header">
-    <div class="flex align-items-center gap-2">
-      <span class="font-semibold text-lg text-gray-800">
-        Contactar a {{ property.name }}
-      </span>
-    </div>
-  </ng-template>
-
-  <div class="p-fluid px-2 py-3">
-    <form (ngSubmit)="submitContactForm()" #contactForm="ngForm">
-      <!-- Nombre -->
-      <div class="field">
-        <label for="name" class="font-medium text-gray-700">Nombre completo</label>
-        <span class="p-input-icon-left w-full">
-          <input
-            id="name"
-            type="text"
-            pInputText
-            name="name"
-            placeholder="Ingresa tu nombre"
-            [(ngModel)]="contactData.name"
-            required
-            class="w-full"
-          />
-        </span>
+  <!-- DIALOG DE CONTACTO -->
+  <p-dialog
+    [(visible)]="displayContactForm"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [closable]="true"
+    [style]="{ width: '40vw', maxWidth: '520px' }"
+    styleClass="modern-contact-dialog"
+  >
+    <ng-template pTemplate="header">
+      <div class="flex align-items-center gap-2">
+        <span class="font-semibold text-lg text-gray-800"> Contactar a {{ property.name }} </span>
       </div>
+    </ng-template>
 
-      <!-- Correo -->
-      <div class="field mt-3">
-        <label for="email" class="font-medium text-gray-700">Correo electrónico</label>
-        <span class="p-input-icon-left w-full">
-          <input
-            id="email"
-            type="email"
-            pInputText
-            name="email"
-            placeholder="tucorreo@ejemplo.com"
-            [(ngModel)]="contactData.email"
-            required
-            class="w-full"
-          />
-        </span>
-      </div>
+    <div class="p-fluid px-2 py-3">
+      <form (ngSubmit)="submitContactForm()" #contactForm="ngForm">
+        <!-- Nombre -->
+        <div class="field">
+          <label for="name" class="font-medium text-gray-700">Nombre completo</label>
+          <span class="p-input-icon-left w-full">
+            <input
+              id="name"
+              type="text"
+              pInputText
+              name="name"
+              placeholder="Ingresa tu nombre"
+              [(ngModel)]="contactData.name"
+              required
+              class="w-full"
+            />
+          </span>
+        </div>
 
-      <!-- Mensaje -->
-      <div class="field mt-3">
-        <label for="message" class="font-medium text-gray-700">Mensaje</label>
-        <span class="p-input-icon-left w-full">
-          <textarea
-            id="message"
-            pInputTextarea
-            name="message"
-            placeholder="Escribe tu mensaje aquí..."
-            [(ngModel)]="contactData.message"
-            rows="4"
-            autoResize="true"
-            required
-            class="w-full"
-          ></textarea>
-        </span>
-      </div>
+        <!-- Correo -->
+        <div class="field mt-3">
+          <label for="email" class="font-medium text-gray-700">Correo electrónico</label>
+          <span class="p-input-icon-left w-full">
+            <input
+              id="email"
+              type="email"
+              pInputText
+              name="email"
+              placeholder="tucorreo@ejemplo.com"
+              [(ngModel)]="contactData.email"
+              required
+              class="w-full"
+            />
+          </span>
+        </div>
 
-      <!-- Botones -->
-      <div class="flex justify-end gap-3 mt-5">
-        <p-button
-          label="Cancelar"
-          icon="pi pi-times"
-          (onClick)="closeContactForm()"
-          severity="secondary"
-          class="p-button-rounded font-medium"
-        ></p-button>
+        <!-- Mensaje -->
+        <div class="field mt-3">
+          <label for="message" class="font-medium text-gray-700">Mensaje</label>
+          <span class="p-input-icon-left w-full">
+            <textarea
+              id="message"
+              pInputTextarea
+              name="message"
+              placeholder="Escribe tu mensaje aquí..."
+              [(ngModel)]="contactData.message"
+              rows="4"
+              autoResize="true"
+              required
+              class="w-full"
+            ></textarea>
+          </span>
+        </div>
 
-        <p-button
-          label="Enviar"
-          icon="pi pi-send"
-          type="submit"
-          [disabled]="!contactForm.valid"
-          severity="success"
-          class="p-button-rounded font-medium"
-        ></p-button>
-      </div>
-    </form>
-  </div>
-</p-dialog>
+        <!-- Botones -->
+        <div class="flex justify-end gap-3 mt-5">
+          <p-button
+            label="Cancelar"
+            icon="pi pi-times"
+            (onClick)="closeContactForm()"
+            severity="secondary"
+            class="p-button-rounded font-medium"
+          ></p-button>
+
+          <p-button
+            label="Enviar"
+            icon="pi pi-send"
+            type="submit"
+            [disabled]="!contactForm.valid"
+            severity="success"
+            class="p-button-rounded font-medium"
+          ></p-button>
+        </div>
+      </form>
+    </div> </p-dialog
+></p-dialog>
