@@ -27,9 +27,7 @@ export const routes: Routes = [
     path: 'dashboard',
     component: DashboardLayout,
     children: [
-      { path: '', component: DashboardLayout },
-      { path: 'home', redirectTo: '', pathMatch: 'full' },
-      { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.routes')
+      { path: '', loadChildren: () => import('./features/dashboard/dashboard.routes')
         .then(m => m.DASHBOARD_ROUTES)/*, canActivate: [authGuard]*/ },
     ],
   },

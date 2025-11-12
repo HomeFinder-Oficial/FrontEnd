@@ -1,0 +1,9 @@
+/* Estilos locales sin ::ng-deep.
+	 Los overrides estructurales de PrimeNG se movieron a styles.css (global) usando .price-radio …
+	 Aquí sólo dejamos los Design Tokens por componente (PrimeNG 17+). */
+
+.price-radio {
+	--p-radiobutton-checked-background: #6d28d9;
+	--p-radiobutton-checked-border-color: #6d28d9;
+	--p-radiobutton-focus-ring-color: rgba(109, 40, 217, 0.35);
+}
