@@ -205,9 +205,9 @@
             />
           </span>
           <!-- Mensaje de error -->
-          <small *ngIf="!isValid" class="text-red-500 text-xs mt-1 block">
-            Este campo es obligatorio.
-          </small>
+          @if (!isValid) {
+          <small class="text-red-500 text-xs mt-1 block"> Este campo es obligatorio. </small>
+          }
         </div>
       </div>
       <!-- PROPERTY CARDS CONTAINER -->

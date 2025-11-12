@@ -1,310 +1,294 @@
-<p-dialog
+<!-- DETALLE DE PROPIEDAD -->
+<p-drawer
   [(visible)]="displayDetail"
-  [modal]="true"
-  [dismissableMask]="true"
+  position="right"
+  [modal]="false"
+  [closeOnEscape]="true"
+  [showCloseIcon]="false"
+  [style]="{ width: '40vw', maxWidth: '900px', height: '100vh' }"
+  styleClass="property-detail-drawer"
   (onHide)="closeDetail()"
-  [style]="{
-    width: '40vw',
-    maxWidth: '900px',
-    height: '98vh',
-    maxHeight: '800px'
-  }"
-  [draggable]="false"
-  [resizable]="false"
-  [closable]="false"
-  styleClass="property-detail-dialog"
 >
-  <!-- Imagen Principal -->
-  <div class="property-image-wrapper relative">
-    <img
-      [src]="property.image"
-      [alt]="property.name"
-      class="w-full h-80 object-cover block rounded-t-xl"
-    />
+  <!-- CABECERA -->
+  <ng-template pTemplate="header">
+    <div class="flex justify-between items-center w-full">
+      <h2 class="text-xl font-semibold text-gray-800">{{ property.name }}</h2>
+      <p-button
+        icon="pi pi-times"
+        [rounded]="true"
+        [text]="true"
+        severity="secondary"
+        (onClick)="closeDetail()"
+        [style]="{
+          background: 'white',
+          'box-shadow': '0 2px 6px rgba(0,0,0,0.15)'
+        }"
+      ></p-button>
+    </div>
+  </ng-template>
 
-    <!-- Botón cerrar -->
-    <p-button
-      icon="pi pi-times"
-      [rounded]="true"
-      [text]="true"
-      severity="secondary"
-      (onClick)="closeDetail()"
-      [style]="{
-        background: 'white',
-        position: 'absolute',
-        top: '1rem',
-        right: '1rem',
-        'box-shadow': '0 2px 8px rgba(0,0,0,0.15)'
-      }"
-    ></p-button>
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="property-content overflow-y-auto pb-6">
+    <!-- Imagen -->
+    <div class="property-image-wrapper relative">
+      <img
+        [src]="property.image"
+        [alt]="property.name"
+        class="w-full h-72 object-cover rounded-xl"
+      />
 
-    <!-- Botón favorito -->
-    <p-button
-      [icon]="property.isFavorite ? 'pi pi-heart-fill' : 'pi pi-heart'"
-      [rounded]="true"
-      [text]="true"
-      [severity]="property.isFavorite ? 'danger' : 'secondary'"
-      (onClick)="toggleFavorite()"
-      [style]="{
-        background: 'white',
-        position: 'absolute',
-        top: '1rem',
-        left: '1rem',
-        'box-shadow': '0 2px 8px rgba(0,0,0,0.15)'
-      }"
-    ></p-button>
+      <!-- Favorito -->
+      <p-button
+        [icon]="property.isFavorite ? 'pi pi-heart-fill' : 'pi pi-heart'"
+        [rounded]="true"
+        [text]="true"
+        [severity]="property.isFavorite ? 'danger' : 'secondary'"
+        (onClick)="toggleFavorite()"
+        [style]="{
+          background: 'white',
+          position: 'absolute',
+          top: '1rem',
+          left: '1rem',
+          'box-shadow': '0 2px 8px rgba(0,0,0,0.15)'
+        }"
+      ></p-button>
 
-    <span
-      *ngIf="property.isPopular"
-      class="absolute bottom-3 left-3 bg-indigo-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow"
-    >
-      POPULAR
-    </span>
-  </div>
+      <!-- Popular -->
+      @if (property.isPopular) {
+      <span
+        class="absolute bottom-3 left-3 bg-indigo-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow"
+      >
+        POPULAR
+      </span>
+      }
+    </div>
 
-  <!-- Contenido -->
-  <div class="property-content p-5 bg-gray-50 rounded-b-xl">
-    <!-- Encabezado -->
-    <div class="property-header mb-5">
-      <h2 class="text-4xl font-bold mb-2 text-blue-600">{{ property.value }}</h2>
-      <h3 class="text-2xl font-semibold mb-2 text-gray-800">{{ property.name }}</h3>
+    <!-- Información -->
+    <div class="p-5 bg-gray-50 rounded-xl mt-4 shadow-sm">
+      <h2 class="text-3xl font-bold text-blue-600">{{ property.value }}</h2>
+      <h3 class="text-xl font-semibold text-gray-800">{{ property.name }}</h3>
       <p class="flex items-center gap-2 text-gray-600">
-        <i class="pi pi-map-marker text-blue-500"></i>
-        {{ property.address }}
+        <i class="pi pi-map-marker text-blue-500"></i> {{ property.address }}
       </p>
-    </div>
 
-    <!-- TABS PERSONALIZADOS -->
-    <div class="flex justify-center gap-14 border-b border-gray-200 mb-6">
-      <button
-        class="tab-btn"
-        [class.active]="activeTab === 'general'"
-        (click)="activeTab = 'general'"
-      >
-        General
-      </button>
-      <button
-        class="tab-btn"
-        [class.active]="activeTab === 'reviews'"
-        (click)="activeTab = 'reviews'"
-      >
-        Reseñas
-      </button>
-      <button class="tab-btn" [class.active]="activeTab === 'about'" (click)="activeTab = 'about'">
-        Acerca
-      </button>
-    </div>
+      <!-- Tabs -->
+      <div class="flex justify-center gap-10 border-b border-gray-200 mt-5 mb-6">
+        <button
+          class="tab-btn"
+          [class.active]="activeTab === 'general'"
+          (click)="activeTab = 'general'"
+        >
+          General
+        </button>
+        <button
+          class="tab-btn"
+          [class.active]="activeTab === 'reviews'"
+          (click)="activeTab = 'reviews'"
+        >
+          Reseñas
+        </button>
+        <button
+          class="tab-btn"
+          [class.active]="activeTab === 'about'"
+          (click)="activeTab = 'about'"
+        >
+          Acerca
+        </button>
+      </div>
 
-    <!-- TAB GENERAL -->
-    <div *ngIf="activeTab === 'general'">
-      <div class="mb-5">
+      <!-- TAB GENERAL -->
+      @if (activeTab === 'general') {
+      <div>
         <h4 class="font-semibold text-lg mb-2 text-gray-800">Descripción:</h4>
-        <p class="text-gray-600 leading-relaxed">{{ description }}</p>
-      </div>
+        <p class="text-gray-600 leading-relaxed mb-5">{{ description }}</p>
 
-      <div class="flex justify-around text-center py-4 bg-white rounded-xl shadow-sm">
-        <div>
-          <i class="pi pi-home text-3xl text-blue-500 mb-1"></i>
-          <p class="font-bold text-lg m-0">{{ property.rooms }}</p>
-          <p class="text-sm m-0 text-gray-600">Habitaciones</p>
+        <div
+          class="flex justify-around text-center py-4 bg-white rounded-xl shadow-sm"
+        >
+          <div>
+            <i class="pi pi-home text-3xl text-blue-500 mb-1"></i>
+            <p class="font-bold text-lg m-0">{{ property.rooms }}</p>
+            <p class="text-sm text-gray-600">Habitaciones</p>
+          </div>
+          <div>
+            <i class="pi pi-inbox text-3xl text-blue-500 mb-1"></i>
+            <p class="font-bold text-lg m-0">{{ property.baths }}</p>
+            <p class="text-sm text-gray-600">Baños</p>
+          </div>
+          <div>
+            <i class="pi pi-th-large text-3xl text-blue-500 mb-1"></i>
+            <p class="font-bold text-lg m-0">{{ property.area }}</p>
+            <p class="text-sm text-gray-600">m²</p>
+          </div>
         </div>
-        <div>
-          <i class="pi pi-inbox text-3xl text-blue-500 mb-1"></i>
-          <p class="font-bold text-lg m-0">{{ property.baths }}</p>
-          <p class="text-sm m-0 text-gray-600">Baños</p>
+
+        <div class="mt-6">
+          <p-button
+            [label]="contactButtonText"
+            icon="pi pi-send"
+            styleClass="w-full"
+            [raised]="true"
+            severity="info"
+            (onClick)="contact()"
+          ></p-button>
         </div>
-        <div>
-          <i class="pi pi-th-large text-3xl text-blue-500 mb-1"></i>
-          <p class="font-bold text-lg m-0">{{ property.area }}</p>
-          <p class="text-sm m-0 text-gray-600">m²</p>
+      </div>
+      }
+
+      <!-- TAB RESEÑAS -->
+      @if (activeTab === 'reviews') {
+      <div>
+        <div class="flex justify-between mb-4 items-center">
+          <h4 class="font-semibold text-gray-800">Opiniones de usuarios</h4>
+          <p-button
+            [label]="showReviews ? 'Ocultar' : 'Mostrar'"
+            [icon]="showReviews ? 'pi pi-eye-slash' : 'pi pi-eye'"
+            (onClick)="toggleReviews()"
+            severity="info"
+          ></p-button>
         </div>
-      </div>
 
-      <div class="mt-6">
-        <p-button
-          [label]="contactButtonText"
-          icon="pi pi-send"
-          styleClass="w-full"
-          [raised]="true"
-          severity="info"
-          (onClick)="contact()"
-        ></p-button>
-      </div>
-    </div>
-
-    <!-- TAB RESEÑAS -->
-    <div *ngIf="activeTab === 'reviews'">
-      <div class="flex justify-between mb-4 items-center">
-        <h4 class="font-semibold m-0 text-gray-800">Opiniones de usuarios</h4>
-        <p-button
-          [label]="showReviews ? 'Ocultar reseñas' : 'Mostrar reseñas'"
-          [icon]="showReviews ? 'pi pi-eye-slash' : 'pi pi-eye'"
-          [outlined]="false"
-          [style]="{
-            background: showReviews ? '#ef4444' : '#3b82f6',
-            color: 'white',
-            'border-radius': '8px',
-            border: 'none',
-            padding: '0.5rem 1rem'
-          }"
-          (onClick)="toggleReviews()"
-        ></p-button>
-      </div>
-
-      <div *ngIf="showReviews; else hideReviews" class="mt-3 space-y-3">
-        <div *ngFor="let review of reviews">
-          <p-card
-            class="shadow-md border border-gray-200 rounded-xl hover:shadow-lg transition-shadow duration-300"
-          >
+        @if (showReviews) {
+        <div class="space-y-3">
+          @for (review of reviews; track review.user) {
+          <p-card class="shadow-sm rounded-lg">
             <div class="flex justify-between items-start mb-2">
               <div class="flex gap-3 items-center">
                 <div
-                  class="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold shadow-sm"
+                  class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white flex items-center justify-center font-bold"
                 >
                   {{ review.user.charAt(0).toUpperCase() }}
                 </div>
                 <div>
-                  <p class="font-semibold m-0 mb-1 text-gray-800">{{ review.user }}</p>
+                  <p class="font-semibold text-gray-800 m-0">
+                    {{ review.user }}
+                  </p>
                   <div class="flex gap-1">
+                    @for (star of getStarsArray(review.rating); track $index) {
                     <i
-                      *ngFor="let star of getStarsArray(review.rating)"
                       class="pi"
                       [class.pi-star-fill]="star"
                       [class.pi-star]="!star"
-                      style="color: #fbbf24; font-size: 0.875rem"
+                      style="color: #fbbf24"
                     ></i>
+                    }
                   </div>
                 </div>
               </div>
-              <span class="text-sm font-semibold text-blue-600">{{ review.rating }}/5</span>
+              <span class="text-sm font-semibold text-blue-600"
+                >{{ review.rating }}/5</span
+              >
             </div>
-            <p class="text-gray-600 ml-12 leading-relaxed">{{ review.comment }}</p>
+            <p class="text-gray-600 ml-12">{{ review.comment }}</p>
           </p-card>
+          }
         </div>
-      </div>
-
-      <ng-template #hideReviews>
-        <div class="text-center p-6 bg-gray-100 rounded-lg border border-gray-200 shadow-sm">
+        } @else {
+        <div
+          class="text-center p-6 bg-gray-100 rounded-lg border border-gray-200"
+        >
           <i class="pi pi-comment text-3xl text-gray-400 mb-2"></i>
-          <p class="text-gray-600 m-0">
-            Haz clic en "Mostrar reseñas" para ver las opiniones de los usuarios.
+          <p class="text-gray-600">
+            Haz clic en “Mostrar” para ver las opiniones de los usuarios.
           </p>
         </div>
-      </ng-template>
-    </div>
+        }
+      </div>
+      }
 
-    <!-- TAB ACERCA -->
-    <div *ngIf="activeTab === 'about'">
-      <div class="mb-4">
+      <!-- TAB ACERCA -->
+      @if (activeTab === 'about') {
+      <div>
         <h4 class="font-semibold mb-2 text-gray-800">{{ footerTitle }}</h4>
         <p class="flex items-center gap-2 text-gray-600">
           <i class="pi pi-map-marker text-blue-500"></i>
           {{ footerAddress || property.address }}
         </p>
-      </div>
 
-      <div class="map-container mb-4">
         <iframe
           [src]="googleMapUrl()"
           width="100%"
           height="300"
           style="border: 0; border-radius: 12px"
-          allowfullscreen=""
+          allowfullscreen
           loading="lazy"
+          class="mt-3"
         ></iframe>
       </div>
+      }
     </div>
   </div>
+</p-drawer>
 
-  <!-- DIALOG DE CONTACTO -->
-  <p-dialog
-    [(visible)]="displayContactForm"
-    [modal]="true"
-    [draggable]="false"
-    [resizable]="false"
-    [closable]="true"
-    [style]="{ width: '40vw', maxWidth: '520px' }"
-    styleClass="modern-contact-dialog"
-  >
-    <ng-template pTemplate="header">
-      <div class="flex align-items-center gap-2">
-        <span class="font-semibold text-lg text-gray-800"> Contactar a {{ property.name }} </span>
-      </div>
-    </ng-template>
+<!-- DIALOGO DE CONTACTO -->
+<p-dialog
+  header="Contactar con {{ property.name }}"
+  [(visible)]="displayContactForm"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+  [style]="{ width: '32vw', maxWidth: '480px' }"
+  [contentStyle]="{
+    'border-radius': '16px',
+    background: 'linear-gradient(180deg, #ffffff 0%, #f9fafb 100%)'
+  }"
+  styleClass="contact-dialog shadow-xl"
+  (onHide)="closeContactForm()"
+>
+  <div class="p-fluid space-y-4 text-gray-700">
+    <!-- Nombre -->
+    <div class="flex flex-col">
+      <label for="name" class="font-medium text-gray-600 mb-1">Tu nombre</label>
+      <input
+        id="name"
+        type="text"
+        pInputText
+        placeholder="Escribe tu nombre"
+        class="rounded-lg border-gray-300 focus:border-sky-400 focus:ring-sky-300 transition-all duration-200"
+      />
+    </div>
 
-    <div class="p-fluid px-2 py-3">
-      <form (ngSubmit)="submitContactForm()" #contactForm="ngForm">
-        <!-- Nombre -->
-        <div class="field">
-          <label for="name" class="font-medium text-gray-700">Nombre completo</label>
-          <span class="p-input-icon-left w-full">
-            <input
-              id="name"
-              type="text"
-              pInputText
-              name="name"
-              placeholder="Ingresa tu nombre"
-              [(ngModel)]="contactData.name"
-              required
-              class="w-full"
-            />
-          </span>
-        </div>
+    <!-- Correo -->
+    <div class="flex flex-col">
+      <label for="email" class="font-medium text-gray-600 mb-1"
+        >Correo electrónico</label
+      >
+      <input
+        id="email"
+        type="email"
+        pInputText
+        placeholder="ejemplo@correo.com"
+        class="rounded-lg border-gray-300 focus:border-sky-400 focus:ring-sky-300 transition-all duration-200"
+      />
+    </div>
 
-        <!-- Correo -->
-        <div class="field mt-3">
-          <label for="email" class="font-medium text-gray-700">Correo electrónico</label>
-          <span class="p-input-icon-left w-full">
-            <input
-              id="email"
-              type="email"
-              pInputText
-              name="email"
-              placeholder="tucorreo@ejemplo.com"
-              [(ngModel)]="contactData.email"
-              required
-              class="w-full"
-            />
-          </span>
-        </div>
+    <!-- Mensaje -->
+    <div class="flex flex-col">
+      <label for="message" class="font-medium text-gray-600 mb-1">Mensaje</label>
+      <textarea
+        id="message"
+        rows="4"
+        pInputTextarea
+        placeholder="Escribe tu mensaje..."
+        class="rounded-lg border-gray-300 focus:border-sky-400 focus:ring-sky-300 transition-all duration-200 resize-none"
+      ></textarea>
+    </div>
 
-        <!-- Mensaje -->
-        <div class="field mt-3">
-          <label for="message" class="font-medium text-gray-700">Mensaje</label>
-          <span class="p-input-icon-left w-full">
-            <textarea
-              id="message"
-              pInputTextarea
-              name="message"
-              placeholder="Escribe tu mensaje aquí..."
-              [(ngModel)]="contactData.message"
-              rows="4"
-              autoResize="true"
-              required
-              class="w-full"
-            ></textarea>
-          </span>
-        </div>
+    <!-- Botones -->
+    <div class="flex justify-end gap-3 mt-6">
+      <p-button
+        label="Cancelar"
+        severity="primary"
+        (onClick)="closeContactForm()"
+        styleClass="p-button-rounded bg-gradient-to-r text-white border-none hover:from-sky-600 hover:to-blue-700 shadow-md"
+      ></p-button>
 
-        <!-- Botones -->
-        <div class="flex justify-end gap-3 mt-5">
-          <p-button
-            label="Cancelar"
-            icon="pi pi-times"
-            (onClick)="closeContactForm()"
-            severity="secondary"
-            class="p-button-rounded font-medium"
-          ></p-button>
-
-          <p-button
-            label="Enviar"
-            icon="pi pi-send"
-            type="submit"
-            [disabled]="!contactForm.valid"
-            severity="success"
-            class="p-button-rounded font-medium"
-          ></p-button>
-        </div>
-      </form>
-    </div> </p-dialog
-></p-dialog>
+      <p-button
+        label="Enviar"
+        styleClass="p-button-rounded bg-gradient-to-r from-sky-500 to-blue-600 text-white border-none hover:from-sky-600 hover:to-blue-700 shadow-md"
+        (onClick)="closeContactForm()"
+      ></p-button>
+    </div>
+  </div>
+</p-dialog>
