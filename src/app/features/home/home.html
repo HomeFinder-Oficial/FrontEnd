@@ -211,6 +211,7 @@
         </div>
       </div>
       <!-- PROPERTY CARDS CONTAINER -->
+      <!--
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
         <app-property-card
           *ngFor="let property of filteredProperties"
@@ -218,6 +219,14 @@
           (propertyClick)="onPropertyClick(property)"
         ></app-property-card>
       </div>
+      -->
+      <app-properties-list
+        [properties]="homeProperties"
+        [initialRowsShown]="2"
+        [columnsPerRow]="3"
+        [showLoadMoreButton]="false"
+        [infiniteScroll]="false">
+      </app-properties-list>
 
       <app-property-detail
         *ngIf="selectedProperty"

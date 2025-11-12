@@ -7,8 +7,9 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
-import { PropertyCard } from '../../shared/components/property-card/property-card';
 import { PropertyDetail } from '../../shared/components/Property-detail/property-detail';
+
+import { PropertiesList } from '../../shared/components/properties-list/properties-list';
 
 @Component({
   selector: 'app-home',
@@ -21,13 +22,14 @@ import { PropertyDetail } from '../../shared/components/Property-detail/property
     DialogModule, 
     ToastModule, 
     ConfirmDialogModule, 
-    PropertyCard, 
-    PropertyDetail
+    PropertyDetail,
+    PropertiesList
   ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })
+
 export class Home {
   selectedLocation: string = '';
   propertyType: string | null = 'rent';
@@ -41,7 +43,7 @@ export class Home {
 
   constructor(private messageService: MessageService, private confirmationService: ConfirmationService) {}
 
-properties = [
+homeProperties = [
   {
     value: '$2,400/month',
     name: 'St. Crystal',
@@ -204,9 +206,9 @@ properties = [
 
 get filteredProperties() {
   const term = this.searchText.toLowerCase().trim();
-  if (!term) return this.properties; // Muestra todas si no se busca nada
+  if (!term) return this.homeProperties; // Muestra todas si no se busca nada
 
-  return this.properties.filter((p) =>
+  return this.homeProperties.filter((p) =>
     p.name.toLowerCase().includes(term)
   );
 }
