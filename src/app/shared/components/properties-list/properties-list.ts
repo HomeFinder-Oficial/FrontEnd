@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject, HostListener } from '@angular/core';
+import { Component, Input, Output, OnInit, inject, HostListener, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PropertiesService } from '../../../core/services/properties/properties.service';
@@ -24,6 +24,8 @@ export class PropertiesList implements OnInit {
   @Input() showLoadMoreButton: boolean = true;// Whether to show the "Load more" button
   @Input() infiniteScroll = false;// Enable infinite scroll
 
+  @Output() propertyClick = new EventEmitter<Property>();
+
   //NEW: Internal State
   visibleProperties: Property[] = [];
   visibleCount = 0;
@@ -47,6 +49,10 @@ export class PropertiesList implements OnInit {
     } else {
       this.updateVisibleProperties(); // Use input data
     }
+  }
+
+  onCardClick(property: Property) { // 👈 handler called from HTML
+    this.propertyClick.emit(property);
   }
 
   private fetchInitialProperties(): void {

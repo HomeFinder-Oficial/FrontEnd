@@ -225,7 +225,8 @@
         [initialRowsShown]="2"
         [columnsPerRow]="3"
         [showLoadMoreButton]="false"
-        [infiniteScroll]="false">
+        [infiniteScroll]="false"
+        (propertyClick)="onPropertyClick($event)">
       </app-properties-list>
 
       <app-property-detail

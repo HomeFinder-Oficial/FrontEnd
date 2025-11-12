@@ -5,7 +5,11 @@
       'grid-cols-4 sm:grid-cols-4': columnsPerRow === 4
     }">
     @for (property of properties; track property.id) {
-      <app-property-card [property]="property"></app-property-card>
+      <app-property-card
+        [property]="property"
+        (click)="onCardClick(property)"
+      >
+      </app-property-card>
     } @empty {
       <div class="p-4 text-center text-gray-500">
         No properties available
