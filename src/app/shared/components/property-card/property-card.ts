@@ -31,6 +31,10 @@ export class PropertyCard {
 
   constructor(private messageService: MessageService) {}
 
+   ngOnInit(): void {
+    // Reinicia el estado de favorito al recargar la página
+    this.property.isFavorite = false;
+  }
    onCardClick() {
     this.propertyClick.emit(this.property);
   }

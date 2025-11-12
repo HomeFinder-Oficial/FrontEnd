@@ -10,6 +10,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { DrawerModule } from 'primeng/drawer';
 
 @Component({
   selector: 'app-property-detail',
@@ -23,7 +24,8 @@ import { ToastModule } from 'primeng/toast';
     DialogModule,
     InputTextModule,
     TextareaModule,
-    ToastModule
+    ToastModule,
+    DrawerModule
   ],
   providers: [MessageService],
   templateUrl: './property-detail.html',
