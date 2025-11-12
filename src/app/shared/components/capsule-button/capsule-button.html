@@ -1,15 +1,17 @@
 <div class="flex items-center justify-center bg-white border border-white rounded-full m-2 p-2">
-  <button
-    *ngFor="let btn of buttons; let i = index"
-    @if (i < 2 || isLoggedIn) {
-      (click)="toggleActive(i)"
-      [ngClass]="{
-        'bg-[#A8A2F6] text-white': btn.active,
-        'bg-white text-gray-700': !btn.active
-      }"
-      class="rounded-full px-4 py-2 mx-1 border border-gray-300 transition-all duration-200 hover:bg-[#A8A2F6]/80 hover:text-white"
+  @for (btn of buttons; track $index) {
+    @if ($index < 2 || isLoggedIn) {
+      <button
+        type="button"
+        (click)="toggleActive($index)"
+        [ngClass]="{
+          'bg-[#A8A2F6] text-white': btn.active,
+          'bg-white text-gray-700': !btn.active
+        }"
+        class="rounded-full px-4 py-2 mx-1 border border-gray-300 transition-all duration-200 hover:bg-[#A8A2F6]/80 hover:text-white"
+      >
+        {{ btn.label }}
+      </button>
     }
-  >
-    {{ btn.label }}
-  </button>
+  }
 </div>
