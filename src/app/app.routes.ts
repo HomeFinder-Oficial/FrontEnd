@@ -5,6 +5,7 @@ import { publicGuard } from './core/guards/public.guard';
 // Components
 import { PublicLayout } from './layouts/public-layout/public-layout';
 import { DashboardLayout } from './layouts/dashboard-layout/dashboard-layout';
+import { AuthLayout } from './layouts/auth-layout/auth-layout';
 // Pages
 import { Login } from './features/auth/login/login';
 import { Register } from './features/auth/register/register';
@@ -20,7 +21,16 @@ export const routes: Routes = [
     children: [
         { path: '', component: Home, canActivate: [publicGuard] },
         { path: 'home', redirectTo: '', pathMatch: 'full' },
-        { path: 'properties', redirectTo: '/dashboard/properties', pathMatch: 'full' },
+        { path: 'properties', redirectTo: '/dashboard/properties', pathMatch: 'full' }
+    ],
+  },
+  {
+    path: '',
+    component: AuthLayout,
+    children: [
+      { path: '', component: DashboardLayout/*, canActivate: [authGuard]*/ },
+      { path: 'login', component: Login, canActivate: [publicGuard] },
+      { path: 'register', component: Register, canActivate: [publicGuard] }
     ],
   },
   {
@@ -29,11 +39,9 @@ export const routes: Routes = [
     children: [
       { path: '', component: DashboardLayout/*, canActivate: [authGuard]*/ },
       { path: 'home', redirectTo: '', pathMatch: 'full' },
-      { path: 'login', component: Login, canActivate: [publicGuard] },
-      { path: 'register', component: Register, canActivate: [publicGuard] },
       { path: 'properties', component: Properties },
       { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.routes')
-        .then(m => m.DASHBOARD_ROUTES)/*, canActivate: [authGuard]*/ },
+        .then(m => m.DASHBOARD_ROUTES)/*, canActivate: [authGuard]*/ }
     ],
   },
   // --- Wildcard ---
