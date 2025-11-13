@@ -1,11 +1,17 @@
-<ng-container [ngSwitch]="authService.getCurrentUser()"> <!-- TASK: .getRole() -->
-      
-    <app-admin-sidebar *ngSwitchCase="appRoles.ADMIN" />
+@switch (userRole) {  <!-- TASK: authService.getCurrentUser().getRole() -->
 
-    <app-user-sidebar *ngSwitchCase="appRoles.USER" />
-      
-    <div *ngSwitchDefault>
-        <p class="p-4 text-red-500">Error: No se pudo cargar el menú.</p>
+  @case (appRoles.ADMIN) {
+    <app-admin-sidebar />
+  }
+
+  @case (appRoles.USER) {
+    <app-user-sidebar />
+  }
+
+  @default {
+    <div class="flex flex-col items-center text-center">
+      <p class="p-4 text-red-500">Error: No se pudo cargar el menú.</p>
     </div>
+  }
 
-</ng-container>
+}

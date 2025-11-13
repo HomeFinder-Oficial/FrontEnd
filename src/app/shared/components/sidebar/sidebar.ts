@@ -16,4 +16,9 @@ import { AuthService } from '../../../core/services/auth/auth.service';
 export class Sidebar {
   authService = inject(AuthService);
   appRoles = AppRoles;
+
+  get userRole(): string | null {
+    return "PENDIENTE";
+    //return this.authService.getCurrentUser()?.role ?? null;
+  }
 }
