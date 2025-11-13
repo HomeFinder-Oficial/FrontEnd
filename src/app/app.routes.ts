@@ -9,6 +9,7 @@ import { DashboardLayout } from './layouts/dashboard-layout/dashboard-layout';
 import { Login } from './features/auth/login/login';
 import { Register } from './features/auth/register/register';
 import { Home } from './features/home/home';
+import { Properties } from './features/properties/properties';
 
 /* IMPORT RUTES IN THIS SPACE - DOWN */
 // Default route
@@ -17,18 +18,20 @@ export const routes: Routes = [
     path: '',
     component: PublicLayout,
     children: [
-        { path: '', component: Home },
+        { path: '', component: Home, canActivate: [publicGuard] },
         { path: 'home', redirectTo: '', pathMatch: 'full' },
-        { path: 'login', component: Login, canActivate: [publicGuard] },
-        { path: 'register', component: Register, canActivate: [publicGuard] },
+        { path: 'properties', redirectTo: '/dashboard/properties', pathMatch: 'full' },
     ],
   },
   {
     path: 'dashboard',
     component: DashboardLayout,
     children: [
-      { path: '', component: DashboardLayout },
+      { path: '', component: DashboardLayout/*, canActivate: [authGuard]*/ },
       { path: 'home', redirectTo: '', pathMatch: 'full' },
+      { path: 'login', component: Login, canActivate: [publicGuard] },
+      { path: 'register', component: Register, canActivate: [publicGuard] },
+      { path: 'properties', component: Properties },
       { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.routes')
         .then(m => m.DASHBOARD_ROUTES)/*, canActivate: [authGuard]*/ },
     ],

@@ -7,7 +7,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
-import { PropertyDetail } from '../../shared/components/Property-detail/property-detail';
+import { PropertyDetail } from '../../shared/components/property-detail/property-detail';
 
 import { PropertiesList } from '../../shared/components/properties-list/properties-list';
 
