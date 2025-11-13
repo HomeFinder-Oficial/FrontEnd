@@ -4,7 +4,13 @@
       <app-capsule-button [isLoggedIn]="true"></app-capsule-button>
     </div>
     <div class="flex items-center gap-20 col-auto">
-      //
+        <div class="flex justify-end mb-4">
+            <app-search-input
+                variant="default"
+                placeholder="Buscar propiedades..."
+                (search)="onSearch($event)"
+            ></app-search-input>
+        </div>
     </div>
   </section>
   <section>
