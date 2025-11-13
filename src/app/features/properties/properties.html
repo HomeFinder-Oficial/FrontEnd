@@ -15,5 +15,19 @@
   </section>
   <section>
     <!-- <app-properties-list></app-properties-list> -->
+    <app-properties-list
+        [properties]="properties"
+        [initialRowsShown]="2"
+        [columnsPerRow]="3"
+        [showLoadMoreButton]="false"
+        [infiniteScroll]="false"
+        (propertyClick)="onPropertyClick($event)">
+    </app-properties-list>
+    @if(selectedProperty){
+        <app-property-detail
+            [property]="selectedProperty"
+            [(displayDetail)]="showDetail"
+        ></app-property-detail>
+    }
   </section>
 </main>
