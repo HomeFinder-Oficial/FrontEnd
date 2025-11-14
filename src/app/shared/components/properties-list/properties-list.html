@@ -1,22 +1,33 @@
-<p-virtualscroller (onLoad)="loadMoreProperties($event)">
-  <div class="grid">
-    @for (property of properties; track property.id) {
-      <div class="col-12 md:col-6 lg:col-3">
-        <app-property-card [property]="property"></app-property-card>
-      </div>
+<div class="container mx-auto px-4 py-6">
+  <div class="grid gap-6" [ngClass]="{
+      'grid-cols-2 sm:grid-cols-2': columnsPerRow === 2,
+      'grid-cols-3 sm:grid-cols-3': columnsPerRow === 3,
+      'grid-cols-4 sm:grid-cols-4': columnsPerRow === 4
+    }">
+    @for (property of visibleProperties; track property.id) {
+      <app-property-card
+        [property]="property"
+        (click)="onCardClick(property)"
+      >
+      </app-property-card>
     } @empty {
       <div class="p-4 text-center text-gray-500">
         No properties available
       </div>
     }
   </div>
+</div>
 
-  @if (isLoading) {
-    <div class="flex justify-content-center p-4">
-      <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
-    </div>
-  }
-</p-virtualscroller>
+@if (showLoadMoreButton && !allLoaded && visibleCount < properties.length) {<!-- isLoading -->
+  <div class="flex justify-center p-4 mt-8">
+    <button
+      (click)="loadMore()"
+      class="bg-primary-500 text-white font-semibold px-6 py-2 rounded-full hover:bg-primary-600 transition"
+    >
+      <i class="pi pi-chevron-down mr-2"></i> Cargar más propiedades
+    </button>
+  </div>
+}
 
 <!-- <p-virtualscroller (onLoad)="loadMoreProperties($event)">
 

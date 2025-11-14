@@ -1,11 +1,11 @@
-<div class="h-screen min-h-screen flex flex-col bg-violet-100">
-  <div class="w-72 bg-violet-50 shadow-lg flex flex-col">
+<div class="min-h-screen flex bg-violet-100">
+    <div class="w-72 bg-violet-50 shadow-lg flex flex-col">
         <div class="p-4">
             <app-sidebar></app-sidebar>
         </div>
     </div>
     <div class="flex-1 flex flex-col">
-        <main class="flex-fill flex-1 w-full p-6 bg-violet-100 overflow-auto">
+        <main class="flex-fill flex-1 w-full p-6 bg-violet-100 overflow-auto flex-grow">
             @if (isAdmin) {
                 <h2>Bienvenido al panel de <strong>Administrador</strong></h2>
             }

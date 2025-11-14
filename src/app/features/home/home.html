@@ -189,20 +189,11 @@
         <!-- Buscador -->
         <div class="w-full md:w-64">
           <span class="p-input-icon-left w-full">
-            <input
-              type="text"
-              pInputText
-              placeholder="Escribe su nombre"
-              [(ngModel)]="searchText"
-              name="search"
-              required
-              (input)="validateInput()"
-              [ngClass]="{
-                'border-gray-300': isValid,
-                'border-red-400 focus:border-red-400': !isValid
-              }"
-              class="w-full p-inputtext-sm border rounded-md py-2 px-4 focus:outline-none"
-            />
+            <app-search-input
+              variant="home"
+              placeholder="Buscar propiedades..."
+              (search)="onSearchChange($event)"
+            ></app-search-input>
           </span>
           <!-- Mensaje de error -->
           @if (!isValid) {
@@ -211,13 +202,14 @@
         </div>
       </div>
       <!-- PROPERTY CARDS CONTAINER -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-        <app-property-card
-          *ngFor="let property of filteredProperties"
-          [property]="property"
-          (propertyClick)="onPropertyClick(property)"
-        ></app-property-card>
-      </div>
+      <app-properties-list
+        [properties]="filteredProperties"
+        [initialRowsShown]="2"
+        [columnsPerRow]="3"
+        [showLoadMoreButton]="false"
+        [infiniteScroll]="false"
+        (propertyClick)="onPropertyClick($event)">
+      </app-properties-list>
 
       <app-property-detail
         *ngIf="selectedProperty"
