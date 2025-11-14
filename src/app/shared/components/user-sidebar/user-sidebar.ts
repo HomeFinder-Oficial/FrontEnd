@@ -38,7 +38,6 @@ export class UserSidebar {
 
 
   onKeyDown(event: KeyboardEvent): void {
-    // Lista de teclas prohibidas: punto, coma, guion/menos, e (notación científica)
     const invalidChars = ['.', ',', '-', '+', 'e', 'E'];
     
     if (invalidChars.includes(event.key)) {
@@ -50,8 +49,10 @@ export class UserSidebar {
     const ubicationInput: string = form.value.ubicationInput;
     const priceInput: number = form.value.priceInput;
     const squareMetersInput: number = form.value.squareMetersInput;
-    const minInput: number = form.value.minInput;
-    const maxInput: number = form.value.maxInput;
+    const minInputPrice: number = form.value.minInputPrice;
+    const maxInputPrice: number = form.value.maxInputPrice;
+    const minInputMeters: number = form.value.minInputMeters;
+    const maxInputMeters: number = form.value.maxInputMeters;
     const roomsInput: number = form.value.roomsInput;
     const bathroomsInput: number = form.value.bathroomsInput;
 
@@ -61,8 +62,10 @@ export class UserSidebar {
       ...form.value,
       priceInput,
       squareMetersInput,
-      minInput,
-      maxInput,
+      minInputPrice,
+      maxInputPrice,
+      minInputMeters,
+      maxInputMeters,
       roomsInput,
       bathroomsInput
     };
@@ -71,15 +74,12 @@ export class UserSidebar {
   }
 
   clearInput(control: any) {
-    // Limpiamos el modelo y marcamos el control como pristine/touched apropiadamente
     control.reset('');
   }
 
   resetAll(event?: Event) {
     event?.preventDefault();
-    // Resetea el formulario completo
     this.form?.resetForm();
-    // Asegura limpiar el array de ubicaciones seleccionadas
     this.selectedUbications = [];
   }
 }

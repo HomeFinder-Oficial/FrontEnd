@@ -50,7 +50,6 @@
       <li>
         <fieldset class="mt-3 ml-3">
           <div>
-            <!-- Usamos un array ligado a selectedUbications para que el input de texto se mantenga intacto -->
             <p-checkbox inputId="cali" name="ubicationOptions" value="Cali" class="scale-75" ngModel #selectedUbications="ngModel" />
             <label for="cali" class="text-xs"> Cali, Colombia </label>
           </div>
@@ -61,7 +60,6 @@
         </fieldset>
       </li>
       <hr class="mt-3.5 border-[#D9D9D9] w-full" />
-
       <li class="bg-white w-3xs h-[2.875rem] mt-3.5 rounded-3xl flex items-center">
         <p-iconfield class="w-full h-full flex items-center">
           <p-inputicon class="pi pi-money-bill ml-2" />
@@ -86,6 +84,40 @@
           />
         </p-iconfield>
       </li>
+      <div class="flex gap-3.5 mt-3.5">
+        <li class="bg-white w-[7.438rem] h-8 rounded-3xl flex items-center">
+          <p-iconfield class="w-full h-full flex items-center">
+            <input
+              type="number"
+              name="minInputPrice"
+              min="0"
+              step="1"
+              class="h-full max-w-24 ml-2 text-sm bg-transparent focus:outline-none"
+              pInputText
+              placeholder="Min"
+              (keydown)="onKeyDown($event)"
+              ngModel
+              #minInputPrice="ngModel"
+            />
+          </p-iconfield>
+        </li>
+        <li class="bg-white w-[7.438rem] h-8 rounded-3xl flex items-center">
+          <p-iconfield class="w-full h-full flex items-center">
+            <input
+              type="number"
+              min="0"
+              step="1"
+              name="maxInputPrice"
+              class="h-full max-w-24 ml-2 text-sm bg-transparent focus:outline-none"
+              pInputText
+              placeholder="Max"
+              (keydown)="onKeyDown($event)"
+              ngModel
+              #maxInputPrice="ngModel"
+            />
+          </p-iconfield>
+        </li>
+      </div>
       <hr class="mt-3.5 border-[#D9D9D9] w-full" />
       <li class="bg-white w-3xs h-[2.875rem] mt-3.5 rounded-3xl flex items-center">
         <p-iconfield class="w-full h-full flex items-center">
@@ -110,13 +142,12 @@
           />
         </p-iconfield>
       </li>
-
       <div class="flex gap-3.5 mt-3.5">
         <li class="bg-white w-[7.438rem] h-8 rounded-3xl flex items-center">
           <p-iconfield class="w-full h-full flex items-center">
             <input
               type="number"
-              name="minInput"
+              name="minInputMeters"
               min="0"
               step="1"
               class="h-full max-w-24 ml-2 text-sm bg-transparent focus:outline-none"
@@ -124,7 +155,7 @@
               placeholder="Min"
               (keydown)="onKeyDown($event)"
               ngModel
-              #minInput="ngModel"
+              #minInputMeters="ngModel"
             />
           </p-iconfield>
         </li>
@@ -134,13 +165,13 @@
               type="number"
               min="0"
               step="1"
-              name="maxInput"
+              name="maxInputMeters"
               class="h-full max-w-24 ml-2 text-sm bg-transparent focus:outline-none"
               pInputText
               placeholder="Max"
               (keydown)="onKeyDown($event)"
               ngModel
-              #maxInput="ngModel"
+              #maxInputMeters="ngModel"
             />
           </p-iconfield>
         </li>
@@ -199,7 +230,6 @@
     </ul>
   </form>
 
-  <!-- Footer con logo -->
   <div class="mt-9">
     <div class="flex items-center justify-center">
       <div class="flex items-center space-x-2">
