@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,14 +10,27 @@ import { CommonModule } from '@angular/common';
 
 export class CapsuleButton {
   @Input() isLoggedIn = false;
+
+  @Output() selectionChange = new EventEmitter<string | null>();
   
   buttons = [
-    { label: 'Option 1', active: false },
-    { label: 'Option 2', active: false },
-    { label: 'Option 3', active: false },
+    { label: 'Comprar', active: false },
+    { label: 'Alquilar', active: false },
+    { label: 'Mis favoritos', active: false },
   ];
 
   toggleActive(index: number) {
-    this.buttons[index].active = !this.buttons[index].active;
+    const selected = this.buttons[index].active;
+
+    // If the selected one is already active → deselect it
+    if (selected) {
+      this.buttons[index].active = false;
+      return;
+    }
+
+    // Otherwise select it and deactivate all others
+    this.buttons.forEach((btn, i) => {
+      btn.active = i === index;
+    });
   }
 }

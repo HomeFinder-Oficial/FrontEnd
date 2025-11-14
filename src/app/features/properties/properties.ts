@@ -15,7 +15,8 @@ import { SearchInput } from '../../shared/components/search-input/search-input';
 export class Properties {
   selectedProperty: any = null;
   showDetail = false;
-  
+  userLoggedIn = false; //true
+
   properties = [
     {
       value: '$2,400/month',
