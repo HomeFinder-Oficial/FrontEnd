@@ -5,15 +5,11 @@
       <input
         type="text"
         pInputText
-        placeholder="placeholder"
+        [placeholder]="placeholder"
         [(ngModel)]="value"
         name="search"
         required
         (input)="onSearch(value)"
-        [ngClass]="{
-          'border-gray-300': isEmpty,
-          'border-red-400 focus:border-red-400': !isEmpty
-        }"
         class="flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400"
       />
     </div>
@@ -25,15 +21,11 @@
       <input
         type="text"
         pInputText
-        placeholder="placeholder"
+        [placeholder]="placeholder"
         [(ngModel)]="value"
         name="search"
         required
         (input)="onSearch(value)"
-        [ngClass]="{
-          'border-gray-300': isEmpty,
-          'border-red-400 focus:border-red-400': !isEmpty
-        }"
         class="flex-1 bg-transparent outline-none text-gray-600 placeholder-gray-400"
       />
     </div>

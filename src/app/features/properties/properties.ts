@@ -16,6 +16,8 @@ export class Properties {
   selectedProperty: any = null;
   showDetail = false;
   userLoggedIn = false; //true
+  searchText: string = '';
+  isValid: boolean = true;
 
   properties = [
     {
@@ -86,13 +88,21 @@ export class Properties {
     }
   ];
 
-  filteredProperties = [...this.properties];
+  validateInput() {
+    this.isValid = this.searchText.trim().length > 0;
+  }
 
-  onSearch(query: string) {
-    const term = query.toLowerCase().trim();
-    this.filteredProperties = this.properties.filter(property =>
-      property.name.toLowerCase().includes(term) ||
-      property.address.toLowerCase().includes(term)
+  onSearchChange(value: string) {
+    this.searchText = value;
+    this.validateInput(); // keep validation working
+  }
+
+  get filteredProperties() {
+    const term = this.searchText.toLowerCase().trim();
+    if (!term) return this.properties; // Muestra todas si no se busca nada
+
+    return this.properties.filter((p) =>
+      p.name.toLowerCase().includes(term)
     );
   }
 

@@ -35,8 +35,8 @@ export class Home {
   selectedLocation: string = '';
   propertyType: string | null = 'rent';
   ownerEmail: string = ''; 
-  searchText: string = ''; 
-  isValid: boolean = true; 
+  searchText: string = '';
+  isValid: boolean = true;
   isFavorite: boolean = false; 
   displayDialog: boolean = false;
   selectedProperty: any = null;

@@ -17,8 +17,6 @@ export class SearchInput {
   // Placeholder text
   @Input() placeholder = 'Buscar...';
 
-  @Input() isEmpty: boolean = true;
-
   // Emit search value
   @Output() search = new EventEmitter<string>();
 

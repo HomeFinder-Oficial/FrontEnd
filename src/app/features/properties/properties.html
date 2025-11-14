@@ -4,30 +4,30 @@
       <app-capsule-button [isLoggedIn]="userLoggedIn"></app-capsule-button>
     </div>
     <div class="flex items-center gap-20 col-auto">
-        <div class="flex justify-end mb-4">
-            <app-search-input
-              variant="default"
-              placeholder="Buscar propiedades..."
-              (search)="onSearch($event)"
-            ></app-search-input>
-        </div>
+      <div class="flex justify-end mb-4">
+        <app-search-input
+          variant="default"
+          placeholder="Buscar propiedades..."
+          (search)="onSearchChange($event)"
+        ></app-search-input>
+      </div>
     </div>
   </section>
   <section>
     <!-- <app-properties-list></app-properties-list> -->
     <app-properties-list
-        [properties]="properties"
-        [initialRowsShown]="2"
-        [columnsPerRow]="3"
-        [showLoadMoreButton]="false"
-        [infiniteScroll]="false"
-        (propertyClick)="onPropertyClick($event)">
+      [properties]="filteredProperties"
+      [initialRowsShown]="2"
+      [columnsPerRow]="4"
+      [showLoadMoreButton]="false"
+      [infiniteScroll]="false"
+      (propertyClick)="onPropertyClick($event)">
     </app-properties-list>
     @if(selectedProperty){
-        <app-property-detail
-            [property]="selectedProperty"
-            [(displayDetail)]="showDetail"
-        ></app-property-detail>
+      <app-property-detail
+        [property]="selectedProperty"
+        [(displayDetail)]="showDetail"
+      ></app-property-detail>
     }
   </section>
 </main>
