@@ -8,7 +8,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { PropertyDetail } from '../../shared/components/property-detail/property-detail';
-
+import { SearchInput } from '../../shared/components/search-input/search-input';
 import { PropertiesList } from '../../shared/components/properties-list/properties-list';
 
 @Component({
@@ -23,6 +23,7 @@ import { PropertiesList } from '../../shared/components/properties-list/properti
     ToastModule, 
     ConfirmDialogModule, 
     PropertyDetail,
+    SearchInput,
     PropertiesList
   ],
   providers: [MessageService, ConfirmationService],
@@ -163,10 +164,30 @@ homeProperties = [
     this.isValid = this.searchText.trim().length > 0;
   }
 
+  onSearchChange(value: string) {
+    this.searchText = value;
+    this.validateInput(); // keep validation working
+  }
+
+  get filteredProperties() {
+    const term = this.searchText.toLowerCase().trim();
+    if (!term) return this.homeProperties; // Muestra todas si no se busca nada
+
+    return this.homeProperties.filter((p) =>
+      p.name.toLowerCase().includes(term)
+    );
+  }
+
   onPropertyClick(property: any) {
     this.selectedProperty = property;
     this.showDetail = true;
     console.log('Propiedad seleccionada:', property);
+  }
+
+  // Método para cerrar el detalle desde PropertyDetail
+  closePropertyDetail() {
+    this.showDetail = false;
+    this.selectedProperty = null;
   }
 
   subscribeOwner() {
@@ -202,21 +223,5 @@ homeProperties = [
     });
 
     this.ownerEmail = ''; 
-  }
-
-get filteredProperties() {
-  const term = this.searchText.toLowerCase().trim();
-  if (!term) return this.homeProperties; // Muestra todas si no se busca nada
-
-  return this.homeProperties.filter((p) =>
-    p.name.toLowerCase().includes(term)
-  );
-}
-
-
-  // Método para cerrar el detalle desde PropertyDetail
-  closePropertyDetail() {
-    this.showDetail = false;
-    this.selectedProperty = null;
   }
 }
