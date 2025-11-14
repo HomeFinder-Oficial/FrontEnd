@@ -4,7 +4,7 @@
       'grid-cols-3 sm:grid-cols-3': columnsPerRow === 3,
       'grid-cols-4 sm:grid-cols-4': columnsPerRow === 4
     }">
-    @for (property of properties; track property.id) {
+    @for (property of visibleProperties; track property.id) {
       <app-property-card
         [property]="property"
         (click)="onCardClick(property)"
@@ -19,12 +19,12 @@
 </div>
 
 @if (showLoadMoreButton && !allLoaded && visibleCount < properties.length) {<!-- isLoading -->
-  <div class="flex justify-content-center p-4 mt-8">
+  <div class="flex justify-center p-4 mt-8">
     <button
       (click)="loadMore()"
       class="bg-primary-500 text-white font-semibold px-6 py-2 rounded-full hover:bg-primary-600 transition"
     >
-      <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i> Cargar más propiedades
+      <i class="pi pi-chevron-down mr-2"></i> Cargar más propiedades
     </button>
   </div>
 }

@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, inject, HostListener, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit, OnChanges, SimpleChanges, inject, HostListener, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PropertiesService } from '../../../core/services/properties/properties.service';
@@ -15,7 +15,7 @@ import { PropertyCard } from '../property-card/property-card';
   styleUrl: './properties-list.css',
 })
 
-export class PropertiesList implements OnInit {
+export class PropertiesList implements OnInit, OnChanges {
   //NEW: Personalizable by Inputs
   @Input() properties: any[] = [];
   @Input() selfFetch = false;// If true, component fetches its own data
@@ -48,6 +48,14 @@ export class PropertiesList implements OnInit {
       this.fetchInitialProperties(); // Get from API
     } else {
       this.updateVisibleProperties(); // Use input data
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['properties']) {
+      // Reset pagination whenever the input list changes (e.g. search)
+      this.visibleCount = this.initialRowsShown * this.columnsPerRow;
+      this.updateVisibleProperties();
     }
   }
 
