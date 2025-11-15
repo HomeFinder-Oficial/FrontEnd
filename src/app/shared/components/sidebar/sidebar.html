@@ -1,5 +1,17 @@
-@if (authService.getCurrentUser()?.rol?.nombre === appRoles.ADMIN) {
-  <app-admin-sidebar></app-admin-sidebar>
-} @else {
-  <app-user-sidebar></app-user-sidebar>
+@switch (userRole) {  <!-- TASK: authService.getCurrentUser().getRole() -->
+
+  @case (appRoles.ADMIN) {
+    <app-admin-sidebar />
+  }
+
+  @case (appRoles.USER) {
+    <app-user-sidebar />
+  }
+
+  @default {
+    <div class="flex flex-col items-center text-center">
+      <p class="p-4 text-red-500">Error: No se pudo cargar el menú.</p>
+    </div>
+  }
+
 }

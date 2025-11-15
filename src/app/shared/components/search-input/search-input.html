@@ -1,0 +1,33 @@
+@switch (variant) {
+  @case ('home') {
+    <div class="flex items-center bg-white rounded-full shadow-md px-4 py-2 w-2/3 max-w-lg">
+      <i class="pi pi-search text-violet-600 mr-2"></i>
+      <input
+        type="text"
+        pInputText
+        [placeholder]="placeholder"
+        [(ngModel)]="value"
+        name="search"
+        required
+        (input)="onSearch(value)"
+        class="flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400"
+      />
+    </div>
+  }
+
+  @default {
+    <div class="flex items-center bg-violet-50 rounded-md shadow-sm px-3 py-2 w-full max-w-md">
+      <i class="pi pi-search text-violet-500 mr-2"></i>
+      <input
+        type="text"
+        pInputText
+        [placeholder]="placeholder"
+        [(ngModel)]="value"
+        name="search"
+        required
+        (input)="onSearch(value)"
+        class="flex-1 bg-transparent outline-none text-gray-600 placeholder-gray-400"
+      />
+    </div>
+  }
+}

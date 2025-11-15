@@ -1,0 +1,33 @@
+<main class="w-full min-h-screen p-10">
+  <section class="flex justify-between">
+    <div class="flex items-center gap-20 col-auto">
+      <app-capsule-button [isLoggedIn]="userLoggedIn"></app-capsule-button>
+    </div>
+    <div class="flex items-center gap-20 col-auto">
+      <div class="flex justify-end mb-4">
+        <app-search-input
+          variant="default"
+          placeholder="Buscar propiedades..."
+          (search)="onSearchChange($event)"
+        ></app-search-input>
+      </div>
+    </div>
+  </section>
+  <section>
+    <!-- <app-properties-list></app-properties-list> -->
+    <app-properties-list
+      [properties]="filteredProperties"
+      [initialRowsShown]="2"
+      [columnsPerRow]="4"
+      [showLoadMoreButton]="true"
+      [infiniteScroll]="false"
+      (propertyClick)="onPropertyClick($event)">
+    </app-properties-list>
+    @if(selectedProperty){
+      <app-property-detail
+        [property]="selectedProperty"
+        [(displayDetail)]="showDetail"
+      ></app-property-detail>
+    }
+  </section>
+</main>

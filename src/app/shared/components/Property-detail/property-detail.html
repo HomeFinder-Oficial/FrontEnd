@@ -1,114 +1,294 @@
-<div class="max-w-md mx-auto rounded-xl shadow-lg bg-white overflow-hidden border border-gray-200">
-  <!-- Header: título y dirección -->
-  <div class="p-5 border-b border-gray-100">
-    <h2 class="text-2xl font-bold text-gray-900 mb-1">{{ title() }}</h2>
-    <p class="text-gray-500 text-sm">{{ address() }}</p>
-  </div>
-
-  <!-- Tabs simulados -->
-  <div class="flex border-b border-gray-100">
-    <button
-      class="flex-1 text-center py-3 text-blue-600 font-semibold border-b-2 border-blue-600 transition-all"
-    >
-      General
-    </button>
-    <button
-      class="flex-1 text-center py-3 text-gray-400 hover:text-gray-600 transition-colors"
-      (click)="toggleReviews()"
-    >
-      Reseñas
-    </button>
-    <button class="flex-1 text-center py-3 text-gray-400 hover:text-gray-600 transition-colors">
-      Acerca
-    </button>
-  </div>
-
-  <!-- Lista de reseñas -->
-  <div *ngIf="showReviews" class="mt-4 space-y-4">
-    <div *ngFor="let review of reviews" class="p-4 bg-white rounded-lg shadow-md">
-      <div class="flex items-center mb-2">
-        <!-- Estrellas -->
-        <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
-          <i
-            class="pi"
-            [ngClass]="i < review.rating ? 'pi-star text-yellow-400' : 'pi-star-o text-gray-300'"
-          ></i>
-        </ng-container>
-        <span class="ml-2 text-gray-600 font-semibold">{{ review.user }}</span>
-      </div>
-      <p class="text-gray-700">{{ review.comment }}</p>
+<!-- DETALLE DE PROPIEDAD -->
+<p-drawer
+  [(visible)]="displayDetail"
+  position="right"
+  [modal]="false"
+  [closeOnEscape]="true"
+  [showCloseIcon]="false"
+  [style]="{ width: '40vw', maxWidth: '900px', height: '100vh' }"
+  styleClass="property-detail-drawer"
+  (onHide)="closeDetail()"
+>
+  <!-- CABECERA -->
+  <ng-template pTemplate="header">
+    <div class="flex justify-between items-center w-full">
+      <h2 class="text-xl font-semibold text-gray-800">{{ property.name }}</h2>
+      <p-button
+        icon="pi pi-times"
+        [rounded]="true"
+        [text]="true"
+        severity="secondary"
+        (onClick)="closeDetail()"
+        [style]="{
+          background: 'white',
+          'box-shadow': '0 2px 6px rgba(0,0,0,0.15)'
+        }"
+      ></p-button>
     </div>
-  </div>
+  </ng-template>
 
-  <!-- Contenido principal -->
-  <div class="p-5 space-y-6">
-    <!-- Descripción -->
-    <p class="text-gray-700 text-sm leading-relaxed">
-      {{ description() }}
-    </p>
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="property-content overflow-y-auto pb-6">
+    <!-- Imagen -->
+    <div class="property-image-wrapper relative">
+      <img
+        [src]="property.image"
+        [alt]="property.name"
+        class="w-full h-72 object-cover rounded-xl"
+      />
 
-    <!-- Descripción del inmueble -->
-    <div class="mb-6 p-4 border rounded-lg shadow-sm bg-white">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-2">Descripción del Inmueble</h2>
-      <p class="text-gray-700">
-        Esta hermosa propiedad cuenta con espacios amplios y luminosos, diseñada para ofrecer
-        comodidad y estilo. Ubicada en una zona tranquila y accesible, ideal para familias que
-        buscan calidad de vida y cercanía a servicios.
+      <!-- Favorito -->
+      <p-button
+        [icon]="property.isFavorite ? 'pi pi-heart-fill' : 'pi pi-heart'"
+        [rounded]="true"
+        [text]="true"
+        [severity]="property.isFavorite ? 'danger' : 'secondary'"
+        (onClick)="toggleFavorite()"
+        [style]="{
+          background: 'white',
+          position: 'absolute',
+          top: '1rem',
+          left: '1rem',
+          'box-shadow': '0 2px 8px rgba(0,0,0,0.15)'
+        }"
+      ></p-button>
+
+      <!-- Popular -->
+      @if (property.isPopular) {
+      <span
+        class="absolute bottom-3 left-3 bg-indigo-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow"
+      >
+        POPULAR
+      </span>
+      }
+    </div>
+
+    <!-- Información -->
+    <div class="p-5 bg-gray-50 rounded-xl mt-4 shadow-sm">
+      <h2 class="text-3xl font-bold text-blue-600">{{ property.value }}</h2>
+      <h3 class="text-xl font-semibold text-gray-800">{{ property.name }}</h3>
+      <p class="flex items-center gap-2 text-gray-600">
+        <i class="pi pi-map-marker text-blue-500"></i> {{ property.address }}
       </p>
-    </div>
 
-    <!-- Características del inmueble -->
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-      <div
-        class="flex flex-col items-center bg-gray-4 p-4 rounded-lg shadow hover:shadow-lg transition duration-300"
-      >
-        <i class="pi pi-bed text-indigo-400 text-5xl mb-3"></i>
-        <span class="text-gray-800 font-semibold text-sm">{{ bedrooms() }} Dormitorios</span>
+      <!-- Tabs -->
+      <div class="flex justify-center gap-10 border-b border-gray-200 mt-5 mb-6">
+        <button
+          class="tab-btn"
+          [class.active]="activeTab === 'general'"
+          (click)="activeTab = 'general'"
+        >
+          General
+        </button>
+        <button
+          class="tab-btn"
+          [class.active]="activeTab === 'reviews'"
+          (click)="activeTab = 'reviews'"
+        >
+          Reseñas
+        </button>
+        <button
+          class="tab-btn"
+          [class.active]="activeTab === 'about'"
+          (click)="activeTab = 'about'"
+        >
+          Acerca
+        </button>
       </div>
 
-      <div
-        class="flex flex-col items-center bg-gray-50 p-4 rounded-lg shadow hover:shadow-lg transition duration-300"
-      >
-        <i class="pi pi-bath text-indigo-400 text-4xl mb-2"></i>
-        <span class="text-gray-800 font-semibold text-sm">{{ bathrooms() }} Baños</span>
+      <!-- TAB GENERAL -->
+      @if (activeTab === 'general') {
+      <div>
+        <h4 class="font-semibold text-lg mb-2 text-gray-800">Descripción:</h4>
+        <p class="text-gray-600 leading-relaxed mb-5">{{ description }}</p>
+
+        <div
+          class="flex justify-around text-center py-4 bg-white rounded-xl shadow-sm"
+        >
+          <div>
+            <i class="pi pi-home text-3xl text-blue-500 mb-1"></i>
+            <p class="font-bold text-lg m-0">{{ property.rooms }}</p>
+            <p class="text-sm text-gray-600">Habitaciones</p>
+          </div>
+          <div>
+            <i class="pi pi-inbox text-3xl text-blue-500 mb-1"></i>
+            <p class="font-bold text-lg m-0">{{ property.baths }}</p>
+            <p class="text-sm text-gray-600">Baños</p>
+          </div>
+          <div>
+            <i class="pi pi-th-large text-3xl text-blue-500 mb-1"></i>
+            <p class="font-bold text-lg m-0">{{ property.area }}</p>
+            <p class="text-sm text-gray-600">m²</p>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <p-button
+            [label]="contactButtonText"
+            icon="pi pi-send"
+            styleClass="w-full"
+            [raised]="true"
+            severity="info"
+            (onClick)="contact()"
+          ></p-button>
+        </div>
       </div>
+      }
 
-      <div
-        class="flex flex-col items-center bg-gray-50 p-4 rounded-lg shadow hover:shadow-lg transition duration-300"
-      >
-        <i class="text-indigo-400 text-4xl mb-2"></i>
-        <span class="text-gray-800 font-semibold text-sm">{{ area() }} Área</span>
+      <!-- TAB RESEÑAS -->
+      @if (activeTab === 'reviews') {
+      <div>
+        <div class="flex justify-between mb-4 items-center">
+          <h4 class="font-semibold text-gray-800">Opiniones de usuarios</h4>
+          <p-button
+            [label]="showReviews ? 'Ocultar' : 'Mostrar'"
+            [icon]="showReviews ? 'pi pi-eye-slash' : 'pi pi-eye'"
+            (onClick)="toggleReviews()"
+            severity="info"
+          ></p-button>
+        </div>
+
+        @if (showReviews) {
+        <div class="space-y-3">
+          @for (review of reviews; track review.user) {
+          <p-card class="shadow-sm rounded-lg">
+            <div class="flex justify-between items-start mb-2">
+              <div class="flex gap-3 items-center">
+                <div
+                  class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white flex items-center justify-center font-bold"
+                >
+                  {{ review.user.charAt(0).toUpperCase() }}
+                </div>
+                <div>
+                  <p class="font-semibold text-gray-800 m-0">
+                    {{ review.user }}
+                  </p>
+                  <div class="flex gap-1">
+                    @for (star of getStarsArray(review.rating); track $index) {
+                    <i
+                      class="pi"
+                      [class.pi-star-fill]="star"
+                      [class.pi-star]="!star"
+                      style="color: #fbbf24"
+                    ></i>
+                    }
+                  </div>
+                </div>
+              </div>
+              <span class="text-sm font-semibold text-blue-600"
+                >{{ review.rating }}/5</span
+              >
+            </div>
+            <p class="text-gray-600 ml-12">{{ review.comment }}</p>
+          </p-card>
+          }
+        </div>
+        } @else {
+        <div
+          class="text-center p-6 bg-gray-100 rounded-lg border border-gray-200"
+        >
+          <i class="pi pi-comment text-3xl text-gray-400 mb-2"></i>
+          <p class="text-gray-600">
+            Haz clic en “Mostrar” para ver las opiniones de los usuarios.
+          </p>
+        </div>
+        }
       </div>
-    </div>
+      }
 
-    <!-- Botón de contacto -->
-    <button
-      pButton
-      label="{{ contactButtonText() }}"
-      icon="pi pi-envelope"
-      class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-md transition-all"
-      (click)="contact()"
-    ></button>
+      <!-- TAB ACERCA -->
+      @if (activeTab === 'about') {
+      <div>
+        <h4 class="font-semibold mb-2 text-gray-800">{{ footerTitle }}</h4>
+        <p class="flex items-center gap-2 text-gray-600">
+          <i class="pi pi-map-marker text-blue-500"></i>
+          {{ footerAddress || property.address }}
+        </p>
 
-    <!-- Mapa de Google -->
-    <div class="w-full h-60 rounded-lg overflow-hidden shadow-md">
-      <iframe
-        width="100%"
-        height="100%"
-        class="rounded-lg"
-        [src]="googleMapUrl()"
-        style="border: 0"
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      >
-      </iframe>
+        <iframe
+          [src]="googleMapUrl()"
+          width="100%"
+          height="300"
+          style="border: 0; border-radius: 12px"
+          allowfullscreen
+          loading="lazy"
+          class="mt-3"
+        ></iframe>
+      </div>
+      }
     </div>
   </div>
+</p-drawer>
 
-  <!-- Footer con información adicional -->
-  <div class="bg-gray-50 px-5 py-4 border-t border-gray-100 rounded-b-lg">
-    <h3 class="font-semibold text-gray-900">{{ footerTitle() }}</h3>
-    <p class="text-gray-500 text-sm">{{ footerAddress() }}</p>
+<!-- DIALOGO DE CONTACTO -->
+<p-dialog
+  header="Contactar con {{ property.name }}"
+  [(visible)]="displayContactForm"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+  [style]="{ width: '32vw', maxWidth: '480px' }"
+  [contentStyle]="{
+    'border-radius': '16px',
+    background: 'linear-gradient(180deg, #ffffff 0%, #f9fafb 100%)'
+  }"
+  styleClass="contact-dialog shadow-xl"
+  (onHide)="closeContactForm()"
+>
+  <div class="p-fluid space-y-4 text-gray-700">
+    <!-- Nombre -->
+    <div class="flex flex-col">
+      <label for="name" class="font-medium text-gray-600 mb-1">Tu nombre</label>
+      <input
+        id="name"
+        type="text"
+        pInputText
+        placeholder="Escribe tu nombre"
+        class="rounded-lg border-gray-300 focus:border-sky-400 focus:ring-sky-300 transition-all duration-200"
+      />
+    </div>
+
+    <!-- Correo -->
+    <div class="flex flex-col">
+      <label for="email" class="font-medium text-gray-600 mb-1"
+        >Correo electrónico</label
+      >
+      <input
+        id="email"
+        type="email"
+        pInputText
+        placeholder="ejemplo@correo.com"
+        class="rounded-lg border-gray-300 focus:border-sky-400 focus:ring-sky-300 transition-all duration-200"
+      />
+    </div>
+
+    <!-- Mensaje -->
+    <div class="flex flex-col">
+      <label for="message" class="font-medium text-gray-600 mb-1">Mensaje</label>
+      <textarea
+        id="message"
+        rows="4"
+        pInputTextarea
+        placeholder="Escribe tu mensaje..."
+        class="rounded-lg border-gray-300 focus:border-sky-400 focus:ring-sky-300 transition-all duration-200 resize-none"
+      ></textarea>
+    </div>
+
+    <!-- Botones -->
+    <div class="flex justify-end gap-3 mt-6">
+      <p-button
+        label="Cancelar"
+        severity="primary"
+        (onClick)="closeContactForm()"
+        styleClass="p-button-rounded bg-gradient-to-r text-white border-none hover:from-sky-600 hover:to-blue-700 shadow-md"
+      ></p-button>
+
+      <p-button
+        label="Enviar"
+        styleClass="p-button-rounded bg-gradient-to-r from-sky-500 to-blue-600 text-white border-none hover:from-sky-600 hover:to-blue-700 shadow-md"
+        (onClick)="closeContactForm()"
+      ></p-button>
+    </div>
   </div>
-</div>
+</p-dialog>
