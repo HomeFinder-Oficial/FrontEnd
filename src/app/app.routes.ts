@@ -28,7 +28,7 @@ export const routes: Routes = [
     path: '',
     component: AuthLayout,
     children: [
-      { path: '', component: DashboardLayout/*, canActivate: [authGuard]*/ },
+      { path: '', component: AuthLayout/*, canActivate: [authGuard]*/ },
       { path: 'login', component: Login, canActivate: [publicGuard] },
       { path: 'register', component: Register, canActivate: [publicGuard] }
     ],
@@ -37,10 +37,9 @@ export const routes: Routes = [
     path: 'dashboard',
     component: DashboardLayout,
     children: [
-      { path: '', component: DashboardLayout/*, canActivate: [authGuard]*/ },
       { path: 'home', redirectTo: '', pathMatch: 'full' },
       { path: 'properties', component: Properties },
-      { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.routes')
+      { path: '', loadChildren: () => import('./features/dashboard/dashboard.routes')
         .then(m => m.DASHBOARD_ROUTES)/*, canActivate: [authGuard]*/ }
     ],
   },
