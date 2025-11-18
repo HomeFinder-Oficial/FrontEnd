@@ -1,44 +1,241 @@
-<div class="flex flex-col items-center text-center">
-    <div class="w-24 h-24 bg-violet-600 rounded-full flex items-center justify-center shrink-0 mb-3">
-        <img
-            [src]="userInfo.avatar"
-            [alt]="userInfo.name"
-            class="w-full h-full rounded-full object-cover pt-2"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
-        />
-        <span class="text-white font-semibold text-2xl hidden">
-            {{ userInfo.name.charAt(0) }}
-        </span>
+<div class="h-full flex flex-col">
+  <!-- User Info -->
+  <div class="flex flex-col items-center text-center mb-3">
+    <div
+      class="w-24 h-24 bg-violet-600 rounded-full flex items-center justify-center shrink-0 mb-3"
+    >
+      <img
+        [src]="userInfo.avatar"
+        [alt]="userInfo.name"
+        class="w-full h-full rounded-full object-cover pt-2"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+      />
+      <span class="text-white font-semibold text-2xl hidden">
+        {{ userInfo.name.charAt(0) }}
+      </span>
     </div>
     <div class="text-center">
-          <h3 class="font-semibold text-gray-900 truncate">{{ userInfo.name }}</h3>
-          <p class="text-sm text-gray-500 truncate">{{ userInfo.role }}</p>
+      <h3 class="font-semibold text-gray-900 truncate">{{ userInfo.name }}</h3>
+      <p class="text-sm text-gray-500 truncate">{{ userInfo.role }}</p>
     </div>
-</div>
+  </div>
+  <div class="flex items-center gap-36">
+    <span class="text-base font-bold">Filtrar</span>
+    <p-button label="Limpiar todo" variant="text" class="[&>button]:!p-0 [&>button]:!h-auto [&>button]:!w-auto [&>button]:text-xs [&>button]:font-bold" (onClick)="resetAll()"/>
+  </div>
 
-<nav class="flex-1 p-4 space-y-2 px-6">
-    @for (item of menuItems; track item.route) {
-    <div class="group">
-    <a
-        [routerLink]="item.route"
-        [class]="getMenuItemClasses(item)"
-        class="flex items-center space-x-3 px-3 py-2  w-60 h-11 rounded-lg text-sm text-stone-800 font-medium transition-colors duration-200 hover:bg-gray-50"
-        (click)="setActiveItem(item)"
-    >
-        <i [class]="item.icon" class="text-lg shrink-0"></i>
-        <span class="truncate">{{ item.label }}</span>
-        <i class="pi pi-angle-right ml-auto"></i>
-    </a>
-    </div>
-    }
-</nav>
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <hr class="mt-3.5 border-[#D9D9D9] w-full" />
+    <ul class="mt-3.5">
+      <li class="bg-white w-3xs h-[2.875rem] mt-3.5 rounded-3xl flex items-center">
+        <p-iconfield class="w-full h-full flex items-center">
+          <p-inputicon class="pi pi-search ml-2" />
+          <input
+            type="text"
+            name="ubicationInput"
+            class="h-full ml-12 text-sm bg-transparent focus:outline-none"
+            pInputText
+            placeholder="Ubicación"
+            ngModel
+            #ubicationInput="ngModel"
+          />
+          <p-button
+            severity="secondary"
+            class="[&>button]:rounded-4xl [&>button]:size-7 ml-1"
+            icon="pi pi-times text-sm"
+            (onClick)="clearInput(ubicationInput)"
+          />
+        </p-iconfield>
+      </li>
+      <li>
+        <fieldset class="mt-3 ml-3">
+          <div>
+            <p-checkbox inputId="cali" name="ubicationOptions" value="Cali" class="scale-75" ngModel #selectedUbications="ngModel" />
+            <label for="cali" class="text-xs"> Cali, Colombia </label>
+          </div>
+          <div>
+            <p-checkbox inputId="tulua" name="ubicationOptions" value="Tulua" class="scale-75" ngModel #selectedUbications="ngModel" />
+            <label for="tulua" class="text-xs"> Tulua, Colombia </label>
+          </div>
+        </fieldset>
+      </li>
+      <hr class="mt-3.5 border-[#D9D9D9] w-full" />
+      <li class="bg-white w-3xs h-[2.875rem] mt-3.5 rounded-3xl flex items-center">
+        <p-iconfield class="w-full h-full flex items-center">
+          <p-inputicon class="pi pi-money-bill ml-2" />
+          <input
+            type="number"
+            min="0"
+            name="priceInput"
+            step="1"
+            class="h-full ml-12 text-sm bg-transparent focus:outline-none"
+            pInputText
+            placeholder="Precio"
+            (keydown)="onKeyDown($event)"
+            ngModel
+            #priceInput="ngModel"
+          />
+          <p-button
+            severity="secondary"
+            class="[&>button]:rounded-4xl [&>button]:size-7 ml-1"
+            icon="pi pi-times text-sm"
+            (onClick)="clearInput(priceInput)"
+            
+          />
+        </p-iconfield>
+      </li>
+      <div class="flex gap-3.5 mt-3.5">
+        <li class="bg-white w-[7.438rem] h-8 rounded-3xl flex items-center">
+          <p-iconfield class="w-full h-full flex items-center">
+            <input
+              type="number"
+              name="minInputPrice"
+              min="0"
+              step="1"
+              class="h-full max-w-24 ml-2 text-sm bg-transparent focus:outline-none"
+              pInputText
+              placeholder="Min"
+              (keydown)="onKeyDown($event)"
+              ngModel
+              #minInputPrice="ngModel"
+            />
+          </p-iconfield>
+        </li>
+        <li class="bg-white w-[7.438rem] h-8 rounded-3xl flex items-center">
+          <p-iconfield class="w-full h-full flex items-center">
+            <input
+              type="number"
+              min="0"
+              step="1"
+              name="maxInputPrice"
+              class="h-full max-w-24 ml-2 text-sm bg-transparent focus:outline-none"
+              pInputText
+              placeholder="Max"
+              (keydown)="onKeyDown($event)"
+              ngModel
+              #maxInputPrice="ngModel"
+            />
+          </p-iconfield>
+        </li>
+      </div>
+      <hr class="mt-3.5 border-[#D9D9D9] w-full" />
+      <li class="bg-white w-3xs h-[2.875rem] mt-3.5 rounded-3xl flex items-center">
+        <p-iconfield class="w-full h-full flex items-center">
+          <p-inputicon class="pi pi-building ml-2" />
+          <input
+            type="number"
+            name="squareMetersInput"
+            min="0"
+            step="1"
+            class="h-full ml-12 text-sm bg-transparent focus:outline-none"
+            pInputText
+            placeholder="Metros Cuadrados"
+            (keydown)="onKeyDown($event)"
+            ngModel
+            #squareMetersInput="ngModel"
+          />
+          <p-button
+            severity="secondary"
+            class="[&>button]:rounded-4xl [&>button]:size-7 ml-1"
+            icon="pi pi-times text-sm"
+            (onClick)="clearInput(squareMetersInput)"
+          />
+        </p-iconfield>
+      </li>
+      <div class="flex gap-3.5 mt-3.5">
+        <li class="bg-white w-[7.438rem] h-8 rounded-3xl flex items-center">
+          <p-iconfield class="w-full h-full flex items-center">
+            <input
+              type="number"
+              name="minInputMeters"
+              min="0"
+              step="1"
+              class="h-full max-w-24 ml-2 text-sm bg-transparent focus:outline-none"
+              pInputText
+              placeholder="Min"
+              (keydown)="onKeyDown($event)"
+              ngModel
+              #minInputMeters="ngModel"
+            />
+          </p-iconfield>
+        </li>
+        <li class="bg-white w-[7.438rem] h-8 rounded-3xl flex items-center">
+          <p-iconfield class="w-full h-full flex items-center">
+            <input
+              type="number"
+              min="0"
+              step="1"
+              name="maxInputMeters"
+              class="h-full max-w-24 ml-2 text-sm bg-transparent focus:outline-none"
+              pInputText
+              placeholder="Max"
+              (keydown)="onKeyDown($event)"
+              ngModel
+              #maxInputMeters="ngModel"
+            />
+          </p-iconfield>
+        </li>
+      </div>
+      <hr class="mt-3.5 border-[#D9D9D9] w-full" />
+      <li class="bg-white w-3xs h-[2.875rem] mt-3.5 rounded-3xl flex items-center">
+        <p-iconfield class="w-full h-full flex items-center">
+          <p-inputicon class="pi pi-circle-fill ml-2" />
+          <input
+            type="number"
+            min="0"
+            name="roomsInput"
+            step="1"
+            class="h-full ml-12 text-sm bg-transparent focus:outline-none"
+            pInputText
+            placeholder="Habitaciones"
+            (keydown)="onKeyDown($event)"
+            ngModel
+            #roomsInput="ngModel"
+          />
+          <p-button
+            severity="secondary"
+            class="[&>button]:rounded-4xl [&>button]:size-7 ml-1"
+            icon="pi pi-times text-sm"
+            (onClick)="clearInput(roomsInput)"
+          />
+        </p-iconfield>
+      </li>
+      <hr class="mt-3.5 border-[#D9D9D9] w-full" />
+      <li class="bg-white w-3xs h-[2.875rem] mt-3.5 rounded-3xl flex items-center">
+        <p-iconfield class="w-full h-full flex items-center">
+          <p-inputicon class="pi pi-circle-fill ml-2" />
+          <input
+            type="number"
+            name="bathroomsInput"
+            min="0"
+            step="1"
+            class="h-full ml-12 text-sm bg-transparent focus:outline-none"
+            pInputText
+            placeholder="Baños"
+            (keydown)="onKeyDown($event)"
+            ngModel
+            #bathroomsInput="ngModel"
+          />
+          <p-button
+            severity="secondary"
+            class="[&>button]:rounded-4xl [&>button]:size-7 ml-1"
+            icon="pi pi-times text-sm"
+            (onClick)="clearInput(bathroomsInput)"
+          />
+        </p-iconfield>
+      </li>
+      <li class="mt-7 flex justify-center">
+        <p-button type="submit" label="Aplicar" class="[&>button]:w-48 [&>button]:h-12 [&>button]:font-bold [&>button]:rounded-lg" />
+      </li>
+    </ul>
+  </form>
 
-<!-- Footer con logo -->
-<div class="p-4">
+  <div class="mt-9">
     <div class="flex items-center justify-center">
-    <div class="flex items-center space-x-2">
-        <img src="/assets/logos/HomeFinder.svg" alt="HomeFinder" class="w-8 h-8" />
+      <div class="flex items-center space-x-2">
+        <img src="/assets/logos/HomeFinder.svg" alt="HomeFinder" class="" />
         <span class="font-semibold text-gray-700">HomeFinder</span>
+      </div>
     </div>
-    </div>
+  </div>
 </div>

@@ -39,7 +39,7 @@ export class Login {
 
       const payload: LoginRequest = {
         email: this.loginForm.value.email,
-        contrasena: this.loginForm.value.password,
+        password: this.loginForm.value.password,
       };
 
       this.authService.login(payload).subscribe({

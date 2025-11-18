@@ -2,7 +2,7 @@ import { User } from './user.interface';
 
 export interface LoginRequest {
   email: string;
-  contrasena: string;
+  password: string;
 }
 
 export interface RegisterRequest {
